@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "script running"
+
+nasm -g -gdwarf -f elf -o div.o main-nasm.asm
+gcc -m32  -o run div.o -nostdlib
+gcc -m32  -c -o super.o getDivisorCount.c
+gcc -m32 -o run div.o super.o
+
+echo "done"
+
+
