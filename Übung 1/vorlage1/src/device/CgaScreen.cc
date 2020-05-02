@@ -15,15 +15,13 @@
 
     
 	// Standardattribute waehlen und Bildschirm loeschen
-	CgaScreen::CgaScreen(IOPort8 port = IOPort8(INDEXPORT), IOPort8 port2 = IOPort8(DATENPORT))
-    : index(port), data(port2)
+	CgaScreen::CgaScreen() : index(INDEXPORT), data(DATENPORT), attr(), screen((CgaChar*) VIDEO_RAM_ADRESS)
 	{
     }
     
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
-	CgaScreen::CgaScreen(CgaAttr attr, IOPort8 port = IOPort8(INDEXPORT), IOPort8 port2 = IOPort8(DATENPORT))
-    : attr(attr), index(port), data(port2)
+	CgaScreen::CgaScreen(CgaAttr attr) : index(INDEXPORT), data(DATENPORT), attr(), screen((CgaChar*) VIDEO_RAM_ADRESS)
     {  
     }
 

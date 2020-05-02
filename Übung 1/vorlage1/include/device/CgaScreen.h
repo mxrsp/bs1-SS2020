@@ -44,7 +44,7 @@ public:
 	};
 
 	// Standardattribute waehlen und Bildschirm loeschen
-	CgaScreen(IOPort8 port, IOPort8 port2);
+	CgaScreen();
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
 	explicit CgaScreen(CgaAttr attr, IOPort8 port, IOPort8 port2);
