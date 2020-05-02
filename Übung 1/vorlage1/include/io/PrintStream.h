@@ -46,10 +46,26 @@ public:
 	// implementiere die Basen 2, 10 und 16
 	void print(int x, int base = DECIMAL);
 	void print(unsigned x, int base = DECIMAL);
+    
+    void ausgabeVonDec(int eingabe, int base);
+    
+    void ausgabeVonBin(unsigned eingabe, int base);
+    
+    void ausgabeVonHex(int eingabe, int base);
+    
+    int getTeiler(int eingabe, int base, int& i);
+    
+    void ausgabe(int x);
+    
+    int potenz(unsigned a, int b);
+    
+    int getLaenge(int x);
+
 
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!
 	void print(void* p);
-
+    
+    
 private:
 	OutputChannel& channel;
 };

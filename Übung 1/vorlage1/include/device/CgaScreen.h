@@ -21,14 +21,19 @@ private:
 
 	// Die I/O-Ports des Grafikcontrollers
 	enum Ports  {
+        INDEXPORT = 0x3d4,
+        DATENPORT = 0x3d5
 	};
 
 	// Die Kommandos zum Cursor setzen
 	enum Cursor {
+        HIGH = 14,
+        LOW = 15
 	};
 
 	// Die Adresse des Video RAMs
 	enum Video  {
+        VIDEO_RAM_ADRESS = 0xB8000
 	};
 
 public:
@@ -39,10 +44,10 @@ public:
 	};
 
 	// Standardattribute waehlen und Bildschirm loeschen
-	CgaScreen();
+	CgaScreen(IOPort8 port, IOPort8 port2);
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
-	explicit CgaScreen(CgaAttr attr);
+	explicit CgaScreen(CgaAttr attr, IOPort8 port, IOPort8 port2);
 
 	// Loeschen des Bildschirms
 	void clear ();
@@ -53,10 +58,12 @@ public:
 	// Setzen/Lesen der globalen Bildschirmattribute
 	void setAttr(const CgaAttr& attr)
 	{
+        this -> attr = attr;
 	}
 
 	void getAttr(CgaAttr& attr)
 	{
+        attr = this -> attr;
 	}
 
 	// Setzen/Lesen des HW-Cursors
@@ -70,9 +77,7 @@ public:
 
 	// Anzeigen von c an aktueller Cursorposition
     	// Darstellung mit aktuellen Bildschirmattributen
-	void show(char ch)
-	{
-	}
+	void show2(char ch);
 
 
 protected:

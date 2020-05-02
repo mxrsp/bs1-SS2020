@@ -38,10 +38,11 @@ SYSTEM_C = \
 
 SYSTEM_CC = \
 	$(INITFINI) \
-	device/CgaChannel.cc \
+	device/CgaChar.cc \
 	device/CgaScreen.cc \
 	io/PrintStream.cc \
-
+	device/CgaChannel.cc \
+	main.cc
 
 ##############################################################################
 
@@ -59,7 +60,7 @@ OBJECTS = $(patsubst %.asm,%.o,$(patsubst %.c,%.o,$(patsubst %.cc,%.o,$(notdir $
 VPATH = $(dir $(SOURCES) $(STARTUP_SOURCE) )
 
 INCLUDES = -I../include \
-	-I../machine
+	-I../machine 
 
 DEPENDENCIES_FILE = Dependencies.mk
 
@@ -130,7 +131,7 @@ endif
 debug: ASFLAGS += -g
 debug: CFLAGS += -g
 debug: CXXFLAGS += -g
-debug: system bootdisk
+debug: system
 	qemu-system-i386 -kernel system -s -S & sleep 1 && gdb system -x gdb.script
 
 clean:
