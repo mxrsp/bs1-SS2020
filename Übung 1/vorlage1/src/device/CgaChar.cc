@@ -1,5 +1,4 @@
-#ifndef CgaChar_h
-#define CgaChar_h
+#include "device/CgaChar.h"
 
 /*
  * CgaChar:
@@ -9,7 +8,6 @@
  *	Dieses besteht aus darstellbarem Zeichen
  *	und Darstellungsattributen.
  */
-
 	// setzen des Zeichens
 	void CgaChar::setChar(char c) {
         this -> c = c;
@@ -30,4 +28,3 @@
        return this -> attribut;
     }
 
-#endif
