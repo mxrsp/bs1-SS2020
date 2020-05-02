@@ -138,7 +138,6 @@
     
     int PrintStream::getTeiler(int eingabe, int base, int& i) {
         int zwischenspeicher = eingabe;
-        
         while (eingabe > 0) {
             eingabe = eingabe / (potenz(base,i));
             if (eingabe < 16) {

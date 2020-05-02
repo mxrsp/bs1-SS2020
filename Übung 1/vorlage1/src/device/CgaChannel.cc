@@ -54,15 +54,8 @@
             }
         }
         
-        
         return size;
     }
-
-	// Bluescreen mit standard Fehlermeldung
-	//void CgaChannel::blueScreen()
-	//{
-	//	blueScreen("ERROR");
-	//}
 
 	// Bluescreen mit eigener Fehlermeldung
 	void CgaChannel::blueScreen(const char* error) {

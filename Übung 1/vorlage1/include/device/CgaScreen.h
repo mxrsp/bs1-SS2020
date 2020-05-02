@@ -68,6 +68,7 @@ public:
 
 	// Setzen/Lesen des HW-Cursors
 	void setCursor(int column, int row);
+    void setCursorInt(int i);
 	void getCursor(int& column, int& row);
 
 
