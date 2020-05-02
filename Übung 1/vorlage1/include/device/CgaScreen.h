@@ -47,7 +47,7 @@ public:
 	CgaScreen();
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
-	explicit CgaScreen(CgaAttr attr, IOPort8 port, IOPort8 port2);
+	explicit CgaScreen(CgaAttr attr);
 
 	// Loeschen des Bildschirms
 	void clear ();

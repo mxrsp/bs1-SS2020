@@ -17,12 +17,15 @@
 	// Standardattribute waehlen und Bildschirm loeschen
 	CgaScreen::CgaScreen() : index(INDEXPORT), data(DATENPORT), attr(), screen((CgaChar*) VIDEO_RAM_ADRESS)
 	{
+        setCursor(0, 0);
+        
     }
     
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
 	CgaScreen::CgaScreen(CgaAttr attr) : index(INDEXPORT), data(DATENPORT), attr(), screen((CgaChar*) VIDEO_RAM_ADRESS)
     {  
+        setCursor(0, 0);
     }
 
 	// Loeschen des Bildschirms

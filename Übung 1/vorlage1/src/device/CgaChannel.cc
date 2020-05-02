@@ -50,7 +50,7 @@
                this -> setCursor(0, row);           // wenn \t erkannt -> ganz links der aktuellen Zeile
                this -> getCursor(column, row);      // get Cursorposition
             } else {           
-               this -> show(outputChar);
+               this -> show2(outputChar);
             }
         }
         
