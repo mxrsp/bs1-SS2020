@@ -1,8 +1,6 @@
 #ifndef CgaChar_h
 #define CgaChar_h
 
-#include "device/CgaAttr.h"
-
 /*
  * CgaChar:
  * 
@@ -12,35 +10,24 @@
  *	und Darstellungsattributen.
  */
 
-
-class CgaChar {
-
-public:
-
 	// setzen des Zeichens
-	void setChar(char c) {
+	void CgaChar::setChar(char c) {
         this -> c = c;
     }
     
 	// auslesen des Zeichens
-	char getChar() {
+	char CgaChar::getChar() {
         return this -> c;
     }
 	
 	// setzen der Darstellungsattribure
-	void setAttr(const CgaAttr& attr) {
+	void CgaChar::setAttr(const CgaAttr& attr) {
         this -> attribut = attr;
     }
 	
 	// auslesen der Darstellungsattribute
-	CgaAttr getAttr() {
+	CgaAttr CgaChar::getAttr() {
        return this -> attribut;
     }
-
-private:
-    char c;
-    CgaAttr attribut;
-
-};
 
 #endif

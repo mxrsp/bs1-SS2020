@@ -30,6 +30,8 @@ public:
 	CgaAttr getAttr();
 
 private:
+    char c;
+    CgaAttr attribut;
 
 
 };
