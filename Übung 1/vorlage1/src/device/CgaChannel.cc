@@ -27,7 +27,6 @@
 	// Ausgabekanal mit Standardattributen
 	CgaChannel::CgaChannel() : CgaScreen() 
     {                            
-        // beide Konstruktoren könnten eventuell falsch sein
     }
     
 

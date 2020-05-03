@@ -1,6 +1,5 @@
-#include "io/PrintStream.h"
-
 #include "device/CgaChannel.h"
+#include "io/PrintStream.h"
 
 
 CgaChannel cga;		// unser CGA-Ausgabekanal
@@ -23,7 +22,7 @@ int main()
 
 	out.println("done");
 
-	while(1){}
+	// while(1){}
 	
 	return 0;
 }

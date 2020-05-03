@@ -37,7 +37,6 @@
 
 	// Ausgabe eines Strings mit anschliessendem Zeilenvorschub
 	void PrintStream::println(const char* str){
-        
         this -> print(str);
         this -> println();
     }
@@ -51,8 +50,6 @@
 	// implementiere die Basen 2, 10 und 16
 	void PrintStream::print(int x, int base) {
         
-        base = DECIMAL;
-        
         if (x < 0) {
                 x = x * (-1);
                 this -> print('-');     // Minus wird ausgegeben, da Zahl negativ ist
@@ -63,8 +60,6 @@
     }
     
 	void PrintStream::print(unsigned x, int base) {
-        
-        base = DECIMAL;
         
         if (base == DECIMAL){
             
