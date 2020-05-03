@@ -14,19 +14,13 @@ class CgaAttr {
 private:
 	enum AttrMaskAndShifts {
         
-        FGPOSITION = 0,
-        BGPOSITION = 4,
-        BLPOSITION = 7,
+        FGPOSITION = 0,     // Position des Bits wo die Vordergrundfarbe im Byte anfŠngt
+        BGPOSITION = 4,     // Position des Bits wo die Hintergrundfarbe im Byte anfŠngt
+        BLPOSITION = 7,     // Position des Bits wo der Blinker im Byte anfŠngt
         
-        FGNUMBITS = 4,
-        BGNUMBITS = 3,
-        BLNUMBITS = 1
-        
-//         CLEARALL = 0; //Leeren den gesamten Byte -> 00000000
-//         CLEARFG = 240; //Löschen die Vordergrundfarbe -> 11110000
-//         CLEARBG = 143; //Löschen die Hintergrundfarbe -> 10001111
-//         CLEARBL = 127; //Löschen den Blinker -> 01111111
-        
+        FGNUMBITS = 4,      // LŠnge der Vordergrundfarbe in Bits
+        BGNUMBITS = 3,      // LŠnge der Hintergrundfarbe in Bits
+        BLNUMBITS = 1       // LŠnge des Blinkers in Bits
 	};
 
 
@@ -51,7 +45,7 @@ public:
         LIGHT_RED = 12,
         LIGHT_MAGENTA = 13,
         YELLOW = 14,
-        WHITE = 15,
+        WHITE = 15
         
         /*
          * Wichtig:
@@ -72,6 +66,8 @@ public:
 	  */
 	CgaAttr(Color fg=WHITE, Color bg=BLACK, bool blink=false)
     {
+        // Hintergrundfarbe darf nicht grš§er als 7 sein (Anzahl der Bits darf nicht 3 Ÿbersteigen)
+        // und wird somit auf schwarz gesetzt
         if ((int) bg > 7) {     
             bg = BLACK;                          
         }                                        
@@ -82,42 +78,45 @@ public:
 	// setzen der Schriftfarbe
 	void setForeground(Color col)
 	{
+        // †berschreiben der letzten 4 Bits um Vordergrundfarbe zu clearen
+        // Danach kann eine neue gesetzt werden
         int zwischenwert = (this -> bitInformation) &= ~(FGNUMBITS << FGPOSITION);
-        
-        // Man kann auch damit clearen: this -> bitInformation & CLEARFG;
-        
         this -> bitInformation = zwischenwert | (col << FGPOSITION);
 	}
 
 	// setzen der Hintergrundfarbe
 	void setBackground(Color col)
 	{
+        // Hintergrundfarbe darf nicht grš§er als 7 sein (Anzahl der Bits darf nicht 3 Ÿbersteigen)
         if (col > 7) {
             col = Color(col);
         }
         
+        // †berschreiben der 3 Bits von der Hintergrundgarbe um diese zu clearen
+        // Danach kann eine neue gesetzt werden
         int zwischenwert = (this -> bitInformation) &= ~(BGNUMBITS << BGPOSITION);
-        
         this -> bitInformation = zwischenwert | (col << BGPOSITION);
 	}
 
 	// setzen blinkender/nicht blinkender Text
 	void setBlinkState(bool blink)
 	{
+        // †berschreiben der letzten 4 Bits um Vordergrundfarbe zu clearen
+        // Danach kann eine neue gesetzt werden
         int zwischenwert = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
-        
         this -> bitInformation = zwischenwert | (blink << BLPOSITION);
 	}
 
 	// setzen aller Attribute
 	void setAttr(CgaAttr attr)
 	{
-        this -> bitInformation = attr.bitInformation; // verstehe ich noch nicht
+        this -> bitInformation = attr.bitInformation;
 	}
 
 	// ermitteln der Schriftfarbe
 	Color getForeground()
 	{
+        // Lšschen die Bits fŸr den Blinker und der Hintergrundfarbe um nur die Vordergrundfarbe zu erhalten
         int foregroundColor = (this -> bitInformation) &= ~((BGNUMBITS + BLNUMBITS) << BGPOSITION);
         
         return (Color) foregroundColor;
@@ -126,6 +125,7 @@ public:
 	// ermitteln der Hintergrundfarbe
 	Color getBackground()
 	{
+        // Lšschen die Bits fŸr den Blinker und der Vordergunrdfarbe um nur die Hintergrundfarbe zu erhalten
         int backgroundColor = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
         int backgroundColor2 = backgroundColor >> FGNUMBITS;
         
@@ -135,6 +135,7 @@ public:
 	// ermitteln ob Blink-Flag gesetzt ist
 	bool getBlinkState()
 	{
+        // Shiften die Bits fŸr die Hintergrund- und Vordergrundfarbe nach rechts um nur den Blinker zu erhalten
         int blinkState = (this -> bitInformation) >> (FGNUMBITS + BGNUMBITS);
         
         return (bool) blinkState;
@@ -142,6 +143,7 @@ public:
 
 private:
     
+    // Speichern des 2. Bytes um die Attribute anzupassen
     int bitInformation;
     
 };
