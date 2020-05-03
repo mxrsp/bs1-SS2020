@@ -100,7 +100,8 @@
 	void CgaScreen::setCursor(int column, int row) {
         
         //die position ergibt sichaus der anzahl der zeilen * spalten + spalten
-        int position = row * COLUMNS + column;
+        unsigned position = row * COLUMNS + column;
+
         
         //setzt den index auf die stelle des registers low(14)
         this -> index.write(LOW);
@@ -126,8 +127,9 @@
         
         //setzen high und low auf 0
         int high, low = 0;
-        //deklarieren stelle
-        int stelle;
+        
+		//deklarieren stelle
+        unsigned stelle;
         
         //setzen den index auf das low register
         this -> index.write(LOW);
@@ -157,7 +159,8 @@
         int column = 0;
         int row = 0;
         
-        //geben die akteulle cursor position zurück
+        //geben die aktulle cursor position zurück
+
         getCursor(column, row);
         
         //wenn mehr spalten als möglich, dann wird in die neue zeile an stelle 0 gesprungen
@@ -169,16 +172,17 @@
         if (row >= ROWS) {
             scroll();
         }
+
+        // HIER IST DER FEHLER -> screen greift auf falsche Stelle zu
+        //berechnet stelle aus zeilen * spalten + spalte (0 - 2000)
+        int stelle = row * COLUMNS + column;
         
-        //erstellen den output cgachar
-        CgaChar output = CgaChar();
+		//setzen attribut und char
+        screen[stelle].setChar(ch);
+        screen[stelle].setAttr(attr);
         
-        //setzen attribut und char
-        output.setAttr(attr);
-        output.setChar(ch);
-        
-        //setzen den output cga char an die stelle, wo sich der cursor befindet
-        screen[getCursorInt()] = output;
+		//setzen cursor an nächste spalten position
+        setCursor(column+1, row);
     }
 
 	// Anzeigen von c an aktueller Cursorposition

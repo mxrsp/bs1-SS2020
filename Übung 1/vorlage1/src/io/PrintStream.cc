@@ -71,7 +71,7 @@
         
         if (base == DECIMAL){
             
-            ausgabeVonDec(x, base);
+            ausgabeVonDec((int)x, base);
         
         } else if (base == BINARY) {
             
