@@ -37,7 +37,6 @@
         }
         
         this -> channel.write(str, i);
-        
     }
     
 	void PrintStream::print(char ch) {

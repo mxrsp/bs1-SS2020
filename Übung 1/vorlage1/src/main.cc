@@ -7,7 +7,11 @@ PrintStream out(cga);	// unseren PrintStream mit Ausgabekanal verknuepfen
 int main()
 
 {
-	out.println("Hello World");
+	// out.println("Hello WorlH");
+    out.print('H');
+    out.print('u');
+    
+    // cga.blueScreen("error");
     
     // for(int i = 0; i < 1000; i++) {
 	//	out.print("Dezimal ");

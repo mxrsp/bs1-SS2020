@@ -37,18 +37,20 @@
 	// Die von OutputChannel deklarierte Ausgaberoutine
 	int CgaChannel::write(const char* data, int size) {
         
-        for (int i = 0; i < size; i++) {
+        int column, row;    // Festlegen von Spalte und Reihe
+        getCursor(column, row);      // get Cursorposition
+        
+        for (int i = size - 1; i >= 0; i--) {
             char outputChar = data[i];
-            int column, row = 0;    // Festlegen von Spalte und Reihe
             
             if (outputChar == '\n') {                 
-               this -> getCursor(column, row);      // get Cursorposition
-               this -> setCursor(0, row + 1);       // wenn \n erkannt -> ganz links neue Zeile                                  
+               setCursor(0, row + 1);       // wenn \n erkannt -> ganz links neue Zeile                                  
             } else if (outputChar == '\r') {
-               this -> setCursor(0, row);           // wenn \r erkannt -> ganz links der aktuellen Zeile
-               this -> getCursor(column, row);      // get Cursorposition
-            } else {           
+               setCursor(0, row);           // wenn \r erkannt -> ganz links der aktuellen Zeile
+            } else {
+               setCursor(20,4);
                this -> show(outputChar);
+               setCursor(column+1,row);
             }
         }
         

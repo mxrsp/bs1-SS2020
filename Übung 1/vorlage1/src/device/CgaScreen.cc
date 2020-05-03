@@ -16,18 +16,14 @@
     
 	// Standardattribute waehlen und Bildschirm loeschen
 	CgaScreen::CgaScreen() : attr(), index(INDEXPORT), data(DATENPORT), screen((CgaChar*) VIDEO_RAM_ADRESS)
-	{ 
-        setCursor(0, 0);
-        
+	{   
         clear();
     }
     
 
 	// Angegebene Attribute setzen und Bildschirm loeschen
 	CgaScreen::CgaScreen(CgaAttr attr) : attr(attr), index(INDEXPORT), data(DATENPORT), screen((CgaChar*) VIDEO_RAM_ADRESS)
-    {  
-        setCursor(0, 0);
-        
+    {   
         clear();
     }
 
@@ -121,8 +117,7 @@
 	// Anzeigen von c an aktueller Cursorposition
     	// Darstellung mit angegebenen Bildschirmattributen
 	void CgaScreen::show(char ch, const CgaAttr& attr) {
-        int column = 0;
-        int row = 0;
+        int column, row;
         
         getCursor(column, row);
         
@@ -134,12 +129,17 @@
             scroll();
         }
         
-        CgaChar output = CgaChar();
+        // HIER IST DER FEHLER -> screen greift auf falsche Stelle zu
         
-        output.setAttr(attr);
-        output.setChar(ch);
+        int stelle = 19;
         
-        screen[getCursorInt()] = output;
+        screen[stelle].setChar(ch);
+        screen[stelle].setAttr(attr);
+        
+        int stelle2 = 38;
+        
+        screen[stelle2].setChar(ch);
+        screen[stelle2].setAttr(attr);
     }
 
 	// Anzeigen von c an aktueller Cursorposition
