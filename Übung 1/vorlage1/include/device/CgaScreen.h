@@ -33,7 +33,7 @@ private:
 
 	// Die Adresse des Video RAMs
 	enum Video  {
-        VIDEO_RAM_ADRESS = 0xB8000
+        VIDEO_RAM_ADRESS = 0xb8000
 	};
 
 public:

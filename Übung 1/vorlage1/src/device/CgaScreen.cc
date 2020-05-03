@@ -83,11 +83,13 @@
 	// Setzen/Lesen des HW-Cursors
 	void CgaScreen::setCursor(int column, int row) {
         
-        this -> screen = (CgaChar*) VIDEO_RAM_ADRESS;
+        int position = row * COLUMNS + column;
         
-        int position = (row - 1) * COLUMNS + column;
+        this -> index.write(LOW);
+        this -> data.write(position);
+        this -> index.write(HIGH);
+        this -> data.write((position >> 8));
         
-        screen += position;
     }
     
     int CgaScreen::getCursorInt() {
@@ -99,9 +101,17 @@
     }
     
 	void CgaScreen::getCursor(int& column, int& row) {
-        CgaChar* ursprungsadresse = (CgaChar*) VIDEO_RAM_ADRESS;
+        int high, low = 0;
+        int stelle;
         
-        int stelle = screen - ursprungsadresse;
+        this -> index.write(LOW);
+        low = data.read();           
+        this -> index.write(HIGH);
+        high = data.read();
+        
+        high = high << 8;  
+        
+        stelle = high | low; // finaler Positionsindex
         
         row = stelle / COLUMNS;
         

@@ -26,9 +26,8 @@
 
 	// Ausgabekanal mit Standardattributen
 	CgaChannel::CgaChannel() : CgaScreen() 
-    {                            
+    {                           
     }
-    
 
 	// Ausgabekanal mit spezifischen Attributen
 	CgaChannel::CgaChannel(const CgaAttr& attr): CgaScreen(attr)
