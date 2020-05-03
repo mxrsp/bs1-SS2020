@@ -40,17 +40,14 @@
         int column, row;    // Festlegen von Spalte und Reihe
         getCursor(column, row);      // get Cursorposition
         
-        for (int i = size - 1; i >= 0; i--) {
-            char outputChar = data[i];
+        for (int i = 0; i < size; i++) {
             
-            if (outputChar == '\n') {                 
+            if (data[i] == '\n') {                 
                setCursor(0, row + 1);       // wenn \n erkannt -> ganz links neue Zeile                                  
-            } else if (outputChar == '\r') {
+            } else if (data[i] == '\r') {
                setCursor(0, row);           // wenn \r erkannt -> ganz links der aktuellen Zeile
             } else {
-               setCursor(20,4);
-               this -> show(outputChar);
-               setCursor(column+1,row);
+               this -> show(data[i]);
             }
         }
         

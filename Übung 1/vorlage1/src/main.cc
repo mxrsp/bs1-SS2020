@@ -7,23 +7,20 @@ PrintStream out(cga);	// unseren PrintStream mit Ausgabekanal verknuepfen
 int main()
 
 {
-	// out.println("Hello WorlH");
-    out.print('H');
-    out.print('u');
-    
-    // cga.blueScreen("error");
-    
-    // for(int i = 0; i < 1000; i++) {
-	//	out.print("Dezimal ");
-	//	out.print(i);
-	//	out.print(" Binaer ");
-	//	out.print(i, 2);
-	//	out.print(" Hexadezimal ");
-	//	out.print(i, 16);
-	//	out.println();
-	//}
+	out.println("Hello World");
+        
+    int i = 5;
+   // for(int i = 0; i < 2; i++) {
+		out.print("Dezimal ");
+		// out.print(i);
+		//out.print(" Binaer ");
+		//out.print(i, 2);
+		//out.print(" Hexadezimal ");
+		//out.print(i, 16);
+		//out.println();
+//	}
 
-	// out.println("done");
+	out.println("done");
 
 	while(1){}
 	

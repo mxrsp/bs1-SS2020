@@ -79,7 +79,7 @@
 	// Setzen/Lesen des HW-Cursors
 	void CgaScreen::setCursor(int column, int row) {
         
-        int position = row * COLUMNS + column;
+        unsigned position = row * COLUMNS + column;
         
         this -> index.write(LOW);
         this -> data.write(position);
@@ -98,7 +98,7 @@
     
 	void CgaScreen::getCursor(int& column, int& row) {
         int high, low = 0;
-        int stelle;
+        unsigned stelle;
         
         this -> index.write(LOW);
         low = data.read();           
@@ -119,6 +119,8 @@
 	void CgaScreen::show(char ch, const CgaAttr& attr) {
         int column, row;
         
+        this -> screen = (CgaChar*) VIDEO_RAM_ADRESS;
+        
         getCursor(column, row);
         
         if (column >= COLUMNS) {
@@ -131,15 +133,12 @@
         
         // HIER IST DER FEHLER -> screen greift auf falsche Stelle zu
         
-        int stelle = 19;
+        int stelle = row * COLUMNS + column;
         
         screen[stelle].setChar(ch);
         screen[stelle].setAttr(attr);
         
-        int stelle2 = 38;
-        
-        screen[stelle2].setChar(ch);
-        screen[stelle2].setAttr(attr);
+        setCursor(column+1, row);
     }
 
 	// Anzeigen von c an aktueller Cursorposition
