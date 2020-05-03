@@ -62,9 +62,15 @@
         attr.setBackground(CgaAttr :: BLUE);
         attr.setForeground(CgaAttr :: WHITE);
         attr.setBlinkState(false);
+          
+        int size = 0;
         
-        for (int i = 0; i < 5; i++) {
-            this -> show(error[i], attr);
+        while (error[size] != 0) {    // solange kein "Nullpointer"
+            size++;                // Größe wird inkrementiert     
+        }
+        
+        for (int i = 0; i < size; i++) {       // da immer nur 
+            this -> show(error[i], attr);   // Ausgabe von 
         }
     }
 

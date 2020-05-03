@@ -51,7 +51,7 @@
 
 	// Zeilenvorschub
 	void PrintStream::println() {
-        this -> channel.write("\n", 1);
+        this -> channel.write("\n", 1); // "\n" hat die Länge 1
     }
 
 	// numerische Werte werden zur Basis 'base' Ausgegeben
@@ -85,17 +85,17 @@
     
     void PrintStream::ausgabeVonDec(int eingabe, int base) {
         
-        int laenge = getLaenge(eingabe);
+        int laenge = getLaenge(eingabe);   
         int schleife = laenge;
         int teiler;
         
         for (int i = 0; i < schleife; i++) {
-                if (eingabe >= base) {
-                    teiler = potenz(base, (laenge-1));
+                if (eingabe >= base) {              // solange eingabe > 10
+                    teiler = potenz(base, (laenge-1));  // größtmöglichen teiler finden
                     int outputChar = eingabe / teiler;
-                    ausgabe(outputChar);
-                    eingabe = eingabe % teiler;
-                    laenge--;
+                    ausgabe(outputChar);                // ausgabe von division
+                    eingabe = eingabe % teiler;         // eingabe = rest 
+                    laenge--;                           
                 } else {
                     this -> ausgabe(eingabe);
                 }
@@ -103,43 +103,44 @@
     }
     
     void PrintStream::ausgabeVonBin(unsigned eingabe, int base) {
-            int array [33];
+            int array [33];     // maximale Binärzahlgröße = 33 Bits
             
             int size = 0;
             
-            this -> print("0b");
+            this -> print("0b");        // kennzeichnung Binärzahl
             
             while (eingabe > 0) {
-                int ergebnis = eingabe % base;
-                array[size] = ergebnis;
-                eingabe = eingabe / base;
-                size++;
+                int ergebnis = eingabe % base;     
+                array[size] = ergebnis;         // eingabe mod 2 in array gespeichert
+                eingabe = eingabe / base;       
+                size++;                     // stelle im Aray wird erhöht
             }
             
             for (int i = 1; i < size+1; i++) {
-                int output = array[size-i];
+                int output = array[size-i];     // array wird rückwärts ausgegeben
                 ausgabe(output);
             }
     
     }
     
     void PrintStream::ausgabeVonHex(int eingabe, int base) {
-        const char* output = "0123456789ABCDEF";
+        const char* output = "0123456789ABCDEF";        // alle Möglichkeiten für HexZahlen
         
-         this -> print("0x");
+         this -> print("0x");       // kennzeichnung HexZahl
             
             while (eingabe >= base) {
                 int i = 1;
-                int ergebnis = getTeiler(eingabe, base, i);
-                this -> print(output[ergebnis]);
-                eingabe = eingabe % (potenz(base,i));
+                int ergebnis = getTeiler(eingabe, base, i);     // i =  größter Exponent
+                this -> print(output[ergebnis]);                // ausgabe 
+                eingabe = eingabe % (potenz(base,i));           // eingabe wird auf Rest verringert
             }
             
-            if (eingabe < base) {
-                this -> print(output[eingabe]);
+            if (eingabe < base) {                   // wenn Eingabe kleiner als 16
+                this -> print(output[eingabe]);     // einfach ausgeben
             }
     }
     
+    // größtmöglicher Teiler für HexZahlen wird gesucht und in i geschrieben
     int PrintStream::getTeiler(int eingabe, int base, int& i) {
         int zwischenspeicher = eingabe;
         while (eingabe > 0) {
@@ -154,7 +155,7 @@
         return 0;
     }
     
-    // ausgeben von einem einzigen int
+    // ausgeben von einem einstelligen int
     void PrintStream::ausgabe(int x) {
         if (x < 10) {
             char c = '0' + x;
@@ -162,6 +163,7 @@
         }
     }
     
+    // gibt a^b zurück
     int PrintStream::potenz(unsigned a, int b) {
         if (b == 0) {
             return 1;
@@ -170,6 +172,7 @@
         }
     }
     
+    // gibt die länge der Dezimalzahl x zurück
     int PrintStream::getLaenge(int x) {
         int stellen = 10;
         int zaehler = 1;
@@ -189,6 +192,3 @@
         
         this -> print(ausgabe, HEX);
     }
-
-    
- 
