@@ -72,7 +72,7 @@ public:
             bg = BLACK;                          
         }                                        
         
-        this -> bitInformation = ((blink | bg) << BGPOSITION ) | fg;
+        this -> bitInformation = ((blink | bg) << FGNUMBITS) | fg;
 	}
 
 	// setzen der Schriftfarbe
