@@ -28,7 +28,16 @@
 
     	// Ausgabe eines mit einem NULL-Byte terminierten Strings
 	void PrintStream::print(const char* str) {
-        this -> channel.write(str, sizeof(str));
+        int i = 0;
+        char start = str[0];
+        
+        while (start != 0) {
+            i++;
+            start = str[i];
+        }
+        
+        this -> channel.write(str, i);
+        
     }
     
 	void PrintStream::print(char ch) {
@@ -43,7 +52,7 @@
 
 	// Zeilenvorschub
 	void PrintStream::println() {
-        this -> channel.write("\n", 2);
+        this -> channel.write("\n", 1);
     }
 
 	// numerische Werte werden zur Basis 'base' Ausgegeben
