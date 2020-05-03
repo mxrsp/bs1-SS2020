@@ -31,12 +31,12 @@
         int i = 0;
         char start = str[0];
         
-        while (start != 0) {
-            i++;
-            start = str[i];
+        while (start != 0) {    // solange kein "Nullpointer"
+            i++;                // Größe wird inkrementiert
+            start = str[i];     
         }
         
-        this -> channel.write(str, i);
+        this -> channel.write(str, i); // Ausgabe des Strings
     }
     
 	void PrintStream::print(char ch) {
@@ -46,7 +46,7 @@
 	// Ausgabe eines Strings mit anschliessendem Zeilenvorschub
 	void PrintStream::println(const char* str){
         this -> print(str);
-        this -> println();
+        this -> println();      // Zeilenumbruch
     }
 
 	// Zeilenvorschub
