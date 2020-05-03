@@ -9,16 +9,16 @@ int main()
 {
 	out.println("Hello World");
         
-    int i = 5;
-   // for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < 2; i++) {
 		out.print("Dezimal ");
-		// out.print(i);
-		//out.print(" Binaer ");
-		//out.print(i, 2);
-		//out.print(" Hexadezimal ");
-		//out.print(i, 16);
-		//out.println();
-//	}
+		out.print(i);
+        
+		out.print(" Binaer ");
+        out.print(i, 2);
+		out.print(" Hexadezimal ");
+		out.print(i, 16);
+		out.println();
+}
 
 	out.println("done");
 

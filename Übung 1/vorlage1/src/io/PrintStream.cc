@@ -63,7 +63,7 @@
                 this -> print('-');     // Minus wird ausgegeben, da Zahl negativ ist
         }
         
-        this -> print(x, base);
+        this -> print((unsigned)x, base);
         
     }
     
@@ -97,7 +97,7 @@
                     eingabe = eingabe % teiler;
                     laenge--;
                 } else {
-                    this -> print(eingabe);
+                    this -> ausgabe(eingabe);
                 }
         }
     }
@@ -116,8 +116,9 @@
                 size++;
             }
             
-            for (int i = 1; i < size + 1 ; i++) {
-                ausgabe(array[size-i]);
+            for (int i = 1; i < size+1; i++) {
+                int output = array[size-i];
+                ausgabe(output);
             }
     
     }
@@ -155,8 +156,10 @@
     
     // ausgeben von einem einzigen int
     void PrintStream::ausgabe(int x) {
-        char c = '0' + x;
-        this -> print(c);
+        if (x < 10) {
+            char c = '0' + x;
+            this -> print(c);
+        }
     }
     
     int PrintStream::potenz(unsigned a, int b) {
@@ -170,7 +173,7 @@
     int PrintStream::getLaenge(int x) {
         int stellen = 10;
         int zaehler = 1;
-    
+        
         while (x > stellen) {
             stellen = stellen * 10;
             zaehler++;
