@@ -70,6 +70,7 @@ public:
 	void setCursor(int column, int row);
     void setCursorInt(int i);
 	void getCursor(int& column, int& row);
+    int getCursorInt();
 
 
 	// Anzeigen von c an aktueller Cursorposition
@@ -78,7 +79,7 @@ public:
 
 	// Anzeigen von c an aktueller Cursorposition
     	// Darstellung mit aktuellen Bildschirmattributen
-	void show2(char ch);
+	void show(char ch);
 
 
 protected:

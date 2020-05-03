@@ -47,10 +47,10 @@
                this -> getCursor(column, row);      // get Cursorposition
                this -> setCursor(0, row + 1);       // wenn \n erkannt -> ganz links neue Zeile                                  
             } else if (outputChar == '\r') {
-               this -> setCursor(0, row);           // wenn \t erkannt -> ganz links der aktuellen Zeile
+               this -> setCursor(0, row);           // wenn \r erkannt -> ganz links der aktuellen Zeile
                this -> getCursor(column, row);      // get Cursorposition
             } else {           
-               this -> show2(outputChar);
+               this -> show(outputChar);
             }
         }
         
