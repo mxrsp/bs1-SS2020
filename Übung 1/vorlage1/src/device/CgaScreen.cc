@@ -56,7 +56,7 @@
         
         for (int i = 0; i < ((ROWS - 1)*COLUMNS); i++ ){
         }
-    }s
+    }
 
     // Setzen Cursor durch einen int
     void CgaScreen::setCursorInt(int i) {
@@ -78,10 +78,14 @@
     }
     
 	void CgaScreen::getCursor(int& column, int& row) {
-        // Adresse von Screen - Ursprungsadresse von Screen
-        // Differenz = Anzahl der Stelle
-        // Stelle / 80 = Zeilenanzahl
-        // Stelle mod 80 = Spaltenanzahl
+        CgaChar* ursprungsadresse = (CgaChar*) VIDEO_RAM_ADRESS;
+        
+        int stelle = screen - ursprungsadresse;
+        
+        row = stelle / COLUMNS;
+        
+        column = stelle % COLUMNS;
+        
     }
 
 	// Anzeigen von c an aktueller Cursorposition
