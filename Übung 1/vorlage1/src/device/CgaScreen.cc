@@ -71,7 +71,7 @@
         }
     }
 
-    // Setzen Cursor durch einen int
+    // Setzen Cursor durch einen index
     void CgaScreen::setCursorInt(int i) {
         
         int x = i / COLUMNS;
