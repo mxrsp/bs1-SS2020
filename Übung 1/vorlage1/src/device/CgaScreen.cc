@@ -93,7 +93,7 @@
         int x = i / COLUMNS;
         int y = i % COLUMNS;
         
-        setCursor(x,y);
+        setCursor(y,x);
     }
     
 	// Setzen/Lesen des HW-Cursors
@@ -175,11 +175,14 @@
 
         // HIER IST DER FEHLER -> screen greift auf falsche Stelle zu
         //berechnet stelle aus zeilen * spalten + spalte (0 - 2000)
-        int stelle = row * COLUMNS + column;
+        // int stelle = row * COLUMNS + column;
+        
+        for (int stelle = 0; stelle < 10; stelle++) {
         
 		//setzen attribut und char
         screen[stelle].setChar(ch);
         screen[stelle].setAttr(attr);
+        }
         
 		//setzen cursor an nächste spalten position
         setCursor(column+1, row);

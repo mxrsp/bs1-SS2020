@@ -9,8 +9,8 @@ int main()
 {
 	out.println("Hello World");
         
-    for(int i = 0; i < 2; i++) {
-		out.print("Dezimal ");
+    for(int i = 0; i < 5; i++) {
+		out.print(" Dezimal ");
 		out.print(i);
         out.println();
 		out.print(" Binaer ");
