@@ -63,22 +63,27 @@
 	// Verschieben des Bildschirms um eine Zeile
 	void CgaScreen::scroll() {
         
+        // TODO irgendwas haut hier noch nicht
+        
         //setzen den screen auf die adresse des videorams
         screen = (CgaChar*) VIDEO_RAM_ADRESS;
         
-        //erstellt einen cgachar mit standartattributen und setzt diese leer
-        CgaChar leer = CgaChar();
-        leer.setAttr(CgaAttr());
-        leer.setChar(' ');
-        
         //wir verschieben jede zeile um eine zeile nach unten
         for (int i = 0; i < ((ROWS - 1)*COLUMNS); i++ ){
-            screen[i] = screen[(i + COLUMNS)];
+            CgaChar speicher = CgaChar();
+            speicher.setChar(screen[i+COLUMNS].getChar());
+            speicher.setAttr(screen[i+COLUMNS].getAttr());
+            screen[i] = speicher;
         }
         
         // Huhu             Hallo
         // Hallo            Tach
         // Tach             ---
+        
+        //erstellt einen cgachar mit standartattributen und setzt diese leer
+        CgaChar leer = CgaChar();
+        leer.setAttr(attr);
+        leer.setChar(' ');
         
         //zeigt die unterste zeile als leere zeile an
         for (int i = (ROWS-1)*COLUMNS; i < ROWS*COLUMNS; i++) {
@@ -101,7 +106,6 @@
         
         //die position ergibt sichaus der anzahl der zeilen * spalten + spalten
         unsigned position = row * COLUMNS + column;
-
         
         //setzt den index auf die stelle des registers low(14)
         this -> index.write(LOW);
@@ -173,16 +177,17 @@
             scroll();
         }
 
-        // HIER IST DER FEHLER -> screen greift auf falsche Stelle zu
-        //berechnet stelle aus zeilen * spalten + spalte (0 - 2000)
-        // int stelle = row * COLUMNS + column;
+        int stelle = row * COLUMNS + column;
         
-        for (int stelle = 0; stelle < 10; stelle++) {
+        // die folgenden 3 Zeilen sind nur zum testen der Attribute
+        this -> attr.setForeground2(CgaAttr :: RED);
+        this -> attr.setBackground(CgaAttr :: WHITE);
+        this -> attr.setBlinkState(true);
         
 		//setzen attribut und char
         screen[stelle].setChar(ch);
         screen[stelle].setAttr(attr);
-        }
+        
         
 		//setzen cursor an nächste spalten position
         setCursor(column+1, row);

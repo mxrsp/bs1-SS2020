@@ -9,7 +9,7 @@ int main()
 {
 	out.println("Hello World");
         
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < 7; i++) {
 		out.print(" Dezimal ");
 		out.print(i);
         out.println();

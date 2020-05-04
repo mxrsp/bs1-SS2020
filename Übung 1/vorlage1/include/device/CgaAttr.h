@@ -80,9 +80,23 @@ public:
 	{
         // †berschreiben der letzten 4 Bits um Vordergrundfarbe zu clearen
         // Danach kann eine neue gesetzt werden
-        int zwischenwert = (this -> bitInformation) &= ~(FGNUMBITS << FGPOSITION);
+        char zwischenwert = (this -> bitInformation) &= ~(FGNUMBITS << FGPOSITION);
         this -> bitInformation = zwischenwert | (col << FGPOSITION);
+        
+        // Diese Variante funktioniert warum auch immer bei Foreground nicht
+        // bei allen anderen Methoden aber schon
+        // eventuell könnte dann getForeground auch nicht funktionieren
 	}
+	
+	// TODO
+	
+	// hier meine neue Version von setForeground
+	void setForeground2(Color col)
+    {
+        char zwischenwert = (this -> bitInformation) >> FGPOSITION;
+        zwischenwert = zwischenwert << FGNUMBITS;
+        this -> bitInformation = zwischenwert | col;
+    }
 
 	// setzen der Hintergrundfarbe
 	void setBackground(Color col)
@@ -94,7 +108,7 @@ public:
         
         // †berschreiben der 3 Bits von der Hintergrundgarbe um diese zu clearen
         // Danach kann eine neue gesetzt werden
-        int zwischenwert = (this -> bitInformation) &= ~(BGNUMBITS << BGPOSITION);
+        char zwischenwert = (this -> bitInformation) &= ~(BGNUMBITS << BGPOSITION);
         this -> bitInformation = zwischenwert | (col << BGPOSITION);
 	}
 
@@ -103,7 +117,7 @@ public:
 	{
         // †berschreiben der letzten 4 Bits um Vordergrundfarbe zu clearen
         // Danach kann eine neue gesetzt werden
-        int zwischenwert = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
+        char zwischenwert = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
         this -> bitInformation = zwischenwert | (blink << BLPOSITION);
 	}
 
@@ -117,7 +131,7 @@ public:
 	Color getForeground()
 	{
         // Lšschen die Bits fŸr den Blinker und der Hintergrundfarbe um nur die Vordergrundfarbe zu erhalten
-        int foregroundColor = (this -> bitInformation) &= ~((BGNUMBITS + BLNUMBITS) << BGPOSITION);
+        char foregroundColor = (this -> bitInformation) &= ~((BGNUMBITS + BLNUMBITS) << BGPOSITION);
         
         return (Color) foregroundColor;
 	}
@@ -126,8 +140,8 @@ public:
 	Color getBackground()
 	{
         // Lšschen die Bits fŸr den Blinker und der Vordergunrdfarbe um nur die Hintergrundfarbe zu erhalten
-        int backgroundColor = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
-        int backgroundColor2 = backgroundColor >> FGNUMBITS;
+        char backgroundColor = (this -> bitInformation) &= ~(BLNUMBITS << BLPOSITION);
+        char backgroundColor2 = backgroundColor >> FGNUMBITS;
         
         return (Color) backgroundColor2;
 	}
@@ -136,7 +150,7 @@ public:
 	bool getBlinkState()
 	{
         // Shiften die Bits fŸr die Hintergrund- und Vordergrundfarbe nach rechts um nur den Blinker zu erhalten
-        int blinkState = (this -> bitInformation) >> (FGNUMBITS + BGNUMBITS);
+        char blinkState = (this -> bitInformation) >> (FGNUMBITS + BGNUMBITS);
         
         return (bool) blinkState;
 	}
@@ -144,7 +158,7 @@ public:
 private:
     
     // Speichern des 2. Bytes um die Attribute anzupassen
-    int bitInformation;
+    char bitInformation;
     
 };
 
