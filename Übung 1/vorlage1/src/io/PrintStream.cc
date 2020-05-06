@@ -71,43 +71,26 @@
         
         if (base == DECIMAL){
             
-            ausgabeVonDec((int)x, base);
+            ausgabeVonDECundBIN(x, base);
         
         } else if (base == BINARY) {
             
-            ausgabeVonBin(x , base);
+            this -> print("0b");
+            
+            ausgabeVonDECundBIN(x , base);
             
         } else if (base == HEX) {
+            
+            this -> print("0x");
             
             ausgabeVonHex(x, base);
         }
     }
     
-    void PrintStream::ausgabeVonDec(int eingabe, int base) {
-        
-        int laenge = getLaenge(eingabe);   
-        int schleife = laenge;
-        int teiler;
-        
-        for (int i = 0; i < schleife; i++) {
-                if (eingabe >= base) {              // solange eingabe > 10
-                    teiler = potenz(base, (laenge-1));  // größtmöglichen teiler finden
-                    int outputChar = eingabe / teiler;
-                    ausgabe(outputChar);                // ausgabe von division
-                    eingabe = eingabe % teiler;         // eingabe = rest 
-                    laenge--;                           
-                } else {
-                    this -> ausgabe(eingabe);
-                }
-        }
-    }
-    
-    void PrintStream::ausgabeVonBin(unsigned eingabe, int base) {
+    void PrintStream::ausgabeVonDECundBIN(unsigned eingabe, int base) {
             int array [33];     // maximale Binärzahlgröße = 33 Bits
             
             int size = 0;
-            
-            this -> print("0b");        // kennzeichnung Binärzahl
             
             while (eingabe > 0) {
                 int ergebnis = eingabe % base;     
@@ -125,8 +108,6 @@
     
     void PrintStream::ausgabeVonHex(int eingabe, int base) {
         const char* output = "0123456789ABCDEF";        // alle Möglichkeiten für HexZahlen
-        
-         this -> print("0x");       // kennzeichnung HexZahl
             
             while (eingabe >= base) {
                 int i = 1;
@@ -162,7 +143,6 @@
             this -> print(c);
         }
     }
-    
     // gibt a^b zurück
     int PrintStream::potenz(unsigned a, int b) {
         if (b == 0) {
@@ -170,19 +150,6 @@
         } else {
             return a * (potenz(a,(b-1)));
         }
-    }
-    
-    // gibt die länge der Dezimalzahl x zurück
-    int PrintStream::getLaenge(int x) {
-        int stellen = 10;
-        int zaehler = 1;
-        
-        while (x > stellen) {
-            stellen = stellen * 10;
-            zaehler++;
-        }
-        
-        return zaehler;    
     }
     
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!

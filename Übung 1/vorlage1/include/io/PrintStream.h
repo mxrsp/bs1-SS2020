@@ -47,9 +47,7 @@ public:
 	void print(int x, int base = DECIMAL);
 	void print(unsigned x, int base = DECIMAL);
     
-    void ausgabeVonDec(int eingabe, int base);
-    
-    void ausgabeVonBin(unsigned eingabe, int base);
+    void ausgabeVonDECundBIN(unsigned eingabe, int base);
     
     void ausgabeVonHex(int eingabe, int base);
     
@@ -58,9 +56,6 @@ public:
     void ausgabe(int x);
     
     int potenz(unsigned a, int b);
-    
-    int getLaenge(int x);
-
 
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!
 	void print(void* p);
