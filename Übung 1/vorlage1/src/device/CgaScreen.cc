@@ -95,7 +95,7 @@
             screen[i] = leer;
         }
        
-		//setCursor(0, 24);
+		setCursor(0, 24);
     }
 
     // Setzen Cursor durch einen index
@@ -175,11 +175,7 @@
         getCursor(column, row);
         //wenn mehr spalten als möglich, dann wird in die neue zeile an stelle 0 gesprungen
         
-        if (row >= rows) {
-            scroll();
 
-        }
-        
         if (column >= COLUMNS) {
             
             setCursor(0, row + 1);
@@ -187,9 +183,15 @@
             
             if (row >= ROWS) {
                 scroll();
+                getCursor(column, row);
             }
         }
 
+        if (row >= ROWS) {
+            scroll();
+            getCursor(column, row);
+
+        }
         
         //wenn mehr zeilen als möglich, wird gescrollt
 

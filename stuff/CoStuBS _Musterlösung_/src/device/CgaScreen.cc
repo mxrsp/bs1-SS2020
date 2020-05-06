@@ -172,7 +172,6 @@ void CgaScreen::show(char ch, const CgaAttr& attr) {
 			this->cursor_adress = this->cursorX * 80 + this->cursorY;
 			this->screen[this->cursor_adress] = w;
 
-
 		}
 
 	}
