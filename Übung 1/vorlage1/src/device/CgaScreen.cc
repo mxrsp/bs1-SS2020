@@ -190,7 +190,6 @@
         if (row >= ROWS) {
             scroll();
             getCursor(column, row);
-
         }
         
         //wenn mehr zeilen als möglich, wird gescrollt

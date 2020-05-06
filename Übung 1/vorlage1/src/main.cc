@@ -27,7 +27,7 @@ int main()
     }
 
 	out.println("done");
-
+    out.println("done2");
 	while(1){}
 	
 	return 0;
