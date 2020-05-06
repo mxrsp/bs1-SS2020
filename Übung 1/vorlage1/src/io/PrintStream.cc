@@ -88,7 +88,7 @@
     }
     
     void PrintStream::ausgabeVonDECundBIN(unsigned eingabe, int base) {
-            int array [33];     // maximale Binärzahlgröße = 33 Bits
+            int array [33];     // maximale größe = 33 Bits
             
             int size = 0;
             

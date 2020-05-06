@@ -41,29 +41,26 @@
 
 	// Loeschen des Bildschirms
 	void CgaScreen::clear () {
-        
-        //um von oben links zu starten, weise nwir screen die addresse der video_ram_adress zu.        
+       
         screen = (CgaChar*) VIDEO_RAM_ADRESS;
         
-        //setzen das attribut aufschwarz
-        this -> attr.setBackground(CgaAttr::BLACK);
+        //erstellt einen cgachar mit standartattributen und setzt diese leer
         
-        /*schleife durchläuft alle zeilen und spalten. Dort wird dann an jeder stelle der addresse von screen das attribut gesetzt, sowie ein leerer char. Das wird dann mittels show auch auf dem bildschirm angezeigt.
-         */
-        for (int i = 0; i > COLUMNS * ROWS; i++) {
-            screen[i].setAttr(attr);
-            screen[i].setChar(' ');
-            setCursorInt(i);
-            show(screen[i].getChar(), screen[i].getAttr());
+        CgaChar leer = CgaChar();
+        leer.setAttr(attr);
+        leer.setChar(' ');
+        
+        //zeigt die unterste zeile als leere zeile an
+        for (int i = 0; i < ROWS*COLUMNS; i++) {
+            screen[i] = leer;
         }
-        //cursor wird nach durchlaufen der schleife wieder an 0,0 gesetzt
-        setCursor(0, 0);
+        
+        setCursor(0,0);
+       
     }
 
 	// Verschieben des Bildschirms um eine Zeile
 	void CgaScreen::scroll() {
-        
-        // TODO irgendwas haut hier noch nicht
         
         //setzen den screen auf die adresse des videorams
         int currentPos;
@@ -71,7 +68,7 @@
         
 		//setCursor(0,0);
         currentPos = 0;
-        nextPos = currentPos + 80;
+        nextPos = currentPos + COLUMNS;
         
 		
         //wir verschieben jede zeile um eine zeile nach oben
@@ -79,10 +76,6 @@
             screen[i] = screen[nextPos];
             nextPos += 1;
         }
-        
-        // Huhu             Hallo
-        // Hallo            Tach
-        // Tach             ---
         
         //erstellt einen cgachar mit standartattributen und setzt diese leer
         
@@ -195,13 +188,11 @@
         
         //wenn mehr zeilen als möglich, wird gescrollt
 
-
         int stelle = row * COLUMNS + column;
 
 		//setzen attribut und char
         screen[stelle].setChar(ch);
-        screen[stelle].setAttr(attr);
-        
+        screen[stelle].setAttr(attr);        
         
 		//setzen cursor an nächste spalten position
         setCursor(column+1, row);
