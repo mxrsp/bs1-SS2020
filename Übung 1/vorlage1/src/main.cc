@@ -9,8 +9,8 @@ int main()
 {
 	out.println("Hello World");
         
-    for(int i = 0; i < 7; i++) {
-		out.print(" Dezimal ");
+    for(int i = 0; i < 24; i++) {
+		/*out.print(" Dezimal ");
 		out.print(i);
         out.println();
 		out.print(" Binaer ");
@@ -19,7 +19,12 @@ int main()
 		out.print(" Hexadezimal ");
 		out.print(i, 16);
 		out.println();
-}
+        */
+        for(int j = 0; j < 5; j++) {
+        out.print(i,10);
+        }
+        out.println();
+    }
 
 	out.println("done");
 

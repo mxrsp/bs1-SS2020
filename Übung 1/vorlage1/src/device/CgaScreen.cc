@@ -66,14 +66,18 @@
         // TODO irgendwas haut hier noch nicht
         
         //setzen den screen auf die adresse des videorams
-        screen = (CgaChar*) VIDEO_RAM_ADRESS;
+        int currentPos;
+		int nextPos;
         
-        //wir verschieben jede zeile um eine zeile nach unten
-        for (int i = 0; i < ((ROWS - 1)*COLUMNS); i++ ){
-            CgaChar speicher = CgaChar();
-            speicher.setChar(screen[i+COLUMNS].getChar());
-            speicher.setAttr(screen[i+COLUMNS].getAttr());
-            screen[i] = speicher;
+		//setCursor(0,0);
+        currentPos = 0;
+        nextPos = currentPos + 80;
+        
+		
+        //wir verschieben jede zeile um eine zeile nach oben
+        for (int i = 0; i < ((ROWS - 1)*COLUMNS); i++){
+            screen[i] = screen[nextPos];
+            nextPos += 1;
         }
         
         // Huhu             Hallo
@@ -81,6 +85,7 @@
         // Tach             ---
         
         //erstellt einen cgachar mit standartattributen und setzt diese leer
+        
         CgaChar leer = CgaChar();
         leer.setAttr(attr);
         leer.setChar(' ');
@@ -89,6 +94,8 @@
         for (int i = (ROWS-1)*COLUMNS; i < ROWS*COLUMNS; i++) {
             screen[i] = leer;
         }
+       
+		//setCursor(0, 24);
     }
 
     // Setzen Cursor durch einen index
@@ -166,24 +173,29 @@
         //geben die aktulle cursor position zurück
 
         getCursor(column, row);
-        
         //wenn mehr spalten als möglich, dann wird in die neue zeile an stelle 0 gesprungen
-        if (column >= COLUMNS) {
-            setCursor(0, row + 1);
+        
+        if (row >= rows) {
+            scroll();
+
         }
         
-        //wenn mehr zeilen als möglich, wird gescrollt
-        if (row >= ROWS) {
-            scroll();
+        if (column >= COLUMNS) {
+            
+            setCursor(0, row + 1);
+            getCursor(column, row);
+            
+            if (row >= ROWS) {
+                scroll();
+            }
         }
 
+        
+        //wenn mehr zeilen als möglich, wird gescrollt
+
+
         int stelle = row * COLUMNS + column;
-        
-        // die folgenden 3 Zeilen sind nur zum testen der Attribute
-        this -> attr.setForeground2(CgaAttr :: RED);
-        this -> attr.setBackground(CgaAttr :: WHITE);
-        this -> attr.setBlinkState(true);
-        
+
 		//setzen attribut und char
         screen[stelle].setChar(ch);
         screen[stelle].setAttr(attr);
