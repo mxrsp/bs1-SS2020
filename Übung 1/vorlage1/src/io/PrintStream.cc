@@ -92,6 +92,12 @@
             
             int size = 0;
             
+            if (base == 10) {
+                if (eingabe == 0) {
+                    ausgabe(0);
+                }
+            }
+            
             while (eingabe > 0) {
                 int ergebnis = eingabe % base;     
                 array[size] = ergebnis;         // eingabe mod 2 in array gespeichert

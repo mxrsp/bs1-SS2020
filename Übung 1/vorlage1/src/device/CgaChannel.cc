@@ -57,11 +57,18 @@
 	// Bluescreen mit eigener Fehlermeldung
 	void CgaChannel::blueScreen(const char* error) {
         
+        CgaScreen :: clear();
+        
         CgaAttr attr = CgaAttr(); 
         
         attr.setBackground(CgaAttr :: BLUE);
         attr.setForeground(CgaAttr :: WHITE);
         attr.setBlinkState(false);
+        
+        for (int i = 0; i < CgaScreen::ROWS * CgaScreen:: COLUMNS; i++) {
+            screen[i].setAttr(attr);
+            screen[i].setChar(' ');
+        }
           
         int size = 0;
         
@@ -69,9 +76,13 @@
             size++;                // Größe wird inkrementiert     
         }
         
+        CgaScreen :: setCursor(2,2);
+        
         for (int i = 0; i < size; i++) {       // da immer nur 
             this -> show(error[i], attr);   // Ausgabe von 
         }
+        
+        CgaScreen :: setCursor(0,0);
     }
 
 
