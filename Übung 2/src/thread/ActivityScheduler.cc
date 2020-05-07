@@ -8,10 +8,8 @@
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
 #include "thread/Scheduler.h"
+#include "thread/ActivityScheduler.h"
 
-	ActivityScheduler::ActivityScheduler()
-	{
-	}
 
 	/* Suspendieren des aktiven Prozesses
 	 * Der korrekte Ausfuehrungszustand ist zu setzen
@@ -43,6 +41,6 @@
 	 * zu setzen. Danach ist "to" mittels dispatch die Kontrolle
 	 * zu übergeben.
 	 */
-	virtual void ActivityScheduler::activate(Schedulable* to) {
+	void ActivityScheduler::activate(Schedulable* to) {
 		
 	}

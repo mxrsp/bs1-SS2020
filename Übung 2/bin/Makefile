@@ -44,8 +44,8 @@ SYSTEM_CC = \
 	io/PrintStream.cc \
 	lib/Queue.cc \
 	thread/Scheduler.cc \
-	thread/Activity.cc \
 	thread/ActivityScheduler.cc \
+	thread/Activity.cc \
 	thread/Coroutine.cc \
 	mainCo.cc
 
