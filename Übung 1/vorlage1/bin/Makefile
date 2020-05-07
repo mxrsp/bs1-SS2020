@@ -43,7 +43,6 @@ SYSTEM_CC = \
 	device/CgaScreen.cc \
 	io/PrintStream.cc \
 	AusgabeTestMain.cc
-	#main.cc
 
 ##############################################################################
 
