@@ -20,8 +20,11 @@ private:
         
         FGNUMBITS = 4,      // LŠnge der Vordergrundfarbe in Bits
         BGNUMBITS = 3,      // LŠnge der Hintergrundfarbe in Bits
-        BLNUMBITS = 1       // LŠnge des Blinkers in Bits
-	};
+        BLNUMBITS = 1,      // LŠnge des Blinkers in Bits
+        
+        FGMASK = 0x0F,
+        BGMASK = 0x07
+    };
 
 
 public:
@@ -79,25 +82,9 @@ public:
 
 	// setzen der Schriftfarbe
 	void setForeground(Color col)
-	{
-        // †berschreiben der letzten 4 Bits um Vordergrundfarbe zu clearen
-        // Danach kann eine neue gesetzt werden
-        char zwischenwert = (this -> bitInformation) &= ~(FGNUMBITS << FGPOSITION);
-        this -> bitInformation = zwischenwert | (col << FGPOSITION);
-        
-        // Diese Variante funktioniert warum auch immer bei Foreground nicht
-        // bei allen anderen Methoden aber schon
-        // eventuell könnte dann getForeground auch nicht funktionieren
-	}
-	
-	// TODO
-	
-	// hier meine neue Version von setForeground
-	void setForeground2(Color col)
     {
-        char zwischenwert = (this -> bitInformation) >> FGPOSITION;
-        zwischenwert = zwischenwert << FGNUMBITS;
-        this -> bitInformation = zwischenwert | col;
+        char zwischenwert = this->bitInformation &= ~(FGMASK << FGPOSITION);
+        this -> bitInformation = zwischenwert | ((col & FGMASK) << FGPOSITION);
     }
 
 	// setzen der Hintergrundfarbe
@@ -110,8 +97,9 @@ public:
         
         // †berschreiben der 3 Bits von der Hintergrundgarbe um diese zu clearen
         // Danach kann eine neue gesetzt werden
-        char zwischenwert = (this -> bitInformation) &= ~(BGNUMBITS << BGPOSITION);
-        this -> bitInformation = zwischenwert | (col << BGPOSITION);
+        
+        char zwischenwert2 = this->bitInformation &= ~(BGMASK << BGPOSITION); 
+        this -> bitInformation = zwischenwert2 | ((col & BGMASK) << BGPOSITION);
 	}
 
 	// setzen blinkender/nicht blinkender Text
@@ -127,6 +115,7 @@ public:
 	void setAttr(CgaAttr attr)
 	{
         this -> bitInformation = attr.bitInformation;
+
 	}
 
 	// ermitteln der Schriftfarbe
