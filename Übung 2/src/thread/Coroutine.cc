@@ -36,3 +36,5 @@
 	void Coroutine::setup(void* tos) {
 		
 	}
+	
+#endif
