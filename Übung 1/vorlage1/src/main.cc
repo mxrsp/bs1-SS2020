@@ -9,7 +9,7 @@ int main()
 {
 	out.println("Hello World");
     
-    cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::CYAN, false));
+    cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::YELLOW, false));
         
     /*for(int i = 0; i < 6; i++) {
 		out.print(" Dezimal ");

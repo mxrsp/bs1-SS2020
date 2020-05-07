@@ -42,7 +42,7 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
 	device/CgaScreen.cc \
 	io/PrintStream.cc \
-	AusgabeTestMain.cc
+	main.cc
 
 ##############################################################################
 
