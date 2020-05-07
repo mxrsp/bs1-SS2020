@@ -49,13 +49,9 @@ public:
     
     void ausgabeVonDECundBIN(unsigned eingabe, int base);
     
-    void ausgabeVonHex(int eingabe, int base);
-    
-    int getTeiler(int eingabe, int base, int& i);
+    void ausgabeVonHex(unsigned eingabe, int base);
     
     void ausgabe(int x);
-    
-    int potenz(unsigned a, int b);
 
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!
 	void print(void* p);
