@@ -9,7 +9,7 @@ int main()
 {
 	out.println("Hello World");
         
-    for(int i = 0; i < 7; i++) {
+    /*for(int i = 0; i < 6; i++) {
 		out.print(" Dezimal ");
 		out.print(i);
         out.println();
@@ -20,6 +20,9 @@ int main()
 		out.print(i, 16);
 		out.println();
     }
+    */
+    
+    out.println("Hallo das ist ein Test\njetzt muss eine neue Zeile beginnen\njetzt wieder");
     
 	out.println("done");
     out.println("done2");

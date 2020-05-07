@@ -49,6 +49,8 @@
             } else {
                this -> show(data[i]);
             }
+            
+            getCursor(column,row);     // Cursor nach Aktion aktualisieren
         }
         
         return size;

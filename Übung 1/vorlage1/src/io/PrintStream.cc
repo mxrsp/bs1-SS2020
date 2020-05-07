@@ -84,6 +84,8 @@
             this -> print("0x");
             
             ausgabeVonHex(x, base);
+        } else {
+            this -> println("Base not supported");
         }
     }
     
