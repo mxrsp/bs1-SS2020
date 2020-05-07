@@ -68,8 +68,9 @@ public:
     {
         // Hintergrundfarbe darf nicht grš§er als 7 sein (Anzahl der Bits darf nicht 3 Ÿbersteigen)
         // und wird somit auf schwarz gesetzt
-        if ((int) bg > 7) {     
-            bg = BLACK;                          
+        
+        if (bg > 7) {     
+             bg = BLACK;                          
         }                                        
         
         this -> bitInformation = (((blink << BGNUMBITS) | bg) << FGNUMBITS) | fg;

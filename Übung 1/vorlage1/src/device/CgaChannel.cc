@@ -78,13 +78,13 @@
             size++;                // Größe wird inkrementiert     
         }
         
-        CgaScreen :: setCursor(2,2);
+        setCursor(2,2);
         
         for (int i = 0; i < size; i++) {       // da immer nur 
             this -> show(error[i], attr);   // Ausgabe von 
         }
         
-        CgaScreen :: setCursor(0,0);
+        write("\n",1);   // Zeilenumbruch am Ende
     }
 
 
