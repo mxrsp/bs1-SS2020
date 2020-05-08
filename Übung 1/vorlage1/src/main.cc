@@ -23,7 +23,7 @@ int main()
 		out.println();
     }
     
-    
+    cga.blueScreen("Damn Fucking Error\n I hope that will never happen again\n\n BLUBB \n");
 
     
     out.println("Ende.");

@@ -70,6 +70,10 @@
 	void PrintStream::print(unsigned x, int base) {
         
         if (base == DECIMAL){
+             
+            if (x == 0) {
+                    ausgabe(0);
+            }
             
             ausgabeVonDECundBIN(x, base);
         
@@ -77,11 +81,19 @@
             
             this -> print("0b");
             
+            if (x == 0) {
+                    ausgabe(0);
+            }
+            
             ausgabeVonDECundBIN(x , base);
             
         } else if (base == HEX) {
             
             this -> print("0x");
+            
+            if (x == 0) {
+                    ausgabe(0);
+            }
             
             ausgabeVonHex(x, base);
         } else {
@@ -93,12 +105,6 @@
             int array [33];     // maximale größe = 33 Bits
             
             int index = 0;
-            
-            if (base == 10) {
-                if (eingabe == 0) {
-                    ausgabe(0);
-                }
-            }
             
             while (eingabe > 0) {
                 int ergebnis = eingabe % base;     
