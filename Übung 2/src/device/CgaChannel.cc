@@ -49,6 +49,8 @@
             } else {
                this -> show(data[i]);
             }
+            
+            getCursor(column,row);     // Cursor nach Aktion aktualisieren
         }
         
         return size;
@@ -59,14 +61,14 @@
         
         CgaScreen :: clear();
         
-        CgaAttr attr = CgaAttr(); 
+        CgaAttr blue = CgaAttr(); 
         
-        attr.setBackground(CgaAttr :: BLUE);
-        attr.setForeground(CgaAttr :: WHITE);
-        attr.setBlinkState(false);
+        blue.setBackground(CgaAttr :: BLUE);
+        blue.setForeground(CgaAttr :: WHITE);
+        blue.setBlinkState(false);
         
         for (int i = 0; i < CgaScreen::ROWS * CgaScreen:: COLUMNS; i++) {
-            screen[i].setAttr(attr);
+            screen[i].setAttr(blue);
             screen[i].setChar(' ');
         }
           
@@ -76,13 +78,12 @@
             size++;                // Größe wird inkrementiert     
         }
         
-        CgaScreen :: setCursor(2,2);
+        setCursor(2,2);
         
-        for (int i = 0; i < size; i++) {       // da immer nur 
-            this -> show(error[i], attr);   // Ausgabe von 
-        }
+        this -> setAttr(blue);
+        write(error, size);
         
-        CgaScreen :: setCursor(0,0);
+        write("\n",1);   // Zeilenumbruch am Ende
     }
 
 

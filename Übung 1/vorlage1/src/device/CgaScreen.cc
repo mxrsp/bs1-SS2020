@@ -56,7 +56,7 @@
         }
         
         setCursor(0,0);
-       
+		this -> attr = CgaAttr();     
     }
 
 	// Verschieben des Bildschirms um eine Zeile

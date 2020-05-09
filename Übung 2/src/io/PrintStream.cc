@@ -70,6 +70,10 @@
 	void PrintStream::print(unsigned x, int base) {
         
         if (base == DECIMAL){
+             
+            if (x == 0) {
+                    ausgabe(0);
+            }
             
             ausgabeVonDECundBIN(x, base);
         
@@ -77,69 +81,63 @@
             
             this -> print("0b");
             
+            if (x == 0) {
+                    ausgabe(0);
+            }
+            
             ausgabeVonDECundBIN(x , base);
             
         } else if (base == HEX) {
             
             this -> print("0x");
             
+            if (x == 0) {
+                    ausgabe(0);
+            }
+            
             ausgabeVonHex(x, base);
+        } else {
+            this -> println("Base not supported");
         }
     }
     
     void PrintStream::ausgabeVonDECundBIN(unsigned eingabe, int base) {
             int array [33];     // maximale größe = 33 Bits
             
-            int size = 0;
-            
-            if (base == 10) {
-                if (eingabe == 0) {
-                    ausgabe(0);
-                }
-            }
+            int index = 0;
             
             while (eingabe > 0) {
                 int ergebnis = eingabe % base;     
-                array[size] = ergebnis;         // eingabe mod 2 in array gespeichert
+                array[index] = ergebnis;         // eingabe mod 2 in array gespeichert
                 eingabe = eingabe / base;       
-                size++;                     // stelle im Aray wird erhöht
+                index++;                     // stelle im Aray wird erhöht
             }
             
-            for (int i = 1; i < size+1; i++) {
-                int output = array[size-i];     // array wird rückwärts ausgegeben
+            for (int i = 1; i < index+1; i++) {
+                int output = array[index-i];     // array wird rückwärts ausgegeben
                 ausgabe(output);
             }
     
     }
     
-    void PrintStream::ausgabeVonHex(int eingabe, int base) {
+    void PrintStream::ausgabeVonHex(unsigned eingabe, int base) {
         const char* output = "0123456789ABCDEF";        // alle Möglichkeiten für HexZahlen
             
-            while (eingabe >= base) {
-                int i = 1;
-                int ergebnis = getTeiler(eingabe, base, i);     // i =  größter Exponent
-                this -> print(output[ergebnis]);                // ausgabe 
-                eingabe = eingabe % (potenz(base,i));           // eingabe wird auf Rest verringert
+        char array[10];
+        
+        int index = 0;
+        
+            while (eingabe > 0) {
+                int ergebnis = eingabe % base;
+                array[index] =  output[ergebnis];
+                eingabe = eingabe / base;
+                index++;
             }
             
-            if (eingabe < base) {                   // wenn Eingabe kleiner als 16
-                this -> print(output[eingabe]);     // einfach ausgeben
-            }
-    }
-    
-    // größtmöglicher Teiler für HexZahlen wird gesucht und in i geschrieben
-    int PrintStream::getTeiler(int eingabe, int base, int& i) {
-        int zwischenspeicher = eingabe;
-        while (eingabe > 0) {
-            eingabe = eingabe / (potenz(base,i));
-            if (eingabe < 16) {
-                return eingabe;
-            } else {
-                i++;
-                eingabe = zwischenspeicher;
-            }
-        }
-        return 0;
+            for (int i = 1; i < index+1; i++) {
+                char output = array[index-i];     // array wird rückwärts ausgegeben
+                print(output);
+            }       
     }
     
     // ausgeben von einem einstelligen int
@@ -147,14 +145,6 @@
         if (x < 10) {
             char c = '0' + x;
             this -> print(c);
-        }
-    }
-    // gibt a^b zurück
-    int PrintStream::potenz(unsigned a, int b) {
-        if (b == 0) {
-            return 1;
-        } else {
-            return a * (potenz(a,(b-1)));
         }
     }
     
