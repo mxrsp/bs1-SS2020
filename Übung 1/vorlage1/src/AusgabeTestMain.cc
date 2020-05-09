@@ -2,7 +2,7 @@
 #include "io/PrintStream.h"
 
 //der Wert sollte variiert werden oder man bastelt sich lieber eine rein "zeitabhängige" Pause ;)
-#define PAUSE 500000
+#define PAUSE 5000
 
 
 CgaChannel cga;        // unser CGA-Ausgabekanal

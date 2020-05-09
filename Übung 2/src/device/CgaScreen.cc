@@ -47,7 +47,6 @@
         //erstellt einen cgachar mit standartattributen und setzt diese leer
         
         CgaChar leer = CgaChar();
-        leer.setAttr(attr);
         leer.setChar(' ');
         
         //zeigt die unterste zeile als leere zeile an
@@ -56,7 +55,6 @@
         }
         
         setCursor(0,0);
-       	this -> attr = CgaAttr(); 
     }
 
 	// Verschieben des Bildschirms um eine Zeile
