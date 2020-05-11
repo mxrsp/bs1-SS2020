@@ -20,7 +20,7 @@
         
         active -> changeTo(Activity :: BLOCKED);
         
-        reschedule();
+        scheduler.reschedule();
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -31,14 +31,22 @@
 	 * zuzuteilen.
 	 */
 	void ActivityScheduler::kill(Activity* act) {
-        remove(act);
+        bool running;
         
         if (act -> isRunning()) {
-            reschedule();
+            running = true;
+        } else {
+            running = false;
         }
         
         act -> changeTo(Activity :: BLOCKED);
 		act -> ~Activity();
+        
+        if (running) {
+            scheduler.reschedule();
+        }else {
+            scheduler.remove(act);
+        }
 	}
 
 	/* Terminieren des aktiven Prozesses,
@@ -48,7 +56,7 @@
 		Activity* active = (Activity*) Dispatcher :: active();
         active -> exit();
         
-        reschedule();
+        scheduler.reschedule();
 	}
 
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
@@ -59,8 +67,8 @@
 	void ActivityScheduler::activate(Schedulable* to) {
 		Activity* active = (Activity*) Dispatcher :: active();
         if (!(active -> isZombie() || active -> isBlocked())){
-            schedule(active);
+            scheduler.schedule(active);
         }
         
-        dispatch((Coroutine*) to);
+        dispatch((Activity*) to);
 	}
