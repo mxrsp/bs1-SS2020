@@ -25,7 +25,8 @@
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	static void Coroutine::startup(Coroutine* obj) {
-		
+		obj -> body();
+		obj -> exit();
 	}
 
 	/* Aufsetzen einer neuen Coroutine.
@@ -35,6 +36,12 @@
 	 */
 	void Coroutine::setup(void* tos) {
 		
+		//wenn top of the stack = NULL, nichts machen
+		if(tos == 0) {
+		}
+		//ansonsten in diese methode reinspringen
+		else {
+		}
 	}
 	
 #endif
