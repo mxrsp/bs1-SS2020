@@ -8,16 +8,19 @@
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
 #include "thread/Scheduler.h"
+#include "thread/ActivityScheduler.h"
 
-	ActivityScheduler::ActivityScheduler()
-	{
-	}
 
 	/* Suspendieren des aktiven Prozesses
 	 * Der korrekte Ausfuehrungszustand ist zu setzen
 	 * und danach der naechste lauffaehige Prozess zu aktivieren.
 	 */
 	void ActivityScheduler::suspend()	{
+        Activity* active = (Activity*) Dispatcher :: active();
+        
+        active -> changeTo(Activity :: BLOCKED);
+        
+        scheduler.reschedule();
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -27,15 +30,33 @@
 	 * ist dem naechsten lauffaehigen Prozess die CPU
 	 * zuzuteilen.
 	 */
-	void ActivityScheduler::kill(Activity*) {
-		
+	void ActivityScheduler::kill(Activity* act) {
+        bool running;
+        
+        if (act -> isRunning()) {
+            running = true;
+        } else {
+            running = false;
+        }
+        
+        act -> changeTo(Activity :: BLOCKED);
+		act -> ~Activity();
+        
+        if (running) {
+            scheduler.reschedule();
+        }else {
+            scheduler.remove(act);
+        }
 	}
 
 	/* Terminieren des aktiven Prozesses,
 	 * und Wechsel zum naechsten lauffaehigen Prozess
 	 */
 	void ActivityScheduler::exit() {
-		
+		Activity* active = (Activity*) Dispatcher :: active();
+        active -> exit();
+        
+        scheduler.reschedule();
 	}
 
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
@@ -43,6 +64,11 @@
 	 * zu setzen. Danach ist "to" mittels dispatch die Kontrolle
 	 * zu übergeben.
 	 */
-	virtual void ActivityScheduler::activate(Schedulable* to) {
-		
+	void ActivityScheduler::activate(Schedulable* to) {
+		Activity* active = (Activity*) Dispatcher :: active();
+        if (!(active -> isZombie() || active -> isBlocked())){
+            scheduler.schedule(active);
+        }
+        
+        dispatch((Activity*) to);
 	}
