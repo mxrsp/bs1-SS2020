@@ -39,8 +39,16 @@
 		//wenn top of the stack = NULL, nichts machen
 		if(tos == 0) {
 		}
-		//ansonsten in diese methode reinspringen
+		//ansonsten setzen
 		else {
+			this -> ebx = 0;
+			this -> edi = 0;
+			this -> esi = 0;
+			this -> ebp = 0;
+			this -> startadresse = &Coroutine::startup;
+			this -> returnadresse = 0;
+			this -> routine = this;
+			this -> sp = tos;
 		}
 	}
 	

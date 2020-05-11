@@ -95,6 +95,13 @@ private:
 
 	void* sp; // Der gerettete Stackpointer
 
+	unsigned ebx;
+	unsigned edi;
+	unsigned esi;
+	void ebp*;
+	void startadresse*;
+	void returnadresse*;
+	Coroutine *routine;
 
 };
 
