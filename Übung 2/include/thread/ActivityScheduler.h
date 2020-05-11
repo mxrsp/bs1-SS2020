@@ -16,6 +16,7 @@ class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
 	ActivityScheduler()
 	{
+        blocked = false;
 	}
 
 	/* Initialisieren der ersten Aktivität, des Schedulers
@@ -24,6 +25,10 @@ public:
 	 */
 	void start(Activity* act)
 	{
+        act -> changeTo(Activity :: RUNNING);
+        
+        Coroutine* c = (Coroutine*) act;
+        init(c);
 	}
 
 	/* Suspendieren des aktiven Prozesses
@@ -39,7 +44,7 @@ public:
 	 * ist dem naechsten lauffaehigen Prozess die CPU
 	 * zuzuteilen.
 	 */
-	void kill(Activity*);
+	void kill(Activity* act);
 
 	/* Terminieren des aktiven Prozesses,
 	 * und Wechsel zum naechsten lauffaehigen Prozess
@@ -55,7 +60,8 @@ protected:
 	virtual void activate(Schedulable* to);
 
 private:
-
+    bool blocked;
+    
 };
 
 extern ActivityScheduler scheduler;

@@ -16,6 +16,11 @@
 	 * und danach der naechste lauffaehige Prozess zu aktivieren.
 	 */
 	void ActivityScheduler::suspend()	{
+        Activity* active = (Activity*) Dispatcher :: active();
+        
+        active -> changeTo(Activity :: BLOCKED);
+        
+        reschedule();
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -25,15 +30,25 @@
 	 * ist dem naechsten lauffaehigen Prozess die CPU
 	 * zuzuteilen.
 	 */
-	void ActivityScheduler::kill(Activity*) {
-		
+	void ActivityScheduler::kill(Activity* act) {
+        remove(act);
+        
+        if (act -> isRunning()) {
+            reschedule();
+        }
+        
+        act -> changeTo(Activity :: BLOCKED);
+		act -> ~Activity();
 	}
 
 	/* Terminieren des aktiven Prozesses,
 	 * und Wechsel zum naechsten lauffaehigen Prozess
 	 */
 	void ActivityScheduler::exit() {
-		
+		Activity* active = (Activity*) Dispatcher :: active();
+        active -> exit();
+        
+        reschedule();
 	}
 
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
@@ -42,5 +57,10 @@
 	 * zu übergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
-		
+		Activity* active = (Activity*) Dispatcher :: active();
+        if (!(active -> isZombie() || active -> isBlocked())){
+            schedule(active);
+        }
+        
+        dispatch((Coroutine*) to);
 	}
