@@ -11,16 +11,14 @@
  * wird damit hinfaellig.
  */
 
-#include "thread/Schedulable.h"
-#include "thread/Coroutine.h"
+#include "thread/Activity.h"
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
 	 * da der Thread erst laufen darf, wenn der spezielle Konstruktor
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
-	Activity::Activity(void* tos) {
-	
+	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -30,8 +28,10 @@
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity::Activity() {
+	Activity::Activity() : Coroutine(), state(BLOCKED) {
 		
+        this->state = READY;
+        this->scheduler.start();
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -41,26 +41,38 @@
 	 * Das Warten auf die Beendigung (mittels join()) muss im Destruktor der
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
-	virtual Activity::~Activity() {
-		
+	Activity::~Activity() {
+        
+        this->exit();
 	}
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void Activity::sleep() {
 	
+        
+        if (this->isRunning()) {
+            scheduler.suspend();
+        } else 
+            this->state = BLOCKED;
+            scheduler.remove(this); //wird aus der rdy list entfernt
 	}
 
 	/* Veranlasst den Scheduler, diese Aktivitaet aufzuwecken.
 	 */
 	void Activity::wakeup() {
-		
+        
+        if (this->isBlocked) {
+            this->state = READY;
+            scheduler.schedule(this);
+        }
 	}
 
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
 		
+        scheduler.reschedule(this);
 	}
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
@@ -68,6 +80,13 @@
 	 */
 	void Activity::exit() {
 	
+        if (sleepingProcess != 0) {
+            Activity* wakeupedProcess = sleepingProcess;
+            sleepingProcess = 0;
+            wakeupedProcess.wakeup();
+        }
+        
+        scheduler.kill(this);
 	}
 
 	/* Der aktuelle Prozess wird solange schlafen gelegt, bis der
@@ -75,5 +94,14 @@
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
+        
+        Activity* currentProcess = (Activity*)scheduler.active();
+        sleepingProcess = currentProcess;
+        
+        if (this->isZombie) {
+            scheduler.suspend();
+        } else {
+            currentProcess.sleep();
+        }
 		
 	}

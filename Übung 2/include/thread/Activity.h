@@ -84,28 +84,50 @@ public:
 	 */
 	void changeTo(State state)
 	{
+        this->state = state;
 	}
 
 	// Ausführungszustand abfragen.
 	bool isBlocked()
 	{
+        if (this->state = BLOCKED) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	bool isReady()
 	{
+         if (this->state = READY) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	bool isRunning()
 	{
+         if (this->state = RUNNING) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	bool isZombie()
 	{
+         if (this->state = ZOMBIE) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 private:
-
-
+    
+    State state;
+    Activity* sleepingProcess;
 };
 
 #endif
