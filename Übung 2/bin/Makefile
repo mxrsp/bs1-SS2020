@@ -25,6 +25,11 @@ INITFINI = lib/finit.cc
 # Achtung!!!! Hinter dem backslash am Zeilenende darf *kein* Zeichen stehen!!
 # Die letzte Zeile bekommt kein backslash!!!
 
+#lib/Queue.cc \
+	thread/Scheduler.cc \
+	thread/ActivityScheduler.cc \
+	thread/Activity.cc \
+
 
 STARTUP_S = \
 	boot/startup.asm
@@ -43,11 +48,7 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
 	device/CgaScreen.cc \
 	io/PrintStream.cc \
-	lib/Queue.cc \
-	thread/Scheduler.cc \
-	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \
-	thread/Activity.cc \
 	mainCo.cc
 
 ##############################################################################

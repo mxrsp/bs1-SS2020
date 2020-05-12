@@ -24,7 +24,7 @@ csym switchContext
 switchContext:
 ;	fuegt hier Euren Code ein!
 	push ebp
-	mov esp, ebp
+	mov ebp, esp
 		
 	push edi
 	push esi
@@ -38,6 +38,7 @@ switchContext:
 	pop ebx
 	pop esi
 	pop edi
+	pop ebp
 
 ;Ende
 	ret		; Ruecksprung zum Aufrufer

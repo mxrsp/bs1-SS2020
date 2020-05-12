@@ -32,14 +32,15 @@ public:
 
 	void body()
 	{
-		for(int i=0; i<100; i++) {
+		for(int i=0; i<2; i++) {
 			cout.print(name);
 			cout.print(" ");
 			cout.print(i);
-			cout.println();
-
+			cout.println();  
 			resume(next);
+            
 		}
+		
 	}
 
 	void exit()
@@ -73,11 +74,12 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
-	// alle Coroutinen zyklisch verketten
+	//alle Coroutinen zyklisch verketten
 	anton.link(berta);
 	berta.link(caesar);
 	caesar.link(anton);
 
 	// los geht's
 	anton.body();
+    
 }
