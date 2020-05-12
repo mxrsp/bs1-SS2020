@@ -14,7 +14,6 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 
-
 ActivityScheduler scheduler;
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
