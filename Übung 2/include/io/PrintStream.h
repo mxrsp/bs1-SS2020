@@ -49,7 +49,7 @@ public:
     
     void ausgabeVonDECundBIN(unsigned eingabe, int base);
     
-    void ausgabeVonHex(int eingabe, int base);
+    void ausgabeVonHex(unsigned eingabe, int base);
     
     int getTeiler(int eingabe, int base, int& i);
     
