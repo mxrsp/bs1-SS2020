@@ -52,6 +52,8 @@ public:
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
 	virtual ~Activity();
+    
+    void operator delete (void* p, unsigned int i);
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */

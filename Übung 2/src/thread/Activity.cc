@@ -44,9 +44,12 @@ ActivityScheduler scheduler;
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
 	Activity::~Activity() {
-        
-        //this -> exit();
+        this -> exit();
 	}
+	
+	void Activity ::  operator delete (void* p, unsigned int i) {
+        // hier muss vielleicht irgendwas passieren
+    }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
