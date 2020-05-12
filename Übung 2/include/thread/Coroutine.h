@@ -98,9 +98,9 @@ private:
 	unsigned ebx;
 	unsigned edi;
 	unsigned esi;
-	void ebp*;
-	void startadresse*;
-	void returnadresse*;
+	void* ebp;
+	void* startadresse;
+	void* returnadresse;
 	Coroutine *routine;
 
 };

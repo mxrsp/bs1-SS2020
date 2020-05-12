@@ -1,5 +1,5 @@
-#ifndef Coroutine_h
-#define Coroutine_h
+
+#include "thread/Coroutine.h"
 
 /*
  * Coroutine:
@@ -24,7 +24,7 @@
 	 * Beachte, das "startup" als "static deklariert ist
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
-	static void Coroutine::startup(Coroutine* obj) {
+	void Coroutine::startup(Coroutine* obj) {
 		obj -> body();
 		obj -> exit();
 	}
@@ -45,11 +45,9 @@
 			this -> edi = 0;
 			this -> esi = 0;
 			this -> ebp = 0;
-			this -> startadresse = &Coroutine::startup;
+			this -> startadresse = ((Coroutine*)startup);
 			this -> returnadresse = 0;
 			this -> routine = this;
 			this -> sp = tos;
 		}
 	}
-	
-#endif

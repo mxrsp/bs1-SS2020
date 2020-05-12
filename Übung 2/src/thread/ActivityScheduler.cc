@@ -38,15 +38,15 @@
         } else {
             running = false;
         }
-        
+        /*
         act -> changeTo(Activity :: BLOCKED);
-		act -> ~Activity();
+		act -> ~Activity();*/
         
         if (running) {
-            scheduler.reschedule();
-        }else {
             scheduler.remove(act);
         }
+        
+        scheduler.reschedule();
 	}
 
 	/* Terminieren des aktiven Prozesses,
@@ -70,5 +70,5 @@
             scheduler.schedule(active);
         }
         
-        dispatch((Activity*) to);
+        scheduler.dispatch((Activity*) to);
 	}

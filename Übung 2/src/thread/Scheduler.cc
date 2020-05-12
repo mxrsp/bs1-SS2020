@@ -20,7 +20,6 @@
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
         this -> readylist.remove(sched);
-		
 	}
 
 	// Aktiviert das vorderste der Liste mittels activate.

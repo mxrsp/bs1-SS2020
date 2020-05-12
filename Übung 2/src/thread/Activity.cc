@@ -12,6 +12,10 @@
  */
 
 #include "thread/Activity.h"
+#include "thread/ActivityScheduler.h"
+
+
+ActivityScheduler scheduler;
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
 	 * da der Thread erst laufen darf, wenn der spezielle Konstruktor
@@ -28,10 +32,9 @@
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity::Activity() : Coroutine(), state(BLOCKED) {
-		
-        this->state = READY;
-        this->scheduler.start();
+	Activity::Activity() : Coroutine(), state(READY) {
+        scheduler = ActivityScheduler();
+        scheduler.start(this);
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -43,7 +46,7 @@
 	 */
 	Activity::~Activity() {
         
-        this->exit();
+        //this -> exit();
 	}
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
@@ -53,17 +56,18 @@
         
         if (this->isRunning()) {
             scheduler.suspend();
-        } else 
+        } else {
             this->state = BLOCKED;
             scheduler.remove(this); //wird aus der rdy list entfernt
-	}
+        }
+    }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet aufzuwecken.
 	 */
 	void Activity::wakeup() {
         
-        if (this->isBlocked) {
-            this->state = READY;
+        if (this -> isBlocked()) {
+            this -> state = READY;
             scheduler.schedule(this);
         }
 	}
@@ -72,7 +76,8 @@
 	 */
 	void Activity::yield() {
 		
-        scheduler.reschedule(this);
+        scheduler.schedule((Schedulable*)this);
+        scheduler.reschedule();
 	}
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
@@ -83,7 +88,7 @@
         if (sleepingProcess != 0) {
             Activity* wakeupedProcess = sleepingProcess;
             sleepingProcess = 0;
-            wakeupedProcess.wakeup();
+            wakeupedProcess -> wakeup();
         }
         
         scheduler.kill(this);
@@ -98,10 +103,10 @@
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
         
-        if (this->isZombie) {
+        if (this->isZombie()) {
             scheduler.suspend();
         } else {
-            currentProcess.sleep();
+            currentProcess -> sleep();
         }
 		
 	}

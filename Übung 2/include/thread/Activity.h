@@ -90,7 +90,7 @@ public:
 	// Ausführungszustand abfragen.
 	bool isBlocked()
 	{
-        if (this->state = BLOCKED) {
+        if (this -> state == BLOCKED) {
             return true;
         } else {
             return false;
@@ -99,7 +99,7 @@ public:
 
 	bool isReady()
 	{
-         if (this->state = READY) {
+         if (this->state == READY) {
             return true;
         } else {
             return false;
@@ -108,7 +108,7 @@ public:
 
 	bool isRunning()
 	{
-         if (this->state = RUNNING) {
+         if (this->state == RUNNING) {
             return true;
         } else {
             return false;
@@ -117,7 +117,7 @@ public:
 
 	bool isZombie()
 	{
-         if (this->state = ZOMBIE) {
+         if (this->state == ZOMBIE) {
             return true;
         } else {
             return false;

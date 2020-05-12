@@ -7,10 +7,10 @@
  *
  */
 
+#include "thread/Scheduler.h"
 #include "lib/Queue.h"
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
-#include "thread/Scheduler.h"
 
 class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
