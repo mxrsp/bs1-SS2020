@@ -44,15 +44,15 @@
 		//ansonsten neuen stack erstellen
 		else {
 			
-			Coroutine::setStack *set = (Coroutine::setStack*) tos;
+			Coroutine::setStack *newStack = (Coroutine::setStack*) tos;
 			
 			Coroutine *neueRoutine = this;
 			void *startAdr = (Coroutine*)&startup;
 			
-			set -> startadresse = startAdr;
-			set -> routine = neueRoutine;
+			newStack -> startadresse = startAdr;
+			newStack -> routine = neueRoutine;
 			
-			this -> sp = set;
+			this -> sp = newStack;
 			
 			return;
 		}
