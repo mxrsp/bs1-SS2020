@@ -16,7 +16,8 @@
 	 * und danach der naechste lauffaehige Prozess zu aktivieren.
 	 */
 	void ActivityScheduler::suspend()	{
-        Activity* active = (Activity*) Dispatcher :: active();
+        out.println("suspend in  ActivityScheduler");
+        Activity* active = (Activity*) this -> active();
         
         active -> changeTo(Activity :: BLOCKED);
         
@@ -32,6 +33,8 @@
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         bool running;
+        
+        out.println("kill in ActivityScheduler erreicht");
         
         if (act -> isRunning()) {
             running = true;
@@ -53,7 +56,8 @@
 	 * und Wechsel zum naechsten lauffaehigen Prozess
 	 */
 	void ActivityScheduler::exit() {
-		Activity* active = (Activity*) Dispatcher :: active();
+        out.println("exit in ActivityScheduler erreicht");
+		Activity* active = (Activity*) this -> active();
         active -> exit();
         
         scheduler.reschedule();
@@ -65,10 +69,30 @@
 	 * zu übergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
-		Activity* active = (Activity*) Dispatcher :: active();
-        if (!(active -> isZombie() || active -> isBlocked())){
+        
+        out.println("activate in ActivityScheduler erreicht");
+        
+		Activity* active = (Activity*) this -> active();
+        
+        for (int i = 0; i < 15000000; i++) {}
+        out.println("activate kurz vor Schleife in ActivityScheduler erreicht");
+        for (int i = 0; i < 15000000; i++) {}
+        // if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
+        // if (!(active -> isBlocked())) {
+        if (true) {
+            out.println("activate am Anfang von Schleife in ActivityScheduler erreicht");
+            for (int i = 0; i < 15000000; i++) {}
             scheduler.schedule(active);
+            out.println("Wir sind in der Schleife in active in ActivityScheduler");
+            for (int i = 0; i < 15000000; i++) {}
+        } else {
+            for (int i = 0; i < 20000000; i++)
+            out.println("Wir sind in der else-Zweig im ActivityScheduler");
         }
         
-        scheduler.dispatch((Activity*) to);
+        for (int i = 0; i < 20000000; i++)
+            out.println("Wir haben die Schleife verlassen im ActivityScheduler");
+        
+        
+        dispatch((Activity*) to);
 	}

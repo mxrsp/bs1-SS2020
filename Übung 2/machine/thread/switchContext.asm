@@ -33,7 +33,7 @@ switchContext:
 	mov eax, [ebp + 8]
 	mov [eax], esp
 	mov eax, [ebp + 12]
-	mov esp, [eax] 
+	mov esp, [eax]
 	
 	pop ebx
 	pop esi

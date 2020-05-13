@@ -16,6 +16,8 @@ public:
 	Hello(const char* name, PrintStream& out, int count=10)
 		: cout(out)
 	{
+        cout.println("Konstruktor Variante 1 wird in main aufgerufen");
+        
 		this->name = name;
 		this->count = count;
 	}
@@ -23,8 +25,11 @@ public:
 	Hello(const char* name, PrintStream& out, void* sp, int count=10)
 		: Activity(sp), cout(out)
 	{
+        cout.println("Konstruktor Variante 2 wird in main aufgerufen");
+        
 		this->name = name;
 		this->count = count;
+        
 		wakeup();
 	}
 	
@@ -40,6 +45,7 @@ public:
 			cout.print(i);
 			cout.println();
 
+            for (int i = 0; i < 15000000; i++) {}
 			yield();
 		}
 	}
@@ -66,10 +72,18 @@ unsigned stack1[1024];
 
 int main()
 {
-	Hello anton("Anton", out, 5); // anton benutzt den Stack von main
-	Hello berta("Berta", out, &stack0[1024], 10);
-	Hello caesar("Caesar", out, &stack1[1024], 15);
-
-	anton.body();
+    cga.blueScreen("ANFANG");
+    for (int i = 0; i < 15000000; i++) {}
+ 	// Hello anton("Anton", out, 1); // anton benutzt den Stack von main
+    // out.println("Anton wurde erzeugt");
+ 	Hello berta("Berta", out, &stack0[1024], 2);
+    out.println("Berta wurde erzeugt");
+    for (int i = 0; i < 15000000; i++) {}
+    // anton.body();
+    out.println("ENDE");
+    for (int i = 0; i < 15000000; i++) {}
+// 	Hello caesar("Caesar", out, &stack1[1024], 15);
+// 
+    
 }
 

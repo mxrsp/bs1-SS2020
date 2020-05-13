@@ -12,6 +12,10 @@
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
 
+#include "io/PrintStream.h"
+
+extern PrintStream out;
+
 class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
 	ActivityScheduler()
@@ -25,6 +29,11 @@ public:
 	 */
 	void start(Activity* act)
 	{
+        
+        out.println("Wir sind in start von ActivityScheduler angekommen");
+        
+        for (int i = 0; i < 15000000; i++) {}
+        
         act -> changeTo(Activity :: RUNNING);
         
         Coroutine* c = (Coroutine*) act;

@@ -13,6 +13,9 @@
 
 #include "lib/Queue.h"
 #include "thread/Schedulable.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Scheduler {
 public:

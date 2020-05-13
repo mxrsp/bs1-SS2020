@@ -36,16 +36,21 @@
 	 */
 	void Coroutine::setup(void* tos) {
 		
+        out.println("setup in Coroutine wird aufgerufen");
+        
 		//wenn top of the stack = NULL, nichts machen
 		if(tos == 0) {
+            out.println("tos == 0 in Coroutine");
 			sp = &tos;
 			return;
 		}
 		//ansonsten neuen stack erstellen
 		else {
-			
+			out.println("tos != 0 in Coroutine");
 			Coroutine::setStack *newStack = (Coroutine::setStack*) tos;
 			
+            // newStack--;
+            
 			Coroutine *neueRoutine = this;
 			void *startAdr = (Coroutine*)&startup;
 			

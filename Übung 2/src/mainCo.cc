@@ -32,7 +32,7 @@ public:
 
 	void body()
 	{
-		for(int i=0; i<2; i++) {
+		for(int i=0; i<100; i++) {
 			cout.print(name);
 			cout.print(" ");
 			cout.print(i);

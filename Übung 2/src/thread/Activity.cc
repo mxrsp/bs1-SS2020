@@ -14,7 +14,7 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 
-ActivityScheduler scheduler;
+
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
 	 * da der Thread erst laufen darf, wenn der spezielle Konstruktor
@@ -31,8 +31,12 @@ ActivityScheduler scheduler;
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity::Activity() : Coroutine(), state(READY) {
+	Activity::Activity() : Coroutine(), state(BLOCKED) {
+        this -> state = READY;
         scheduler = ActivityScheduler();
+        out.println("Wir sind im Konstruktor von Activity angekommen");
+        
+        for (int i = 0; i < 15000000; i++) {}
         scheduler.start(this);
 	}
 
@@ -47,7 +51,7 @@ ActivityScheduler scheduler;
         this -> exit();
 	}
 	
-	void Activity ::  operator delete (void* p, unsigned int i) {
+	void Activity :: operator delete (void* p, unsigned int i) {
         // hier muss vielleicht irgendwas passieren
     }
 
@@ -60,7 +64,7 @@ ActivityScheduler scheduler;
             scheduler.suspend();
         } else {
             this->state = BLOCKED;
-            scheduler.remove(this); //wird aus der rdy list entfernt
+            //scheduler.remove(this); //wird aus der rdy list entfernt
         }
     }
 
@@ -68,7 +72,11 @@ ActivityScheduler scheduler;
 	 */
 	void Activity::wakeup() {
         
+        out.println("wakeup in Activity wurde erreicht");
+        for (int i = 0; i < 15000000; i++) {}
+        
         if (this -> isBlocked()) {
+            out.println("If in Activity wird betreten");
             this -> state = READY;
             scheduler.schedule(this);
         }
@@ -78,7 +86,9 @@ ActivityScheduler scheduler;
 	 */
 	void Activity::yield() {
 		
-        scheduler.schedule((Schedulable*)this);
+        out.println("Wir sind in yield in Activity angekommen");
+        
+        for (int i = 0; i < 15000000; i++) {}
         scheduler.reschedule();
 	}
 
@@ -86,6 +96,8 @@ ActivityScheduler scheduler;
 	 * auf die Beendigung wartende Aktivität geweckt werden.
 	 */
 	void Activity::exit() {
+        
+        out.println("exit in Activity wurde erreicht");
 	
         if (sleepingProcess != 0) {
             Activity* wakeupedProcess = sleepingProcess;
@@ -101,6 +113,8 @@ ActivityScheduler scheduler;
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
+        
+        out.println("join in Activity wurde erreicht");
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;

@@ -15,6 +15,10 @@
  *
  */
 
+#include "io/PrintStream.h"
+
+extern PrintStream out;
+
 
 /* Diese Deklaration verweist auf die von Euch zu
  * implementierende Assemblerprozedur "switchContext".
@@ -61,6 +65,8 @@ public:
 	*/
 	Coroutine(void* tos = 0)
 	{
+        out.println("Konstruktor wird in Coroutine aufgerufen");
+        
 		setup(tos);
 	}
 
@@ -69,7 +75,12 @@ public:
 	 */
 	void resume(Coroutine* next)
 	{
+        out.println("resume wird aufgerufen in Coroutine");
+        for (int i = 0; i < 15000000; i++) {}
 		switchContext(this->sp, next->sp);
+		
+        for (int i = 0; i < 15000000; i++) {}
+        out.println("resume ist nun fertig in Coroutine");
 	}
 
 	/* Dies ist der Rumpf der Coroutine

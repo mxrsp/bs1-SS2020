@@ -15,6 +15,9 @@
 
 #include "thread/Schedulable.h"
 #include "thread/Coroutine.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Activity: public Schedulable, public Coroutine {
 public:
@@ -86,12 +89,19 @@ public:
 	 */
 	void changeTo(State state)
 	{
+        out.println("Wir sind in changeTo in Activity angekommen");
+        
+        for (int i = 0; i < 15000000; i++) {}
+        
         this->state = state;
 	}
 
 	// Ausführungszustand abfragen.
 	bool isBlocked()
 	{
+         out.println("Wir sind in isBlocked in Activity angekommen");
+         for (int i = 0; i < 15000000; i++) {}
+        
         if (this -> state == BLOCKED) {
             return true;
         } else {
@@ -119,11 +129,12 @@ public:
 
 	bool isZombie()
 	{
-         if (this->state == ZOMBIE) {
-            return true;
-        } else {
-            return false;
-        }
+        
+         out.println("Wir sind in isZombie in Activity angekommen");
+         for (int i = 0; i < 15000000; i++) {}
+         
+        return (this -> state == ZOMBIE);
+        
 	}
 
 private:

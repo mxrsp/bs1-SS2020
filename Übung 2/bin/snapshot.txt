@@ -1,0 +1,25 @@
+Plex86/Bochs VGABios (PCI) 0.7b 03 Jan 2020
+This VGA/VBE Bios is released under the GNU LGPL
+
+Please visit :
+ . http://bochs.sourceforge.net
+ . http://www.nongnu.org/vgabios
+
+Bochs VBE Display Adapter enabled
+
+Bochs 2.6.10.svn BIOS - build: 01/05/20
+$Revision: 13752 $ $Date: 2019-12-30 14:16:18 +0100 (Mon, 30 Dec 2019) $
+Options: apmbios pcibios pnpbios eltorito rombios32
+
+ata0 master: Generic 1234 ATAPI-4 CD-Rom/DVD-Rom
+
+Press F12 for boot menu.
+
+ß
+
+
+
+
+
+
+
