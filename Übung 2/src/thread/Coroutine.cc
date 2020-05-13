@@ -38,16 +38,22 @@
 		
 		//wenn top of the stack = NULL, nichts machen
 		if(tos == 0) {
+			sp = &tos;
+			return;
 		}
-		//ansonsten setzen
+		//ansonsten neuen stack erstellen
 		else {
-			this -> ebx = 0;
-			this -> edi = 0;
-			this -> esi = 0;
-			this -> ebp = 0;
-			this -> startadresse = ((Coroutine*)startup);
-			this -> returnadresse = 0;
-			this -> routine = this;
-			this -> sp = tos;
+			
+			Coroutine::setStack *set = (Coroutine::setStack*) tos;
+			
+			Coroutine *neueRoutine = this;
+			void *startAdr = (Coroutine*)&startup;
+			
+			set -> startadresse = startAdr;
+			set -> routine = neueRoutine;
+			
+			this -> sp = set;
+			
+			return;
 		}
 	}

@@ -47,6 +47,16 @@ extern "C" {
 
 class Coroutine {
 public:
+
+	struct setStack{
+		unsigned ebx_register = 0;
+		unsigned edi_register = 0;
+		unsigned esi_register = 0;
+		void* ebp_register = 0;
+		void* startadresse;
+		void* returnadresse = 0;
+		Coroutine *routine;
+	};
 	/* Aufsetzen einer neuen Coroutine.
 	*/
 	Coroutine(void* tos = 0)
