@@ -39,9 +39,11 @@ Chain* Queue::dequeue ()
     if (item == 0) {
         out.println("Rueckgabewert ist Null");
     }
+    
     for (int i = 0; i < 30000000; i++) {}
     
 	return item;
+    
 }
 
 

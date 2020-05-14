@@ -73,7 +73,7 @@ unsigned stack1[1024];
 int main()
 {
     cga.blueScreen("ANFANG");
- 	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
+ 	Hello anton("Anton", out, 10); // anton benutzt den Stack von main
     out.println("Anton wurde erzeugt");
  	//Hello berta("Berta", out, &stack0[1024], 2);
     //out.println("Berta wurde erzeugt");
