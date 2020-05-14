@@ -76,7 +76,16 @@ public:
 	void resume(Coroutine* next)
 	{
         out.println("resume wird aufgerufen in Coroutine");
-        for (int i = 0; i < 15000000; i++) {}
+        
+        if (next == 0) {
+        out.println("next ist Null in Coroutine");
+        }
+        
+        if (this->sp == 0) {
+        out.println("Stackpointer ist Null in Coroutine");
+        }
+        
+        for (int i = 0; i < 30000000; i++) {}
 		switchContext(this->sp, next->sp);
 		
         for (int i = 0; i < 15000000; i++) {}

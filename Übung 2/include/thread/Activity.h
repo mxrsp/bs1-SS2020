@@ -89,9 +89,6 @@ public:
 	 */
 	void changeTo(State state)
 	{
-        out.println("Wir sind in changeTo in Activity angekommen");
-        
-        for (int i = 0; i < 15000000; i++) {}
         
         this->state = state;
 	}
@@ -99,8 +96,6 @@ public:
 	// Ausführungszustand abfragen.
 	bool isBlocked()
 	{
-         out.println("Wir sind in isBlocked in Activity angekommen");
-         for (int i = 0; i < 15000000; i++) {}
         
         if (this -> state == BLOCKED) {
             return true;
@@ -129,9 +124,6 @@ public:
 
 	bool isZombie()
 	{
-        
-         out.println("Wir sind in isZombie in Activity angekommen");
-         for (int i = 0; i < 15000000; i++) {}
          
         return (this -> state == ZOMBIE);
         

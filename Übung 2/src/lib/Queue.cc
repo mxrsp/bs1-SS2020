@@ -2,9 +2,22 @@
 
 void Queue::enqueue (Chain* item)
 {
+    
+    out.println("enqueue in Queue wird aufgerufen");
+    
 	item->next = 0; 
 	*tail = item;    
-	tail = &(item->next); 
+	tail = &(item->next);
+    
+    if (tail == 0) {
+        out.println("tail ist Null");   
+    }
+    
+    if (head == 0) {
+        out.println("head ist Null");   
+    }
+    
+    for (int i = 0; i < 30000000; i++) {}
 }
 
 
@@ -20,6 +33,14 @@ Chain* Queue::dequeue ()
 		else              
 			item->next = 0;  
 	}
+	
+	out.println("dequeue in Queue wird aufgerufen");
+    
+    if (item == 0) {
+        out.println("Rueckgabewert ist Null");
+    }
+    for (int i = 0; i < 30000000; i++) {}
+    
 	return item;
 }
 

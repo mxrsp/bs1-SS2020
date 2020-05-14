@@ -2,6 +2,9 @@
 #define Queue_h
 
 #include "lib/Chain.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Queue {
 public:

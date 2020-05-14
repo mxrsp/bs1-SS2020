@@ -35,8 +35,8 @@
         this -> state = READY;
         scheduler = ActivityScheduler();
         out.println("Wir sind im Konstruktor von Activity angekommen");
-        
         for (int i = 0; i < 15000000; i++) {}
+        
         scheduler.start(this);
 	}
 
@@ -76,9 +76,12 @@
         for (int i = 0; i < 15000000; i++) {}
         
         if (this -> isBlocked()) {
-            out.println("If in Activity wird betreten");
+            out.println("Zustand blockiert in Activity");
             this -> state = READY;
-            scheduler.schedule(this);
+            scheduler.schedule((Schedulable*)this);
+        } else {
+             out.println("jetzt passiert gar nichts in wakeup in Activity");
+        for (int i = 0; i < 40000000; i++) {}   
         }
 	}
 
@@ -115,6 +118,7 @@
 	void Activity::join() {
         
         out.println("join in Activity wurde erreicht");
+        for (int i = 0; i < 70000000; i++) {}
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;

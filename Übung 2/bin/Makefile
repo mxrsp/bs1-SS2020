@@ -23,8 +23,7 @@ INITFINI = lib/finit.cc
 # Liste der Quelltexte:
 # (Beim Hinzufuegen neuer Module erweitern!)
 # Achtung!!!! Hinter dem backslash am Zeilenende darf *kein* Zeichen stehen!!
-# Die letzte Zeile bekommt kein backslash!!!
-
+# Die letzte Zeile bekommt kein backslash!!! 
 #
 
 

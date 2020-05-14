@@ -32,24 +32,25 @@
 	 * zuzuteilen.
 	 */
 	void ActivityScheduler::kill(Activity* act) {
-        bool running;
+        bool laeuft;
         
         out.println("kill in ActivityScheduler erreicht");
         
         if (act -> isRunning()) {
-            running = true;
+            laeuft = true;
         } else {
-            running = false;
+            laeuft = false;
         }
         /*
         act -> changeTo(Activity :: BLOCKED);
 		act -> ~Activity();*/
         
-        if (running) {
-            scheduler.remove(act);
+        scheduler.remove(act);
+        
+        if (laeuft) {
+            scheduler.reschedule();
         }
         
-        scheduler.reschedule();
 	}
 
 	/* Terminieren des aktiven Prozesses,
@@ -74,25 +75,14 @@
         
 		Activity* active = (Activity*) this -> active();
         
-        for (int i = 0; i < 15000000; i++) {}
-        out.println("activate kurz vor Schleife in ActivityScheduler erreicht");
-        for (int i = 0; i < 15000000; i++) {}
-        // if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
-        // if (!(active -> isBlocked())) {
-        if (true) {
-            out.println("activate am Anfang von Schleife in ActivityScheduler erreicht");
-            for (int i = 0; i < 15000000; i++) {}
+        if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
             scheduler.schedule(active);
-            out.println("Wir sind in der Schleife in active in ActivityScheduler");
-            for (int i = 0; i < 15000000; i++) {}
-        } else {
-            for (int i = 0; i < 20000000; i++)
-            out.println("Wir sind in der else-Zweig im ActivityScheduler");
         }
         
-        for (int i = 0; i < 20000000; i++)
-            out.println("Wir haben die Schleife verlassen im ActivityScheduler");
-        
+        if (to == 0) {
+                out.println("Zeiger ist Null in ActivityScheduler");
+                for (int i = 0; i < 15000000; i++) {}
+        }
         
         dispatch((Activity*) to);
 	}
