@@ -14,8 +14,6 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 
-
-
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
 	 * da der Thread erst laufen darf, wenn der spezielle Konstruktor
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
@@ -38,6 +36,7 @@
         for (int i = 0; i < 15000000; i++) {}
         
         scheduler.start(this);
+        scheduler.schedule(this);
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.

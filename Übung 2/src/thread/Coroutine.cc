@@ -41,7 +41,7 @@
 		//wenn top of the stack = NULL, nichts machen
 		if(tos == 0) {
             out.println("tos == 0 in Coroutine");
-			sp = &tos;
+			//sp = &tos;
 			return;
 		}
 		//ansonsten neuen stack erstellen
@@ -49,7 +49,6 @@
 			out.println("tos != 0 in Coroutine");
 			Coroutine::setStack *newStack = (Coroutine::setStack*) tos;
 			
-            // newStack--;
             
 			Coroutine *neueRoutine = this;
 			void *startAdr = (Coroutine*)&startup;

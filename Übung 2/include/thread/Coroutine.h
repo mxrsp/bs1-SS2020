@@ -53,9 +53,9 @@ class Coroutine {
 public:
 
 	struct setStack{
-		unsigned ebx_register = 0;
 		unsigned edi_register = 0;
 		unsigned esi_register = 0;
+        unsigned ebx_register = 0;
 		void* ebp_register = 0;
 		void* startadresse;
 		void* returnadresse = 0;
@@ -124,14 +124,6 @@ private:
 	void setup(void* tos);
 
 	void* sp; // Der gerettete Stackpointer
-
-	unsigned ebx;
-	unsigned edi;
-	unsigned esi;
-	void* ebp;
-	void* startadresse;
-	void* returnadresse;
-	Coroutine *routine;
 
 };
 

@@ -75,14 +75,23 @@
         
 		Activity* active = (Activity*) this -> active();
         
+        Activity* next = (Activity*) to;
+        
         if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
             scheduler.schedule(active);
         }
         
-        if (to == 0) {
+        if (next == 0) {
                 out.println("Zeiger ist Null in ActivityScheduler");
                 for (int i = 0; i < 15000000; i++) {}
         }
         
-        dispatch((Activity*) to);
+        while (next == 0) {
+             next = (Activity*)readylist.dequeue();
+             out.println("PARTYYY");
+        }
+        
+        next -> changeTo(Activity :: RUNNING);
+        
+        scheduler.dispatch(next);
 	}

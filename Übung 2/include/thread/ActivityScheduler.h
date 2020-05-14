@@ -20,7 +20,6 @@ class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
 	ActivityScheduler()
 	{
-        blocked = false;
 	}
 
 	/* Initialisieren der ersten Aktivität, des Schedulers

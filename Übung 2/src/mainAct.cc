@@ -75,10 +75,10 @@ int main()
     cga.blueScreen("ANFANG");
  	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
     out.println("Anton wurde erzeugt");
- 	Hello berta("Berta", out, &stack0[1024], 2);
-    out.println("Berta wurde erzeugt");
+ 	//Hello berta("Berta", out, &stack0[1024], 2);
+    //out.println("Berta wurde erzeugt");
     anton.body();
-    berta.body();
+    //berta.body();
     out.println("ENDE");
     for (int i = 0; i < 15000000; i++) {}
 // 	Hello caesar("Caesar", out, &stack1[1024], 15);

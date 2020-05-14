@@ -89,7 +89,6 @@ public:
 	 */
 	void changeTo(State state)
 	{
-        
         this->state = state;
 	}
 

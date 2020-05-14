@@ -20,8 +20,8 @@
         if (sched == 0) {
             out.println("Der Pointer in Scheduler ist Null");
         }
-        
         for (int i = 0; i < 40000000; i++) {}
+        
         readylist.enqueue(sched);
 	}
 
@@ -42,7 +42,7 @@
         
         if (firstElement == 0) {
                 out.println("FirstElement ist Null im Scheduler");
-                for (int i = 0; i < 500000000; i++) {}
+                for (int i = 0; i < 70000000; i++) {}
         }
         
             out.println("FirstElement wurde hinzugefuegt");
