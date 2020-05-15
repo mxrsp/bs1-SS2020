@@ -31,12 +31,11 @@
 	 */
 	Activity::Activity() : Coroutine(), state(BLOCKED) {
         this -> state = READY;
-        scheduler = ActivityScheduler();
         out.println("Wir sind im Konstruktor von Activity angekommen");
         for (int i = 0; i < 15000000; i++) {}
         
         scheduler.start(this);
-        scheduler.schedule(this);
+        // scheduler.schedule(this);
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
