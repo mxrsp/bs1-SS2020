@@ -35,7 +35,7 @@
         for (int i = 0; i < 15000000; i++) {}
         
         scheduler.start(this);
-        // scheduler.schedule(this);
+        scheduler.schedule((Schedulable*)this);
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -46,7 +46,8 @@
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
 	Activity::~Activity() {
-        this -> exit();
+        // this -> exit();
+        scheduler.kill(this);
 	}
 	
 	void Activity :: operator delete (void* p, unsigned int i) {

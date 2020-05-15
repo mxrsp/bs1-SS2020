@@ -41,9 +41,8 @@
         } else {
             laeuft = false;
         }
-        /*
+        
         act -> changeTo(Activity :: BLOCKED);
-		act -> ~Activity();*/
         
         scheduler.remove(act);
         
@@ -61,6 +60,8 @@
 		Activity* active = (Activity*) this -> active();
         active -> exit();
         
+        // TODO: Welches exit wird wann aufgerufen-> vgl Activity
+        
         scheduler.reschedule();
 	}
 
@@ -75,9 +76,13 @@
         
 		Activity* active = (Activity*) this -> active();
         
+        out.print(active -> getNameActivity());
+        out.println(" ist derzeit der aktive Prozess");
+        
         Activity* next = (Activity*) to;
         
         if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
+            scheduler.reschedule();
             scheduler.schedule(active);
         }
         
@@ -86,12 +91,18 @@
                 for (int i = 0; i < 15000000; i++) {}
         }
         
-        while (next == 0) {
-             next = (Activity*)readylist.dequeue();
-             out.println("PARTYYY");
-        }
-        
-        next -> changeTo(Activity :: RUNNING);
+//         while (next == 0) {
+//              next = (Activity*)readylist.dequeue();
+//              out.println("PARTYYY");
+//         }
         
         scheduler.dispatch(next);
+        
+        // hier wird danach irgendwann Berta 0 ausgegeben
+        // es muss eigentlich das Zeug hier drunter ausgegeben werden !!
+        
+        Activity* neuerAct = (Activity*) this -> active();
+        out.print(neuerAct -> getNameActivity());
+        out.println(" ist der NEUE aktive Prozess");
+        
 	}

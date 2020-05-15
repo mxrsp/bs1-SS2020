@@ -17,6 +17,9 @@
 	void Scheduler::schedule(Schedulable* sched) {
         out.println("schedule in Scheduler wurd erreicht");
         
+        out.print(((Activity*)sched) -> getNameActivity());
+        out.println(" wird in die Readyliste eingefuegt");
+        
         if (sched == 0) {
             out.println("Der Pointer in Scheduler ist Null");
         }
@@ -40,12 +43,16 @@
         
         firstElement = (Schedulable*) readylist.dequeue();
         
+        out.print(((Activity*)firstElement) -> getNameActivity());
+        out.println(" wird von der Readyliste geloescht");
+        
         if (firstElement == 0) {
                 out.println("FirstElement ist Null im Scheduler");
                 for (int i = 0; i < 70000000; i++) {}
         }
         
-            out.println("FirstElement wurde hinzugefuegt");
-            for (int i = 0; i < 40000000; i++) {}
-            this -> activate(firstElement);
+        
+        
+        for (int i = 0; i < 40000000; i++) {}
+        this -> activate(firstElement);
 	}

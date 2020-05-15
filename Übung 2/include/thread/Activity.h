@@ -127,11 +127,20 @@ public:
         return (this -> state == ZOMBIE);
         
 	}
+	
+	void setNameActivity (const char* str) {
+        this -> name = str;
+    }
+    
+    const char* getNameActivity() {
+        return this -> name;
+    }
 
 private:
     
     State state;
     Activity* sleepingProcess;
+    const char* name;
 };
 
 #endif
