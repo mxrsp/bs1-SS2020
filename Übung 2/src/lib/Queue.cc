@@ -1,10 +1,7 @@
 #include "lib/Queue.h"
 
 void Queue::enqueue (Chain* item)
-{
-    
-    out.println("enqueue in Queue wird aufgerufen");
-    
+{   
 	item->next = 0; 
 	*tail = item;    
 	tail = &(item->next);
@@ -33,8 +30,6 @@ Chain* Queue::dequeue ()
 		else              
 			item->next = 0;  
 	}
-	
-	out.println("dequeue in Queue wird aufgerufen");
     
     if (item == 0) {
         out.println("Rueckgabewert ist Null");

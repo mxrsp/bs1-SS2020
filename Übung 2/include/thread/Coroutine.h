@@ -88,8 +88,6 @@ public:
         for (int i = 0; i < 30000000; i++) {}
 		switchContext(this->sp, next->sp);
 		
-        for (int i = 0; i < 15000000; i++) {}
-        out.println("resume ist nun fertig in Coroutine");
 	}
 
 	/* Dies ist der Rumpf der Coroutine
