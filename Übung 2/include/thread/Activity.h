@@ -123,9 +123,7 @@ public:
 
 	bool isZombie()
 	{
-         
         return (this -> state == ZOMBIE);
-        
 	}
 	
 	void setNameActivity (const char* str) {
@@ -134,6 +132,22 @@ public:
     
     const char* getNameActivity() {
         return this -> name;
+    }
+    
+    const char* getState() {
+       const char* status;
+       
+       if (isBlocked()) {
+           status = "blockiert";
+       } else if (isReady()) {
+            status = "ready";
+       } else if (isRunning()) {
+            status = "running";
+       } else if (isZombie()) {
+            status = "Zombie";
+       }
+       
+       return status;
     }
 
 private:

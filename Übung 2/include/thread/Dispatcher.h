@@ -28,10 +28,6 @@ public:
 	 */
 	void init(Coroutine* act) 
 	{ 
-        out.println("Wir sind in init im Dispatcher angekommen");
-        
-        for (int i = 0; i < 15000000; i++) {}
-        
 		running = act; 
 	}
 
@@ -50,10 +46,6 @@ public:
 	void dispatch(Coroutine* next)
 	{
 		Coroutine* curr = running;
-        
-        out.println("Wir sind in dispatch im Dispatcher");
-
-        for (int i = 0; i < 15000000; i++) {}
         
 		running = next;
         

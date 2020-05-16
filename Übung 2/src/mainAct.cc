@@ -16,7 +16,7 @@ public:
 	Hello(const char* name, PrintStream& out, int count=10)
 		: cout(out)
 	{
-        cout.println("Konstruktor Variante 1 wird in main aufgerufen");
+        // cout.println("Konstruktor Variante 1 wird in main aufgerufen");
         
 		this->name = name;
 		this->count = count;
@@ -27,7 +27,7 @@ public:
 	Hello(const char* name, PrintStream& out, void* sp, int count=10)
 		: Activity(sp), cout(out)
 	{
-        cout.println("Konstruktor Variante 2 wird in main aufgerufen");
+        // cout.println("Konstruktor Variante 2 wird in main aufgerufen");
         
 		this->name = name;
 		this->count = count;
@@ -44,7 +44,8 @@ public:
 	void body()
 	{
 		for(int i=0; i<=count; i++) {
-			cout.print(name);
+			cout.print("       ");
+            cout.print(name);
 			cout.print(" ");
 			cout.print(i);
 			cout.println();
@@ -76,14 +77,16 @@ unsigned stack1[1024];
 
 int main()
 {
-    cga.blueScreen("ANFANG");
+    cga.blueScreen("       ANFANG");
  	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
-    out.println("Anton wurde erzeugt");
- 	Hello berta("Berta", out, &stack0[1024], 2);
-    out.println("Berta wurde erzeugt");
-    // anton.body();
+    out.println("       Anton wurde erzeugt");
+ 	Hello berta("Berta", out, &stack0[1023], 0);
+    out.println("       Berta wurde erzeugt");
+    anton.body();
+    out.println("       Body von Anton ist fertig");
+    for (int i = 0; i < 25000000; i++) {}
     berta.body();
-    out.println("ENDE");
+    out.println("       ENDE");
     for (int i = 0; i < 15000000; i++) {}
 // 	Hello caesar("Caesar", out, &stack1[1024], 15);
 // 

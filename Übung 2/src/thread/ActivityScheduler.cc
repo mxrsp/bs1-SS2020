@@ -77,14 +77,11 @@
 		Activity* active = (Activity*) this -> active();
         
         out.print(active -> getNameActivity());
-        out.println(" ist derzeit der aktive Prozess");
+        out.print(" ist derzeit der aktive Prozess und dieser hat den Zustand: ");
+        out.println(active -> getState());
+        active -> changeTo(Activity :: READY);
         
         Activity* next = (Activity*) to;
-        
-        if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
-            scheduler.reschedule();
-            scheduler.schedule(active);
-        }
         
         if (next == 0) {
                 out.println("Zeiger ist Null in ActivityScheduler");
@@ -95,14 +92,21 @@
 //              next = (Activity*)readylist.dequeue();
 //              out.println("PARTYYY");
 //         }
+
+        if (!(active -> isZombie()) || (active -> isBlocked())){
+            // scheduler.reschedule();
+            scheduler.schedule(active);
+        }
         
         scheduler.dispatch(next);
+        next -> changeTo(Activity :: RUNNING);
         
         // hier wird danach irgendwann Berta 0 ausgegeben
         // es muss eigentlich das Zeug hier drunter ausgegeben werden !!
         
         Activity* neuerAct = (Activity*) this -> active();
         out.print(neuerAct -> getNameActivity());
-        out.println(" ist der NEUE aktive Prozess");
+        out.print(" ist der NEUE aktive Prozess und dieser hat den Zustand: ");
+        out.println(neuerAct -> getState());
         
 	}

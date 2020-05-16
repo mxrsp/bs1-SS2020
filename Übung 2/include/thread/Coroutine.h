@@ -53,20 +53,18 @@ class Coroutine {
 public:
 
 	struct setStack{
-		unsigned edi_register = 0;
-		unsigned esi_register = 0;
-        unsigned ebx_register = 0;
-		void* ebp_register = 0;
+		unsigned edi_register;
+		unsigned esi_register;
+        unsigned ebx_register;
+		void* ebp_register;
 		void* startadresse;
-		void* returnadresse = 0;
+		void* returnadresse;
 		Coroutine *routine;
 	};
 	/* Aufsetzen einer neuen Coroutine.
 	*/
 	Coroutine(void* tos = 0)
 	{
-        out.println("Konstruktor wird in Coroutine aufgerufen");
-        
 		setup(tos);
 	}
 
@@ -75,7 +73,6 @@ public:
 	 */
 	void resume(Coroutine* next)
 	{
-        out.println("resume wird aufgerufen in Coroutine");
         
         if (next == 0) {
         out.println("next ist Null in Coroutine");
@@ -85,9 +82,13 @@ public:
         out.println("Stackpointer ist Null in Coroutine");
         }
         
+        out.println("Coroutine wird gewechselt in der Klasse Coroutine");
         for (int i = 0; i < 30000000; i++) {}
+        
 		switchContext(this->sp, next->sp);
-		
+        
+        out.println("Der Wechsel wurde vollzogen");
+        for (int i = 0; i < 30000000; i++) {}
 	}
 
 	/* Dies ist der Rumpf der Coroutine

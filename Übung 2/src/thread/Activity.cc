@@ -20,6 +20,8 @@
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
 	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
+        out.println("Aufruf Konstruktor Activity, Zeiger ist belegt");
+        for (int i = 0; i < 15000000; i++) {}
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -31,11 +33,11 @@
 	 */
 	Activity::Activity() : Coroutine(), state(BLOCKED) {
         this -> state = READY;
-        out.println("Wir sind im Konstruktor von Activity angekommen");
-        for (int i = 0; i < 15000000; i++) {}
-        
         scheduler.start(this);
-        scheduler.schedule((Schedulable*)this);
+        // scheduler.schedule((Schedulable*)this);
+        
+        out.println("Aufruf Konstruktor Activity, diese Aktivitaet wird erster laufender Prozess");
+        for (int i = 0; i < 15000000; i++) {}
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -58,7 +60,6 @@
 	 */
 	void Activity::sleep() {
 	
-        
         if (this->isRunning()) {
             scheduler.suspend();
         } else {
@@ -77,17 +78,16 @@
         if (this -> isBlocked()) {
             out.println("Zustand blockiert in Activity");
             this -> state = READY;
-            scheduler.schedule((Schedulable*)this);
+            scheduler.schedule(this);
         } else {
-             out.println("jetzt passiert gar nichts in wakeup in Activity");
-        for (int i = 0; i < 40000000; i++) {}   
+             out.println("Zustand ist nicht blockiert in Activity");
+             for (int i = 0; i < 40000000; i++) {}   
         }
 	}
 
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
-		
         out.println("Wir sind in yield in Activity angekommen");
         
         for (int i = 0; i < 15000000; i++) {}

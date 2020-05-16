@@ -5,16 +5,6 @@ void Queue::enqueue (Chain* item)
 	item->next = 0; 
 	*tail = item;    
 	tail = &(item->next);
-    
-    if (tail == 0) {
-        out.println("tail ist Null");   
-    }
-    
-    if (head == 0) {
-        out.println("head ist Null");   
-    }
-    
-    for (int i = 0; i < 30000000; i++) {}
 }
 
 
@@ -30,12 +20,6 @@ Chain* Queue::dequeue ()
 		else              
 			item->next = 0;  
 	}
-    
-    if (item == 0) {
-        out.println("Rueckgabewert ist Null");
-    }
-    
-    for (int i = 0; i < 30000000; i++) {}
     
 	return item;
     

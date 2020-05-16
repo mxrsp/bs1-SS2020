@@ -29,10 +29,6 @@ public:
 	void start(Activity* act)
 	{
         
-        out.println("Wir sind in start von ActivityScheduler angekommen");
-        
-        for (int i = 0; i < 15000000; i++) {}
-        
         act -> changeTo(Activity :: RUNNING);
         
         Coroutine* c = (Coroutine*) act;
