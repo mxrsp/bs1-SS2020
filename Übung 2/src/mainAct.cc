@@ -16,7 +16,6 @@ public:
 	Hello(const char* name, PrintStream& out, int count=10)
 		: cout(out)
 	{
-        // cout.println("Konstruktor Variante 1 wird in main aufgerufen");
         
 		this->name = name;
 		this->count = count;
@@ -27,7 +26,6 @@ public:
 	Hello(const char* name, PrintStream& out, void* sp, int count=10)
 		: Activity(sp), cout(out)
 	{
-        // cout.println("Konstruktor Variante 2 wird in main aufgerufen");
         
 		this->name = name;
 		this->count = count;
@@ -52,9 +50,8 @@ public:
 			cout.print(" ");
 			cout.print(i);
 			cout.println();
-
-            for (int i = 0; i < 15000000; i++) {}
-			yield();
+            
+			yield(); 
 		}
 	}
 
@@ -85,10 +82,11 @@ int main()
     out.println("       Anton wurde erzeugt");
  	Hello berta("Berta", out, &stack0[1023], 2);
     out.println("       Berta wurde erzeugt");
+    Hello caesar("Caesar", out, &stack1[1024], 3);
+    out.println("       Caesar wurde erzeugt");
     anton.body();
     out.println("       Body von Anton ist fertig");
-    for (int i = 0; i < 25000000; i++) {}
+    for (int i = 0; i < 30000000; i++) {}
     out.println("       ENDE");
-    for (int i = 0; i < 15000000; i++) {}
-// 	Hello caesar("Caesar", out, &stack1[1024], 15);
+    for (int i = 0; i < 30000000; i++) {}
 }

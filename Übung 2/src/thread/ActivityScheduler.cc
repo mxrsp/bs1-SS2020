@@ -19,7 +19,7 @@
         Activity* active = (Activity*) scheduler.active();
         out.print(active -> getNameActivity());
         out.print(" wird im ActivityScheduler suspendiert (Zustand ist nun BLOCKED)");
-        for (int i = 0; i < 20000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         
         active -> changeTo(Activity :: BLOCKED);
         
@@ -38,7 +38,7 @@
         
         out.print(act -> getNameActivity());
         out.println(" wird vom ActivityScheduler umgebracht");
-        for (int i = 0; i < 40000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         
         if (act -> isRunning()) {
             laeuft = true;
@@ -79,13 +79,14 @@
         
         out.print(active -> getNameActivity());
         out.print(" ist derzeit der aktive Prozess und dieser hat den Zustand: ");
+        out.println();
         out.println(active -> getState());
         
         Activity* next = (Activity*) to;
         
         if (next == 0) {
                 out.println("Zeiger ist Null in ActivityScheduler");
-                for (int i = 0; i < 15000000; i++) {}
+                for (int i = 0; i < 30000000; i++) {}
         }
 
         // es gibt nur 4 Zustände

@@ -24,7 +24,7 @@
             out.println("Der Pointer in Scheduler ist Null");
         }
         
-        for (int i = 0; i < 40000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         
         readylist.enqueue(sched);
 	}
@@ -33,7 +33,7 @@
 	void Scheduler::remove(Schedulable* sched) {
         out.print(((Activity*)sched) -> getNameActivity());
         out.println(" wird von der Readyliste geloescht");
-        for (int i = 0; i < 40000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         
         readylist.remove(sched);
 	}
@@ -49,11 +49,11 @@
         
         if (firstElement == 0) {
                 out.println("FirstElement ist Null im Scheduler");
-                for (int i = 0; i < 40000000; i++) {}
+                for (int i = 0; i < 30000000; i++) {}
         } else {
                 out.print(((Activity*)firstElement) -> getNameActivity());
                 out.println(" wird von der Readyliste geloescht und gleich aktiviert");
-                for (int i = 0; i < 40000000; i++) {}
+                for (int i = 0; i < 30000000; i++) {}
                 this -> activate(firstElement);
         }
         

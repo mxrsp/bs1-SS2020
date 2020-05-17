@@ -21,7 +21,7 @@
 	*/
 	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
         out.println("Aufruf Konstruktor Activity, Zeiger ist belegt");
-        for (int i = 0; i < 15000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -36,7 +36,7 @@
         scheduler.start(this);
         
         out.println("Aufruf Konstruktor Activity, diese Aktivitaet wird erster laufender Prozess");
-        for (int i = 0; i < 15000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -54,12 +54,10 @@
         out.println(" aufgerufen");
         
         join();
-        // scheduler.kill(this);
-        // scheduler.exit();
+        exit();
 	}
 	
 	void Activity :: operator delete (void* p, unsigned int i) {
-        // hier muss vielleicht irgendwas passieren
     }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
@@ -68,7 +66,7 @@
 	    
         out.print(this -> getNameActivity());
         out.println(" wird schlafen gelegt in Activity");
-        for (int i = 0; i < 15000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         scheduler.suspend();
         
     }
@@ -78,7 +76,7 @@
 	void Activity::wakeup() {
         
         out.println("wakeup in Activity wurde erreicht");
-        for (int i = 0; i < 15000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         
         if (this -> isBlocked()) {
             out.print(this -> getNameActivity());
@@ -87,7 +85,7 @@
             scheduler.schedule(this);
         } else {
              out.println("Zustand ist nicht blockiert in Activity, es wird nichts aufgeweckt");
-             for (int i = 0; i < 40000000; i++) {}   
+             for (int i = 0; i < 30000000; i++) {}   
         }
 	}
 
@@ -96,7 +94,7 @@
 	void Activity::yield() {
         out.println("Wir sind in yield in Activity angekommen");
         
-        for (int i = 0; i < 15000000; i++) {}
+        for (int i = 0; i < 30000000; i++) {}
         scheduler.reschedule();
 	}
 
