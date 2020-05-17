@@ -17,7 +17,7 @@
 	 */
 	void ActivityScheduler::suspend()	{
         out.println("suspend in  ActivityScheduler");
-        Activity* active = (Activity*) this -> active();
+        Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
         
@@ -34,7 +34,9 @@
 	void ActivityScheduler::kill(Activity* act) {
         bool laeuft;
         
-        out.println("kill in ActivityScheduler erreicht");
+        out.print(act -> getNameActivity());
+        out.println(" wird vom ActivityScheduler umgebracht");
+        for (int i = 0; i < 40000000; i++) {}
         
         if (act -> isRunning()) {
             laeuft = true;
@@ -42,14 +44,13 @@
             laeuft = false;
         }
         
-        act -> changeTo(Activity :: BLOCKED);
+        act -> changeTo(Activity :: ZOMBIE);
         
         scheduler.remove(act);
         
         if (laeuft) {
             scheduler.reschedule();
-        }
-        
+        } 
 	}
 
 	/* Terminieren des aktiven Prozesses,
@@ -57,7 +58,7 @@
 	 */
 	void ActivityScheduler::exit() {
         out.println("exit in ActivityScheduler erreicht");
-		Activity* active = (Activity*) this -> active();
+		Activity* active = (Activity*) scheduler.active();
         active -> exit();
         
         // TODO: Welches exit wird wann aufgerufen-> vgl Activity
@@ -74,7 +75,7 @@
         
         out.println("activate in ActivityScheduler erreicht");
         
-		Activity* active = (Activity*) this -> active();
+		Activity* active = (Activity*) scheduler.active();
         
         out.print(active -> getNameActivity());
         out.print(" ist derzeit der aktive Prozess und dieser hat den Zustand: ");
@@ -93,20 +94,20 @@
 //              out.println("PARTYYY");
 //         }
 
-        if (!(active -> isZombie()) || (active -> isBlocked())){
+        if ((active -> isZombie() == false) && (active -> isBlocked() == false)){
             // scheduler.reschedule();
             scheduler.schedule(active);
         }
         
-        scheduler.dispatch(next);
         next -> changeTo(Activity :: RUNNING);
+        scheduler.dispatch(next);
         
-        // hier wird danach irgendwann Berta 0 ausgegeben
-        // es muss eigentlich das Zeug hier drunter ausgegeben werden !!
-        
-        Activity* neuerAct = (Activity*) this -> active();
+        Activity* neuerAct = (Activity*) scheduler.active();
         out.print(neuerAct -> getNameActivity());
         out.print(" ist der NEUE aktive Prozess und dieser hat den Zustand: ");
         out.println(neuerAct -> getState());
+        
+        // hier wird danach irgendwann Berta 0 ausgegeben
+        // es muss eigentlich das Zeug hier drunter ausgegeben werden !!
         
 	}

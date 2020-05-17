@@ -57,7 +57,8 @@ public:
 		unsigned esi_register;
         unsigned ebx_register;
 		void* ebp_register;
-		void* startadresse;
+		// void* startadresse;
+        void (*coroutine) (Coroutine*);
 		void* returnadresse;
 		Coroutine *routine;
 	};

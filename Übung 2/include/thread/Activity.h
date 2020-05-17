@@ -153,7 +153,7 @@ public:
 private:
     
     State state;
-    Activity* sleepingProcess;
+    Activity* sleepingProcess = 0;
     const char* name;
 };
 

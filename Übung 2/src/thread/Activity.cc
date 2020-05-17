@@ -46,8 +46,14 @@
 	 * wurde und diese Aktivitaet daher keine Laufzeit mehr erhalten darf.
 	 * Das Warten auf die Beendigung (mittels join()) muss im Destruktor der
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
+     * 
+     *  wird automatisch durch den Destruktor ~Hello() aufgerufen
 	 */
 	Activity::~Activity() {
+        out.print("in Activity wurde der Destruktor von ");
+        out.print(this -> getNameActivity());
+        out.println(" aufgerufen");
+        
         // this -> exit();
         scheduler.kill(this);
 	}
@@ -76,11 +82,12 @@
         for (int i = 0; i < 15000000; i++) {}
         
         if (this -> isBlocked()) {
-            out.println("Zustand blockiert in Activity");
+            out.print(this -> getNameActivity());
+            out.println(" ist blockiert in Activity, Zustand wird auf READY gesetzt");
             this -> state = READY;
             scheduler.schedule(this);
         } else {
-             out.println("Zustand ist nicht blockiert in Activity");
+             out.println("Zustand ist nicht blockiert in Activity, es wird nichts aufgeweckt");
              for (int i = 0; i < 40000000; i++) {}   
         }
 	}
@@ -96,12 +103,14 @@
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
 	 * auf die Beendigung wartende Aktivität geweckt werden.
+     * 
 	 */
 	void Activity::exit() {
         
-        out.println("exit in Activity wurde erreicht");
+        out.print(this -> getNameActivity());
+        out.println(" soll terminiert werden in Activity");
 	
-        if (sleepingProcess != 0) {
+        if (!(sleepingProcess == 0)) {
             Activity* wakeupedProcess = sleepingProcess;
             sleepingProcess = 0;
             wakeupedProcess -> wakeup();

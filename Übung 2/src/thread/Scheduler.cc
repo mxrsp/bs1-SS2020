@@ -31,7 +31,10 @@
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
-        out.println("remove in Scheduler wurd erreicht");
+        out.print(((Activity*)sched) -> getNameActivity());
+        out.println(" wird von der Readyliste geloescht");
+        for (int i = 0; i < 40000000; i++) {}
+        
         readylist.remove(sched);
 	}
 
@@ -49,7 +52,7 @@
                 for (int i = 0; i < 40000000; i++) {}
         } else {
                 out.print(((Activity*)firstElement) -> getNameActivity());
-                out.println(" wird von der Readyliste geloescht");
+                out.println(" wird von der Readyliste geloescht und gleich aktiviert");
                 for (int i = 0; i < 40000000; i++) {}
                 this -> activate(firstElement);
         }
