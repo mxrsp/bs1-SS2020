@@ -76,14 +76,14 @@
             
             out.println("Coroutine setup wird aufgerufen und tos ist belegt");
             for (int i = 0; i < 30000000; i++) {}
-            Coroutine::setStack *newStack = (Coroutine::setStack*) tos;
+            Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
             Coroutine *neueRoutine = this;
 		
-			newStack -> coroutine = startup;
-			newStack -> routine = neueRoutine;
+			setUp-> coroutine = startup;
+			setUp -> routine = neueRoutine;
 			
-			this -> sp = newStack;
+			this -> sp = setUp;
         }
 			
         

@@ -52,7 +52,7 @@ extern "C" {
 class Coroutine {
 public:
 
-	struct setStack{
+	struct setUpCoroutine{
 		unsigned edi_register;
 		unsigned esi_register;
         unsigned ebx_register;
