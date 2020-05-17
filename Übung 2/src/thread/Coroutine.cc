@@ -26,17 +26,17 @@
 	 */
 	void Coroutine::startup(Coroutine* obj) {
         out.println("Coroutine startup wird aufgerufen");
-        for (int i = 0; i < 30000000; i++) {}
+        for (int i = 0; i < 50000000; i++) {}
         
 		obj -> body();
         
         out.println("Der Body in Coroutine startup ist abgearbeitet");
-        for (int i = 0; i < 30000000; i++) {}
+        for (int i = 0; i < 50000000; i++) {}
 		
 		obj -> exit();
         
         out.println("Exit in Coroutine startup ist abgearbeitet");
-        for (int i = 0; i < 30000000; i++) {}
+        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Aufsetzen einer neuen Coroutine.
@@ -75,12 +75,12 @@
         if (!(tos)==0) {
             
             out.println("Coroutine setup wird aufgerufen und tos ist belegt");
-            for (int i = 0; i < 30000000; i++) {}
+            for (int i = 0; i < 50000000; i++) {}
             Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
             Coroutine *neueRoutine = this;
 		
-			setUp-> coroutine = startup;
+			setUp -> coroutine = startup;
 			setUp -> routine = neueRoutine;
 			
 			this -> sp = setUp;

@@ -40,6 +40,7 @@ public:
         cout.print("       Destruktor in main wird aufgerufen von ");
         cout.print(this -> name);
         cout.println();
+        for (int i = 0; i < 50000000; i++) {}
 	}
 	
 	void body()
@@ -86,7 +87,7 @@ int main()
     out.println("       Caesar wurde erzeugt");
     anton.body();
     out.println("       Body von Anton ist fertig");
-    for (int i = 0; i < 30000000; i++) {}
+    for (int i = 0; i < 50000000; i++) {}
     out.println("       ENDE");
-    for (int i = 0; i < 30000000; i++) {}
+    for (int i = 0; i < 50000000; i++) {}
 }

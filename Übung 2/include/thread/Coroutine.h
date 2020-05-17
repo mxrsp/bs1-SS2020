@@ -57,7 +57,6 @@ public:
 		unsigned esi_register;
         unsigned ebx_register;
 		void* ebp_register;
-		// void* startadresse;
         void (*coroutine) (Coroutine*);
 		void* returnadresse;
 		Coroutine *routine;
@@ -84,12 +83,12 @@ public:
         }
         
         out.println("Coroutine wird gewechselt in der Klasse Coroutine");
-        for (int i = 0; i < 30000000; i++) {}
+        for (int i = 0; i < 50000000; i++) {}
         
 		switchContext(this->sp, next->sp);
         
         out.println("Der Wechsel wurde vollzogen");
-        for (int i = 0; i < 30000000; i++) {}
+        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Dies ist der Rumpf der Coroutine
