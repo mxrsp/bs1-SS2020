@@ -25,16 +25,18 @@ switchContext:
 ;	fuegt hier Euren Code ein!
 	push ebp
 	mov ebp, esp
-		
+	
+	;retten nichtflüchtige register
 	push edi
 	push esi
 	push ebx
 	
-	mov eax, [ebp + 8]
-	mov [eax], esp
-	mov eax, [ebp + 12]
-	mov esp, [eax]
+	mov eax, [ebp + 8] ;laden wert von from auf eax
+	mov [eax], esp	;sichern den stackpointer an der adresse, auf die from verweist
+	mov eax, [ebp + 12] ;laden den wert von to auf eax
+	mov esp, [eax]	;setzen den neuen esp 
 	
+	;poppen register wieder
 	pop ebx
 	pop esi
 	pop edi
