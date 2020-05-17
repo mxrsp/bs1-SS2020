@@ -91,7 +91,4 @@ int main()
     out.println("       ENDE");
     for (int i = 0; i < 15000000; i++) {}
 // 	Hello caesar("Caesar", out, &stack1[1024], 15);
-// 
-    
 }
-

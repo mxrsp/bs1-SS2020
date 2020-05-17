@@ -64,7 +64,6 @@ protected:
 	virtual void activate(Schedulable* to);
 
 private:
-    bool blocked;
     
 };
 

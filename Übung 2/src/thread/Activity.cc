@@ -34,7 +34,6 @@
 	Activity::Activity() : Coroutine(), state(BLOCKED) {
         this -> state = READY;
         scheduler.start(this);
-        // scheduler.schedule((Schedulable*)this);
         
         out.println("Aufruf Konstruktor Activity, diese Aktivitaet wird erster laufender Prozess");
         for (int i = 0; i < 15000000; i++) {}
@@ -54,8 +53,9 @@
         out.print(this -> getNameActivity());
         out.println(" aufgerufen");
         
-        // this -> exit();
-        scheduler.kill(this);
+        join();
+        // scheduler.kill(this);
+        // scheduler.exit();
 	}
 	
 	void Activity :: operator delete (void* p, unsigned int i) {
@@ -65,13 +65,12 @@
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void Activity::sleep() {
-	
-        if (this->isRunning()) {
-            scheduler.suspend();
-        } else {
-            this->state = BLOCKED;
-            //scheduler.remove(this); //wird aus der rdy list entfernt
-        }
+	    
+        out.print(this -> getNameActivity());
+        out.println(" wird schlafen gelegt in Activity");
+        for (int i = 0; i < 15000000; i++) {}
+        scheduler.suspend();
+        
     }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet aufzuwecken.

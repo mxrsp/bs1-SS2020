@@ -84,7 +84,7 @@
 			setUp -> routine = neueRoutine;
 			
 			this -> sp = setUp;
-        }
-			
-        
+        } else {
+            sp = &tos;
+        } 
 	}
