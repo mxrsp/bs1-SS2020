@@ -15,10 +15,6 @@
  *
  */
 
-#include "io/PrintStream.h"
-
-extern PrintStream out;
-
 
 /* Diese Deklaration verweist auf die von Euch zu
  * implementierende Assemblerprozedur "switchContext".
@@ -73,22 +69,7 @@ public:
 	 */
 	void resume(Coroutine* next)
 	{
-        
-        if (next == 0) {
-        out.println("next ist Null in Coroutine");
-        }
-        
-        if (this->sp == 0) {
-        out.println("Stackpointer ist Null in Coroutine");
-        }
-        
-        out.println("Coroutine wird gewechselt in der Klasse Coroutine");
-        for (int i = 0; i < 50000000; i++) {}
-        
 		switchContext(this->sp, next->sp);
-        
-        out.println("Der Wechsel wurde vollzogen");
-        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Dies ist der Rumpf der Coroutine

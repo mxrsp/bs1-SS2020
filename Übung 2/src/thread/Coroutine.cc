@@ -25,18 +25,9 @@
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	void Coroutine::startup(Coroutine* obj) {
-        out.println("Coroutine startup wird aufgerufen");
-        for (int i = 0; i < 50000000; i++) {}
-        
 		obj -> body();
-        
-        out.println("Der Body in Coroutine startup ist abgearbeitet");
-        for (int i = 0; i < 50000000; i++) {}
 		
 		obj -> exit();
-        
-        out.println("Exit in Coroutine startup ist abgearbeitet");
-        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Aufsetzen einer neuen Coroutine.
@@ -46,36 +37,7 @@
 	 */
 	void Coroutine::setup(void* tos) {
 		
-        // out.println("setup in Coroutine wird aufgerufen");
-        
-		//wenn top of the stack = NULL, nichts machen
-// 		if(tos == 0) {
-//             out.println("tos == 0 in Coroutine");
-// 			sp = &tos;
-// 			return;
-// 		}
-// 		ansonsten neuen stack erstellen
-// 		else {
-// 			out.println("tos != 0 in Coroutine");
-// 			Coroutine::setStack *newStack = (Coroutine::setStack*) tos;
-//             
-// 			Coroutine *neueRoutine = this;
-// 			void *startAdr = (Coroutine*)&startup;
-// 			
-// 			newStack -> startadresse = startAdr;
-// 			newStack -> routine = neueRoutine;
-// 			
-// 			this -> sp = newStack;
-// 			
-// 			return;
-// 		}
-        
-        // neue Variante von Vincent
-        
         if (!(tos)==0) {
-            
-            out.println("Coroutine setup wird aufgerufen und tos ist belegt");
-            for (int i = 0; i < 50000000; i++) {}
             Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
             Coroutine *neueRoutine = this;

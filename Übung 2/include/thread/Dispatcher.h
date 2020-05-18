@@ -12,9 +12,6 @@
  */
 
 #include "thread/Coroutine.h"
-#include "io/PrintStream.h"
-
-extern PrintStream out;
 
 class Dispatcher {
 public:
@@ -27,7 +24,7 @@ public:
 	 * Wird nur einmal zur Initialisierung aufgerufen!!
 	 */
 	void init(Coroutine* act) 
-	{ 
+	{
 		running = act; 
 	}
 

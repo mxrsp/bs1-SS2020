@@ -12,10 +12,6 @@
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
 
-#include "io/PrintStream.h"
-
-extern PrintStream out;
-
 class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
 	ActivityScheduler()

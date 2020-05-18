@@ -15,9 +15,6 @@
 
 #include "thread/Schedulable.h"
 #include "thread/Coroutine.h"
-#include "io/PrintStream.h"
-
-extern PrintStream out;
 
 class Activity: public Schedulable, public Coroutine {
 public:

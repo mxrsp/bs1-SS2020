@@ -17,9 +17,6 @@
 	 */
 	void ActivityScheduler::suspend()	{
         Activity* active = (Activity*) scheduler.active();
-        out.print(active -> getNameActivity());
-        out.print(" wird im ActivityScheduler suspendiert (Zustand ist nun BLOCKED)");
-        for (int i = 0; i < 50000000; i++) {}
         
         active -> changeTo(Activity :: BLOCKED);
         
@@ -35,10 +32,6 @@
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         bool laeuft;
-        
-        out.print(act -> getNameActivity());
-        out.println(" wird vom ActivityScheduler umgebracht");
-        for (int i = 0; i < 50000000; i++) {}
         
         if (act -> isRunning()) {
             laeuft = true;
@@ -62,8 +55,6 @@
         
 		Activity* active = (Activity*) scheduler.active();
         active -> exit();
-        out.print(active -> getNameActivity());
-        out.println(" wird terminiert durch exit in ActivityScheduler erreicht");
         
         scheduler.reschedule();
 	}
@@ -77,17 +68,7 @@
         
 		Activity* active = (Activity*) scheduler.active();
         
-        out.print(active -> getNameActivity());
-        out.print(" ist derzeit der aktive Prozess und dieser hat den Zustand: ");
-        out.println();
-        out.println(active -> getState());
-        
         Activity* next = (Activity*) to;
-        
-        if (next == 0) {
-                out.println("Zeiger ist Null in ActivityScheduler");
-                for (int i = 0; i < 50000000; i++) {}
-        }
 
         // es gibt nur 4 Zustände
         if ((active -> isRunning()) ||  (active -> isReady())){
@@ -97,10 +78,4 @@
         
         next -> changeTo(Activity :: RUNNING);
         dispatch(next);
-        
-        Activity* neuerAct = (Activity*) scheduler.active();
-        out.print(neuerAct -> getNameActivity());
-        out.print(" ist der NEUE aktive Prozess und dieser hat den Zustand: ");
-        out.println(neuerAct -> getState());
-        
 	}

@@ -37,16 +37,12 @@ public:
 	
 	~Hello()
 	{
-        cout.print("       Destruktor in main wird aufgerufen von ");
-        cout.print(this -> name);
-        cout.println();
-        for (int i = 0; i < 50000000; i++) {}
+        
 	}
 	
 	void body()
 	{
 		for(int i=0; i<=count; i++) {
-			cout.print("       ");
             cout.print(name);
 			cout.print(" ");
 			cout.print(i);
@@ -78,16 +74,8 @@ unsigned stack1[1024];
 
 int main()
 {
-    cga.blueScreen("       ANFANG");
- 	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
-    out.println("       Anton wurde erzeugt");
- 	Hello berta("Berta", out, &stack0[1023], 2);
-    out.println("       Berta wurde erzeugt");
-    Hello caesar("Caesar", out, &stack1[1024], 3);
-    out.println("       Caesar wurde erzeugt");
+ 	Hello anton("Anton", out, 2); // anton benutzt den Stack von main
+ 	Hello berta("Berta", out, &stack0[1023], 4);
+    Hello caesar("Caesar", out, &stack1[1023], 6);
     anton.body();
-    out.println("       Body von Anton ist fertig");
-    for (int i = 0; i < 50000000; i++) {}
-    out.println("       ENDE");
-    for (int i = 0; i < 50000000; i++) {}
 }

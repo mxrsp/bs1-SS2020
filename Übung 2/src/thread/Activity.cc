@@ -20,8 +20,6 @@
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
 	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
-        out.println("Aufruf Konstruktor Activity, Zeiger ist belegt");
-        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -32,11 +30,7 @@
 	 * aufgerufen werden.
 	 */
 	Activity::Activity() : Coroutine(), state(BLOCKED) {
-        this -> state = READY;
         scheduler.start(this);
-        
-        out.println("Aufruf Konstruktor Activity, diese Aktivitaet wird erster laufender Prozess");
-        for (int i = 0; i < 50000000; i++) {}
 	}
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -49,10 +43,6 @@
      *  wird automatisch durch den Destruktor ~Hello() aufgerufen
 	 */
 	Activity::~Activity() {
-        out.print("in Activity wurde der Destruktor von ");
-        out.print(this -> getNameActivity());
-        out.println(" aufgerufen");
-        
         join();
         exit();
 	}
@@ -63,38 +53,22 @@
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void Activity::sleep() {
-	    
-        out.print(this -> getNameActivity());
-        out.println(" wird schlafen gelegt in Activity");
-        for (int i = 0; i < 50000000; i++) {}
         scheduler.suspend();
-        
     }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet aufzuwecken.
 	 */
 	void Activity::wakeup() {
         
-        out.println("wakeup in Activity wurde erreicht");
-        for (int i = 0; i < 50000000; i++) {}
-        
         if (this -> isBlocked()) {
-            out.print(this -> getNameActivity());
-            out.println(" ist blockiert in Activity, Zustand wird auf READY gesetzt");
             this -> state = READY;
             scheduler.schedule(this);
-        } else {
-             out.println("Zustand ist nicht blockiert in Activity, es wird nichts aufgeweckt");
-             for (int i = 0; i < 50000000; i++) {}   
         }
 	}
 
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
-        out.println("Wir sind in yield in Activity angekommen");
-        
-        for (int i = 0; i < 50000000; i++) {}
         scheduler.reschedule();
 	}
 
@@ -103,10 +77,6 @@
      * 
 	 */
 	void Activity::exit() {
-        
-        out.print(this -> getNameActivity());
-        out.println(" soll terminiert werden in Activity");
-	
         if (!(sleepingProcess == 0)) {
             Activity* wakeupedProcess = sleepingProcess;
             sleepingProcess = 0;
@@ -121,10 +91,6 @@
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
-        
-        out.println("join in Activity wurde erreicht");
-        for (int i = 0; i < 50000000; i++) {}
-        
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
         

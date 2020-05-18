@@ -37,8 +37,7 @@ public:
 			cout.print(" ");
 			cout.print(i);
 			cout.println();  
-			resume(next);
-            
+			resume(next); 
 		}
 		
 	}
