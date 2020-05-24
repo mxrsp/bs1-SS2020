@@ -25,8 +25,10 @@
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	void Coroutine::startup(Coroutine* obj) {
+		//coroutine ruft die body methode auf in der main klasse
 		obj -> body();
 		
+		//coroutine ruft exit auf
 		obj -> exit();
 	}
 
@@ -37,14 +39,19 @@
 	 */
 	void Coroutine::setup(void* tos) {
 		
+		//wenn nicht mainstack, dann neuen stack aufsetzen
         if (!(tos)==0) {
+			
+			//geben unserem neuen struct den tos pointer
             Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
             Coroutine *neueRoutine = this;
-		
+			
+			//returnadresse der coroutine wird auf startup gesetzt
 			setUp -> coroutine = startup;
 			setUp -> routine = neueRoutine;
 			
+			//stackpointer auf neuen stack zeigen lassen
 			this -> sp = setUp;
         } else {
             sp = &tos;
