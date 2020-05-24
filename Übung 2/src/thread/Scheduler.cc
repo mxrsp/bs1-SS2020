@@ -17,11 +17,14 @@
 	void Scheduler::schedule(Schedulable* sched) {
         
         readylist.enqueue(sched);
+        
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
+        
         readylist.remove(sched);
+        
 	}
 
 	// Aktiviert das vorderste der Liste mittels activate.

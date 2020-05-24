@@ -70,7 +70,7 @@
         
         Activity* next = (Activity*) to;
 
-        // es gibt nur 4 Zustände
+        // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
         if ((active -> isRunning()) ||  (active -> isReady())){
             active -> changeTo(Activity :: READY);
             scheduler.schedule(active);

@@ -39,8 +39,6 @@
 	 * wurde und diese Aktivitaet daher keine Laufzeit mehr erhalten darf.
 	 * Das Warten auf die Beendigung (mittels join()) muss im Destruktor der
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
-     * 
-     *  wird automatisch durch den Destruktor ~Hello() aufgerufen
 	 */
 	Activity::~Activity() {
         join();
