@@ -32,7 +32,8 @@ STARTUP_S = \
 
 MACHINE_S = \
 	thread/switchContext.asm \
-	io/ports.asm
+	io/ports.asm \
+	cpu/cpu.asm
 
 SYSTEM_C = \
 	lib/tools.c
@@ -49,7 +50,15 @@ SYSTEM_CC = \
 	lib/Queue.cc \
 	thread/Scheduler.cc \
 	thread/ActivityScheduler.cc \
-	mainAct.cc
+	interrupts/Gate.cc \
+ 	interrupts/InterruptGuardian.cc \
+ 	interrupts/PageFaultGate.cc \
+ 	interrupts/PanicGate.cc \
+ 	interrupts/SpuriousGate.cc \
+ 	device/PIC.cc \
+	device/PIT.cc \
+	device/Clock.cc \
+	ClockTest.cc
 
 ##############################################################################
 

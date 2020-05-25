@@ -11,6 +11,7 @@
 
 #include "interrupts/Gate.h"
 #include "device/PIT.h"
+#include "device/PIC.h"
 
 class Clock: public Gate, public PIT {
 public:
@@ -67,9 +68,13 @@ public:
 	 */
 	int ticks()
 	{
+        return this->timeByTicks;
 	}
     
 private:
+    
+    //Systemzeit in Ticks
+    int timeByTicks;
 };
 
 extern Clock clock;

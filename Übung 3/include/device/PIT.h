@@ -39,6 +39,10 @@ private:
 		CONTROL_PORT 	= 0x43,
 		DATA_PORT 	= 0x40
 	};
+    
+    int intervall;
+    IOPort8 steuerregister;
+    IOPort8 datenregister;
 
 };
 
