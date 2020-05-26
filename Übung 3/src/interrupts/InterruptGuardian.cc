@@ -23,12 +23,12 @@ InterruptGuardian::InterruptGuardian()
 	}
 }
 
-void InterruptGuardian::handle(unsigned num)
+void InterruptGuardian::handle(int num)
 {
 	vectorTable[num]->handle();
 }
 
-void InterruptGuardian::registerGate(Gate* gate,unsigned num)
+void InterruptGuardian::registerGate(Gate* gate,int num)
 {
 	if(!initialized){
 		for(int i=0; i<NrOfInterrupts; i++){
@@ -36,7 +36,7 @@ void InterruptGuardian::registerGate(Gate* gate,unsigned num)
 		}
 		initialized = true;
 	}
-	if(((int)num >= -1) && (num < NrOfInterrupts)){
+	if((num >= -1) && (num < NrOfInterrupts)){
 		vectorTable[num] = gate;
 	}
 }
