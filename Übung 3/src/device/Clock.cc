@@ -12,13 +12,12 @@ Clock::Clock () : Gate(Timer), timeByTicks(0) {}
 
 Clock::Clock (int us) : Gate(Timer), timeByTicks(0) {
     
-    this->timeByTicks = 0;
     windup(us);
 }
 
 void Clock::windup (int us) {
     
-    //mindestens 16 Bit, also 65536 (0xFFF) möglich Werte
+    //maximal 16 Bit, also 65536 (0xFFF) möglich Werte
     if (us > 0xFFFF) {
         us = 0xFFFF;
     }
@@ -60,7 +59,6 @@ void Clock::handle () {
         out.print("|");
     }
 
-    
     //scheduler.checkslice();
 }
 

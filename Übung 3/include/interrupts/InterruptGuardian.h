@@ -8,6 +8,8 @@ class InterruptGuardian {
 public:
 	InterruptGuardian();
 
+    // mitgegebenes Attribut könnte auch int sein
+    
 	static void handle(unsigned num);
 
 	static void registerGate(Gate* gate, unsigned num);
@@ -17,4 +19,3 @@ private:
 };
 
 #endif
-
