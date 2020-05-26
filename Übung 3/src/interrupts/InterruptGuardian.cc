@@ -15,6 +15,9 @@ void guardian(int num)
 
 InterruptGuardian::InterruptGuardian()
 {
+    out.println("Const InterruptGuardian");
+    out.wait();
+    
 	if(!initialized){
 		for(int i=0; i<NrOfInterrupts; i++){
 			vectorTable[i] = &panicGate;

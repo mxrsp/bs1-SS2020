@@ -24,7 +24,7 @@ INITFINI = lib/finit.cc
 # (Beim Hinzufuegen neuer Module erweitern!)
 # Achtung!!!! Hinter dem backslash am Zeilenende darf *kein* Zeichen stehen!!
 # Die letzte Zeile bekommt kein backslash!!! 
-#
+# 
 
 
 STARTUP_S = \

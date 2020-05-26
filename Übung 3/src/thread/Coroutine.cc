@@ -1,5 +1,10 @@
 
 #include "thread/Coroutine.h"
+#include "device/CPU.h"
+#include "io/PrintStream.h"
+
+extern CPU cpu;
+extern PrintStream out;
 
 /*
  * Coroutine:
@@ -29,7 +34,7 @@
         out.println("startUp in Coroutine wird aufgerufen");
         out.wait();
         
-        CPU::enableInterrupts();
+        cpu.enableInterrupts();
         
 		obj -> body();
 		

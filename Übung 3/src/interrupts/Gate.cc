@@ -12,6 +12,9 @@ extern InterruptGuardian interruptGuardian;
 
 Gate::Gate(int num)
 {
+    out.println("Const Gate");
+    out.wait();
+    
 	this->num = num;
 	if (num > 0)
 		interruptGuardian.registerGate(this,num);

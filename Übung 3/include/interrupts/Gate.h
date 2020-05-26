@@ -29,14 +29,10 @@ public:
 
 	virtual void handle() = 0;
 
-
-
 	int getNumber()
 	{
 		return num;
 	}
-
-
 
     // alle Klassen mit virtuellen Destruktoren brauchen die
     // folgende Operator-Ueberladung:

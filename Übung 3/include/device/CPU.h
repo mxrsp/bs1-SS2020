@@ -3,7 +3,7 @@
 
 #include "io/PrintStream.h"
 
-extern PrintStream out;
+//extern PrintStream out;
 /*
  * CPU:	Diese Klasse ist der Softwareprototyp fuer die CPU
  *	Wir benoetigen sie in erster Linie zum Sperren/Zulassen der
@@ -30,10 +30,8 @@ public:
 	static void enableInterrupts () {
         int_enable();
         
-        out.println("CPU -> enableInterrupts");
-        out.wait();
-        
-        
+        //out.println("CPU -> enableInterrupts");
+        //out.wait(); 
     }
 
 	// Sperren der Interrupts.

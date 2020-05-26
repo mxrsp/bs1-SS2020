@@ -69,10 +69,12 @@ unsigned stack1[1024];
 
 int main()
 {
-
+    out.wait();
+    out.println("Das Programm startet hier.");
+    out.wait();
+    
 	cpu.enableInterrupts();
-    int pos = clock.getPos();
-    cga.setCursor(pos,pos);
+    cga.setCursor(0,0);
 	
     while(1);
 }
