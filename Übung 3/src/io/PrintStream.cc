@@ -155,3 +155,8 @@
         
         this -> print(ausgabe, HEX);
     }
+    
+    // PrintStream wartet eine Weile zu Debuggingzwecken
+    void PrintStream::wait() {
+        for (int i = 0; i < 20000000; i++) {}
+    }

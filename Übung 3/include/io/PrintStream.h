@@ -60,6 +60,9 @@ public:
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!
 	void print(void* p);
     
+    // PrintStream wartet eine Weile zu Debuggingzwecken
+    void wait();
+    
     
 private:
 	OutputChannel& channel;

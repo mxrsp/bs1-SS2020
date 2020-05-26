@@ -14,12 +14,17 @@
  */
 
 #include "lib/Chain.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Schedulable: public Chain {
 public:
 	explicit Schedulable(int slice = 1)
-	{ 
-		quantum(slice); 
+	{
+        out.wait();
+        out.println("Ein Objekt von Schedulable wird erzeugt");
+		quantum(slice);
 	}
 
 	void quantum(int slice)

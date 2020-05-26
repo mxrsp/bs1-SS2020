@@ -1,6 +1,9 @@
 #ifndef CPU_h
 #define CPU_h
 
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 /*
  * CPU:	Diese Klasse ist der Softwareprototyp fuer die CPU
  *	Wir benoetigen sie in erster Linie zum Sperren/Zulassen der
@@ -24,7 +27,14 @@ public:
 	static void halt () { cpu_halt(); }
 
 	// Zulassen der Interrupts
-	static void enableInterrupts () { int_enable(); }
+	static void enableInterrupts () {
+        int_enable();
+        
+        out.println("CPU -> enableInterrupts");
+        out.wait();
+        
+        
+    }
 
 	// Sperren der Interrupts.
 	// Liefert den letzten Interruptstatus zurueck
@@ -33,5 +43,6 @@ public:
     // liefert den Wert des CR2 Registers
     static void* getCR2 () { return get_cr2(); } 
 };
+
 #endif
 

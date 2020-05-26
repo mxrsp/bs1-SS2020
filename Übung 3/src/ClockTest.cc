@@ -17,6 +17,7 @@ Clock clock(10000);
 
 // globale Ein-/Ausgabeobjekte
 
+
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler; // der Scheduler
 

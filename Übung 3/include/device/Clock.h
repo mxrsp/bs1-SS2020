@@ -12,6 +12,10 @@
 #include "interrupts/Gate.h"
 #include "device/PIT.h"
 #include "device/PIC.h"
+#include "thread/ActivityScheduler.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Clock: public Gate, public PIT {
 public:
@@ -62,6 +66,8 @@ public:
 	 *	um diesen ggf. zum praeemptiven Rescheduling zu veranlassen.
 	 */
 	void handle();
+    
+    void propellerAction();
 
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
@@ -70,11 +76,13 @@ public:
 	{
         return this->timeByTicks;
 	}
+	
     
 private:
     
     //Systemzeit in Ticks
     int timeByTicks;
+    
 };
 
 extern Clock clock;

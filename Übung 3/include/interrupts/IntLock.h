@@ -9,6 +9,9 @@
  */
 
 #include "device/CPU.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class IntLock {
 public:

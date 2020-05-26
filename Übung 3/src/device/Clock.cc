@@ -3,14 +3,19 @@
 #include "io/PrintStream.h"
 #include "interrupts/InterruptVector.h"
 
+
+//extern PrintStream out;
+
 CgaChannel cga;
 PrintStream out(cga);
-//PIC pic;
+
 PIT pit;
 
 Clock::Clock () : Gate(Timer), timeByTicks(0) {}
 
 Clock::Clock (int us) : Gate(Timer), timeByTicks(0) {
+    out.println("   Eine Clock wird erzeugt");
+    out.wait();
     
     windup(us);
 }
@@ -39,7 +44,18 @@ void Clock::handle () {
     this->timeByTicks++; //Mitzaehlen der Uhrticks
     
     
-    //Propeller Teller
+    propellerAction();
+    
+    out.print("       ");
+    out.print(this->timeByTicks);
+    out.println(" - so oft tickt die Uhr");
+    out.wait();
+
+    scheduler.checkSlice();
+}
+
+void Clock::propellerAction() {
+        //Propeller Teller
     int second = timeByTicks;
     
     if (second % 4 == 0) {
@@ -58,7 +74,5 @@ void Clock::handle () {
         cga.setCursor(0,0);
         out.print("|");
     }
-
-    //scheduler.checkslice();
 }
 

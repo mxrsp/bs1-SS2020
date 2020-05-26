@@ -1,6 +1,9 @@
 #ifndef Gate_h
 #define Gate_h
 
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 /*
  * Gate: Ein Trap/Interrupt Tor

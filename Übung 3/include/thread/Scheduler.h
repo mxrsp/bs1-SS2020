@@ -14,6 +14,9 @@
 #include "lib/Queue.h"
 #include "thread/Schedulable.h"
 #include "thread/Activity.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class Scheduler {
 public:
@@ -26,6 +29,9 @@ public:
 
 	// Aktiviert das vorderste der Liste mittels activate.
 	void reschedule();
+    
+    // Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
+    void checkSlice();
 
 
 protected:

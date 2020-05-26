@@ -3,12 +3,13 @@
 
 #include "interrupts/InterruptVector.h"
 #include "interrupts/Gate.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class InterruptGuardian {
 public:
 	InterruptGuardian();
-
-    // mitgegebenes Attribut könnte auch int sein
     
 	static void handle(int num);
 

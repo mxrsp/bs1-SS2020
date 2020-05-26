@@ -1,6 +1,11 @@
 #ifndef Coroutine_h
 #define Coroutine_h
 
+#include "device/CPU.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
+
 /*
  * Coroutine:
  * Diese Klasse implementiert Coroutinen, welche die Basis

@@ -25,6 +25,12 @@
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	void Coroutine::startup(Coroutine* obj) {
+        
+        out.println("startUp in Coroutine wird aufgerufen");
+        out.wait();
+        
+        CPU::enableInterrupts();
+        
 		obj -> body();
 		
 		obj -> exit();

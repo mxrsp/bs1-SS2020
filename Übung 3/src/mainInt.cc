@@ -70,13 +70,9 @@ unsigned stack1[1024];
 int main()
 {
 
-    // Hello anton("Anton", out); // anton benutzt den Stack von main
-	// Hello berta("Berta", out, &stack0[1024]);
-	// Hello caesar("Caesar", out, &stack1[1024]);
-
 	cpu.enableInterrupts();
-	
-    // anton.body();
+    int pos = clock.getPos();
+    cga.setCursor(pos,pos);
 	
     while(1);
 }

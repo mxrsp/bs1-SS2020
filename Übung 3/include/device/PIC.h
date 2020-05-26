@@ -10,6 +10,9 @@
 
 
 #include "io/IOPort.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 class PIC {
 public:
@@ -21,7 +24,7 @@ public:
 	};
 
 	PIC(): 	imr1(IMR1), imr2(IMR2),
-		ctrl1(CTRL1), ctrl2(CTRL2) {}
+		ctrl1(CTRL1), ctrl2(CTRL2) { }
 
 	// Anstellen von Interrupt "num"
 	void enable (int num);
