@@ -8,7 +8,9 @@ PrintStream out(cga);
 
 PIT pit;
 
-Clock::Clock () : Gate(Timer), handleCount(0) {}
+Clock::Clock () : Gate(Timer), handleCount(0) {
+    windup(20000);
+}
 
 Clock::Clock (int us) : Gate(Timer), handleCount(0) {
     windup(us);
