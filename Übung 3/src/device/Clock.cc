@@ -1,27 +1,33 @@
 #include "device/Clock.h"
 #include "interrupts/InterruptVector.h"
+#include "io/PrintStream.h"
+#include "device/CgaChannel.h"
 
-//extern PrintStream out;
+CgaChannel cga;
+PrintStream out(cga);
 
 PIT pit;
 
-Clock::Clock () : Gate(Timer), timeByTicks(0) {}
+Clock::Clock () : Gate(Timer), handleCount(0) {}
 
-Clock::Clock (int us) : Gate(Timer), timeByTicks(0) {
-    out.println("   Const Clock");
-    out.wait();
-    
+Clock::Clock (int us) : Gate(Timer), handleCount(0) {
     windup(us);
 }
 
 void Clock::windup (int us) {
     
+    aufrufHandleProSekunde = 1000 / (us / 1000);
+    // 1 000 Millisekunden / (x Mikrosekunden / 1000)
+    
+    cga.setCursor(3,3);
+    out.print(aufrufHandleProSekunde);
+    out.println(" mal wird handle pro Sekunde aufgerufen");
+    
     //maximal 16 Bit, also 65536 (0xFFF) möglich Werte
     if (us > 0xFFFF) {
         us = 0xFFFF;
     }
-
-    this->timeByTicks = 0;
+    
     pit.interval(us);
     pic.enable(PIC::PIT);
     
@@ -35,37 +41,41 @@ void Clock::windup (int us) {
 void Clock::handle () {
     
     pic.ack(PIC::PIT); //Bestätigen des Interrupts
-    this->timeByTicks++; //Mitzaehlen der Uhrticks
     
+    handleCount++; //Mitzaehlen der Uhrticks
     
     propellerAction();
-    
-    out.print("       ");
-    out.print(this->timeByTicks);
-    out.println(" - so oft tickt die Uhr");
-    out.wait();
 
     // scheduler.checkSlice();
-    scheduler.reschedule();
+    // scheduler.reschedule();
 }
 
 void Clock::propellerAction() {
-        
-    //Propeller Teller
-    int second = timeByTicks;
     
+    if (handleCount % (8 * aufrufHandleProSekunde) == 0) {
+        out.wait();
+    }
+    
+    //Propeller Teller
+    int second = (int) handleCount / aufrufHandleProSekunde;
+    
+    // handle wird 50 mal pro Sekunde aufgerufen
     if (second % 4 == 0) {
-        // cga.setCursor(0,0);
+        cga.setCursor(0,0);
         out.print("/");
     } else if (second % 4  == 1) {
-        // cga.setCursor(0,0);
+        cga.setCursor(0,0);
         out.print("-");
     } else if (second % 4 == 2) {
-        // cga.setCursor(0,0);
+        cga.setCursor(0,0);
         out.print("\\");
     } else if (second % 4 == 3) {
-        // cga.setCursor(0,0);
+        cga.setCursor(0,0);
         out.print("|");
     }
+    
+    out.print("       ");
+    out.print(handleCount);
+    out.println(" - so oft tickt die Uhr");
 }
 

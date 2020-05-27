@@ -13,9 +13,7 @@
 #include "device/PIT.h"
 #include "device/PIC.h"
 #include "thread/ActivityScheduler.h"
-#include "io/PrintStream.h"
 
-extern PrintStream out;
 
 class Clock: public Gate, public PIT {
 public:
@@ -74,14 +72,15 @@ public:
 	 */
 	int ticks()
 	{
-        return this->timeByTicks;
+        return this->handleCount;
 	}
 	
     
 private:
     
-    //Systemzeit in Ticks
-    int timeByTicks;
+    int handleCount;
+    
+    int aufrufHandleProSekunde;
     
 };
 

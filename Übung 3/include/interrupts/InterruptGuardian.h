@@ -5,7 +5,7 @@
 #include "interrupts/Gate.h"
 #include "io/PrintStream.h"
 
-extern PrintStream out;
+//extern PrintStream out;
 
 class InterruptGuardian {
 public:

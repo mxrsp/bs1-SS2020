@@ -4,7 +4,7 @@
 #include "device/CgaChannel.h"
 #include "io/PrintStream.h"
 
-extern PrintStream out;
+//extern PrintStream out;
 
 /*
  * CgaChannel:	Diese Klasse implementiert einen Ausgabekanal
@@ -29,10 +29,7 @@ extern PrintStream out;
 
 	// Ausgabekanal mit Standardattributen
 	CgaChannel::CgaChannel() : CgaScreen() 
-    {
-        out.println("Const CgaChannel");
-        out.wait();
-        
+    {   
     }
 
 	// Ausgabekanal mit spezifischen Attributen

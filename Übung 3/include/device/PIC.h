@@ -12,7 +12,7 @@
 #include "io/IOPort.h"
 #include "io/PrintStream.h"
 
-extern PrintStream out;
+//extern PrintStream out;
 
 class PIC {
 public:
@@ -25,11 +25,6 @@ public:
 
 	PIC(): 	imr1(IMR1), imr2(IMR2),
 		ctrl1(CTRL1), ctrl2(CTRL2) { 
-            
-            for (int i = 0; i < 50000000; i++) {}
-            
-            out.println("Const PIC");
-            out.wait();
         }
 
 	// Anstellen von Interrupt "num"

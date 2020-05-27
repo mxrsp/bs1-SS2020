@@ -24,7 +24,6 @@ INITFINI = lib/finit.cc
 # (Beim Hinzufuegen neuer Module erweitern!)
 # Achtung!!!! Hinter dem backslash am Zeilenende darf *kein* Zeichen stehen!!
 # Die letzte Zeile bekommt kein backslash!!! 
-# 
 
 
 STARTUP_S = \
@@ -50,14 +49,14 @@ SYSTEM_CC = \
 	lib/Queue.cc \
 	thread/Scheduler.cc \
 	thread/ActivityScheduler.cc \
+	interrupts/InterruptGuardian.cc \
+	interrupts/PanicGate.cc \
 	interrupts/Gate.cc \
- 	interrupts/InterruptGuardian.cc \
- 	interrupts/PageFaultGate.cc \
- 	interrupts/PanicGate.cc \
+	interrupts/PageFaultGate.cc \
  	interrupts/SpuriousGate.cc \
  	device/PIC.cc \
-	device/PIT.cc \
-	device/Clock.cc \
+ 	device/Clock.cc \
+ 	device/PIT.cc \
 	ClockTest.cc
 
 ##############################################################################

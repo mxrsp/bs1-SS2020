@@ -4,7 +4,7 @@
 #include "io/IOPort.h"
 #include "io/PrintStream.h"
 
-extern PrintStream out;
+// extern PrintStream out;
 
 /*
  * CgaScreen:	Diese Klasse ist der Softwareprototyp fuer den
@@ -22,8 +22,6 @@ extern PrintStream out;
 	*/
 	CgaScreen::CgaScreen() : attr(), index(INDEXPORT), data(DATENPORT), screen((CgaChar*) VIDEO_RAM_ADRESS)
 	{ 
-        out.println("Const CgaScreen");
-        out.wait();
         
         //wir setzen den cursor an die stelle (0,0) auf dem bildschirm
         setCursor(0, 0);

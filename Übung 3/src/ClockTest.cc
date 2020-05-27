@@ -4,31 +4,33 @@
 #include "thread/ActivityScheduler.h"
 #include "thread/Activity.h"
 
-// #include "device/CPU.h"
+#include "device/CPU.h"
 #include "device/PIC.h"
-// #include "device/Clock.h"
-// #include "interrupts/InterruptGuardian.h"
-
-//CPU cpu;
-
-//InterruptGuardian interruptGuardian;
-PIC pic;
-//Clock clock(10000);
+#include "device/Clock.h"
+#include "interrupts/InterruptGuardian.h"
 
 // globale Ein-/Ausgabeobjekte
-CgaChannel cga;
-PrintStream out(cga);
+
+// wird in der Clock erstellt
+
+// CgaChannel cga;
+// PrintStream out(cga);
+
+CPU cpu;
+
+InterruptGuardian interruptGuardian;
+PIC pic;
+Clock clock(2000);
+
+extern CgaChannel cga;
+extern PrintStream out;
 
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler; // der Scheduler
 
 int main(){
-    
-    out.println("Programm startet");
-    
-    //out.wait();
  
- 	//cpu.enableInterrupts();
- 	
-    // while(1){}
+ 	cpu.enableInterrupts();
+    
+    while(1){}
 }
