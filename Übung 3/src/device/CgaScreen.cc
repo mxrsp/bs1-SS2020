@@ -4,7 +4,6 @@
 #include "io/IOPort.h"
 #include "io/PrintStream.h"
 
-// extern PrintStream out;
 
 /*
  * CgaScreen:	Diese Klasse ist der Softwareprototyp fuer den

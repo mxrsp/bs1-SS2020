@@ -20,14 +20,16 @@ class Hello: public Activity {
 public:
 	Hello(const char* name, PrintStream& out)
 		: cout(out)
-	{
+	{   
 		this->name = name;
+        setNameActivity(name);
 	}
 
 	Hello(const char* name, PrintStream& out, void* sp)
 		: Activity(sp), cout(out)
 	{
 		this->name = name;
+        setNameActivity(name);
 		wakeup();
 	}
 
@@ -38,7 +40,7 @@ public:
 
 	void body()
 	{
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<3; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -62,11 +64,11 @@ CPU cpu;
 
 InterruptGuardian interruptGuardian;
 PIC pic;
-Clock clock(2500);
+Clock clock(2000);
 
 // globale Ein-/Ausgabeobjekte
-CgaChannel cga;         // unser CGA-Ausgabekanal
-PrintStream out(cga);   // unseren PrintStream mit Ausgabekanal verknuepfen
+extern CgaChannel cga;         // unser CGA-Ausgabekanal
+extern PrintStream out;   // unseren PrintStream mit Ausgabekanal verknuepfen
 
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler;   // der Scheduler
@@ -77,10 +79,18 @@ unsigned stack1[1024];
 
 int main()
 {
+    out.println();
+    
 	Hello anton("Anton", out); // anton benutzt den Stack von main
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
 	cpu.enableInterrupts();
+    
+    //out.wait();
+    
 	anton.body();
+    
+    out.println("Programm ist beenden. Destruktoren werden abgearbeitet.");
+    for (int i = 0 ; i < 100000000; i++) {}
 }

@@ -123,7 +123,7 @@ public:
         return (this -> state == ZOMBIE);
 	}
 	
-	void setNameActivity (const char* str) {
+	void setNameActivity(const char* str) {
         this -> name = str;
     }
     

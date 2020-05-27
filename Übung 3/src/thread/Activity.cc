@@ -13,6 +13,9 @@
 
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
 	 * da der Thread erst laufen darf, wenn der spezielle Konstruktor
@@ -20,6 +23,8 @@
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
 	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
+//         out.println("Activity wird erstellt");
+//         out.wait();
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -30,6 +35,10 @@
 	 * aufgerufen werden.
 	 */
 	Activity::Activity() : Coroutine(), state(BLOCKED) {
+        
+//         out.println("Activity wird erstellt und Scheduler wird gestartet");
+//         out.wait();
+        
         scheduler.start(this);
 	}
 
@@ -41,7 +50,6 @@
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
 	Activity::~Activity() {
-        join();
         exit();
 	}
 	

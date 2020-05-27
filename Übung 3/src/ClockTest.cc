@@ -20,7 +20,7 @@ CPU cpu;
 
 InterruptGuardian interruptGuardian;
 PIC pic;
-Clock clock(2000);
+Clock clock(20000);
 
 extern CgaChannel cga;
 extern PrintStream out;

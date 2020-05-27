@@ -3,7 +3,7 @@
 
 #include "io/PrintStream.h"
 
-//extern PrintStream out;
+extern PrintStream out;
 
 /*
  * Gate: Ein Trap/Interrupt Tor

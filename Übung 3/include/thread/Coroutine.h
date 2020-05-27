@@ -1,7 +1,9 @@
 #ifndef Coroutine_h
 #define Coroutine_h
 
+#include "io/PrintStream.h"
 
+extern PrintStream out;
 
 /*
  * Coroutine:

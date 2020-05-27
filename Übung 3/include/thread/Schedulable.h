@@ -22,8 +22,6 @@ class Schedulable: public Chain {
 public:
 	explicit Schedulable(int slice = 1)
 	{
-        out.wait();
-        out.println("Ein Objekt von Schedulable wird erzeugt");
 		quantum(slice);
 	}
 

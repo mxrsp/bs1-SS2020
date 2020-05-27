@@ -9,7 +9,6 @@ PrintStream out(cga);
 PIT pit;
 
 Clock::Clock () : Gate(Timer), handleCount(0) {
-    windup(20000);
 }
 
 Clock::Clock (int us) : Gate(Timer), handleCount(0) {
@@ -21,9 +20,7 @@ void Clock::windup (int us) {
     aufrufHandleProSekunde = 1000 / (us / 1000);
     // 1 000 Millisekunden / (x Mikrosekunden / 1000)
     
-    cga.setCursor(3,3);
-    out.print(aufrufHandleProSekunde);
-    out.println(" mal wird handle pro Sekunde aufgerufen");
+   // informationPropeller();
     
     //maximal 16 Bit, also 65536 (0xFFF) möglich Werte
     if (us > 0xFFFF) {
@@ -42,14 +39,26 @@ void Clock::windup (int us) {
 
 void Clock::handle () {
     
+//     out.print("handle wird aufgerufen zum ");
+//     out.print(handleCount);
+//     out.println(". mal");
+//     out.wait();
+    
     pic.ack(PIC::PIT); //Bestätigen des Interrupts
     
     handleCount++; //Mitzaehlen der Uhrticks
     
-    propellerAction();
+    // propellerAction();
 
+    scheduler.reschedule();
+    
     // scheduler.checkSlice();
-    // scheduler.reschedule();
+}
+
+void Clock::informationPropeller() {
+    cga.setCursor(3,3);
+    out.print(aufrufHandleProSekunde);
+    out.println(" mal wird handle pro Sekunde aufgerufen");
 }
 
 void Clock::propellerAction() {
@@ -78,6 +87,6 @@ void Clock::propellerAction() {
     
     out.print("       ");
     out.print(handleCount);
-    out.println(" - so oft tickt die Uhr");
+    out.println(" - Interrupt-Counter");
 }
 

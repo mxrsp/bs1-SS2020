@@ -65,6 +65,8 @@ public:
 	 */
 	void handle();
     
+    void informationPropeller();
+    
     void propellerAction();
 
 	/* 	Liefert die Systemzeit in Ticks zurueck

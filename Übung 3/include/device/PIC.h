@@ -12,7 +12,7 @@
 #include "io/IOPort.h"
 #include "io/PrintStream.h"
 
-//extern PrintStream out;
+extern PrintStream out;
 
 class PIC {
 public:

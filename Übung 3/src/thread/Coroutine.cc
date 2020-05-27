@@ -31,8 +31,7 @@ extern PrintStream out;
 	 */
 	void Coroutine::startup(Coroutine* obj) {
         
-        out.println("startUp in Coroutine wird aufgerufen");
-        out.wait();
+        // out.print("startUp in Coroutine wird aufgerufen ->");
         
         cpu.enableInterrupts();
         
@@ -47,7 +46,7 @@ extern PrintStream out;
 	 * ACHTUNG: tos kann NULL sein (siehe Constructor)!
 	 */
 	void Coroutine::setup(void* tos) {
-		
+        
         if (!(tos)==0) {
             Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
@@ -59,5 +58,5 @@ extern PrintStream out;
 			this -> sp = setUp;
         } else {
             sp = &tos;
-        } 
+        }
 	}
