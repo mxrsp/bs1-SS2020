@@ -50,9 +50,9 @@ void Clock::handle () {
     
     // propellerAction();
 
-    scheduler.reschedule();
+   // scheduler.reschedule();
     
-    // scheduler.checkSlice();
+    scheduler.checkSlice();
 }
 
 void Clock::informationPropeller() {

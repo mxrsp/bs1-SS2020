@@ -10,20 +10,22 @@
 
 #include "thread/Scheduler.h"
 #include "io/PrintStream.h"
+//#include "thread/ActivityScheduler.h"
+#include "device/Clock.h"
 
 extern PrintStream out;
-
+//ActivityScheduler activityScheduler; 
 
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
-        
+
         readylist.enqueue(sched);
         
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
-        
+
         readylist.remove(sched);
         
 	}
@@ -43,13 +45,20 @@ extern PrintStream out;
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
     void Scheduler::checkSlice() {
         //int quantum = Schedulable :: quantum();
-        int quantum = 1;
+//         int quantum = 1;
+//         
+//         out.println("checkSlice wird aufgerufen");
+//         out.wait();
+//         
+//         if (quantum == 0) {
+//             this -> reschedule();
+//         }
+//         
         
-        out.println("checkSlice wird aufgerufen");
-        out.wait();
         
-        if (quantum == 0) {
-            this -> reschedule();
+        if (clock.ticks() == ((Activity*) scheduler.active())->quantum()){
+            clock.nullticks();
+            this->reschedule();
         }
         
     }

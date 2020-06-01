@@ -85,12 +85,16 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
+    anton.quantum(10);
+    berta.quantum(30);
+    caesar.quantum(5);
+    
 	cpu.enableInterrupts();
     
     //out.wait();
     
 	anton.body();
     
-    out.println("Programm ist beenden. Destruktoren werden abgearbeitet.");
+    out.println("Programm ist beendet. Destruktoren werden abgearbeitet.");
     for (int i = 0 ; i < 100000000; i++) {}
 }

@@ -124,10 +124,10 @@ void ActivityScheduler :: checkslice(){
 if(clock.ticks() == ((Activity*)this->active())->quantum()){
 	clock.nullTicks();
 	this->reschedule();
-
-
-
-
+    
+    
+    
+    
 }
 
 }

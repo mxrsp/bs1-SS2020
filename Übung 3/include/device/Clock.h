@@ -77,6 +77,11 @@ public:
         return this->handleCount;
 	}
 	
+	void nullticks(){
+        
+        this->handleCount = 0;
+    }
+	
     
 private:
     

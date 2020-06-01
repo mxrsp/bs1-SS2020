@@ -22,7 +22,7 @@ extern PrintStream out;
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
-	Activity::Activity(void* tos) : Coroutine(tos), state(BLOCKED) {
+	Activity::Activity(void* tos, int slices) : Schedulable(slices), Coroutine(tos), state(BLOCKED) {
 //         out.println("Activity wird erstellt");
 //         out.wait();
 	}
@@ -34,7 +34,7 @@ extern PrintStream out;
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity::Activity() : Coroutine(), state(BLOCKED) {
+	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
         
 //         out.println("Activity wird erstellt und Scheduler wird gestartet");
 //         out.wait();

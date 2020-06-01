@@ -20,7 +20,7 @@ extern PrintStream out;
 
 class Scheduler {
 public:
-
+    
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void schedule(Schedulable* sched);
 

@@ -10,12 +10,15 @@
 #include "thread/Scheduler.h"
 #include "thread/ActivityScheduler.h"
 
+#include "interrupts/IntLock.h"
+
 
 	/* Suspendieren des aktiven Prozesses
 	 * Der korrekte Ausfuehrungszustand ist zu setzen
 	 * und danach der naechste lauffaehige Prozess zu aktivieren.
 	 */
 	void ActivityScheduler::suspend()	{
+        
         Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
@@ -31,8 +34,9 @@
 	 * zuzuteilen.
 	 */
 	void ActivityScheduler::kill(Activity* act) {
-        bool laeuft;
         
+        bool laeuft;
+
         if (act -> isRunning()) {
             laeuft = true;
         } else {
@@ -53,6 +57,8 @@
 	 */
 	void ActivityScheduler::exit() {
         
+        IntLock lock;
+        
 		Activity* active = (Activity*) scheduler.active();
         active -> exit();
         
@@ -65,7 +71,7 @@
 	 * zu übergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
-        
+
 		Activity* active = (Activity*) scheduler.active();
         
         Activity* next = (Activity*) to;
