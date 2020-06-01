@@ -75,6 +75,7 @@ extern PrintStream out;
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
+        
         scheduler.reschedule();
 	}
 
@@ -83,6 +84,7 @@ extern PrintStream out;
      * 
 	 */
 	void Activity::exit() {
+        
         if (!(sleepingProcess == 0)) {
             Activity* wakeupedProcess = sleepingProcess;
             sleepingProcess = 0;
@@ -97,6 +99,7 @@ extern PrintStream out;
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
+        
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
         

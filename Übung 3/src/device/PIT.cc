@@ -22,8 +22,8 @@ void PIT::interval (int us) {
     // -> genau das, was wir als Startzählwert brauchen
     
     //int interruptCount = ((unsigned) this->intervall) * TIME_BASE; //Ein Intervall bei 10000 us = ein kommpletter Uhrdurchgang = ca 8 Sekunden
-    // Schreiben nun auf die 16 Bits
     
+    // Schreiben nun auf die 16 Bits
     this->datenregister.write(interruptCount);
     this->datenregister.write(interruptCount >> 8);
 }

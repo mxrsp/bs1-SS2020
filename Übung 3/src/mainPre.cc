@@ -40,7 +40,7 @@ public:
 
 	void body()
 	{
-		for(int i=0; i<3; i++) {
+		for(int i=0; i<5; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -85,9 +85,9 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
-    anton.quantum(10);
-    berta.quantum(30);
-    caesar.quantum(5);
+    anton.quantum(1);
+    berta.quantum(3);
+    caesar.quantum(2);
     
 	cpu.enableInterrupts();
     

@@ -20,7 +20,7 @@ void Clock::windup (int us) {
     aufrufHandleProSekunde = 1000 / (us / 1000);
     // 1 000 Millisekunden / (x Mikrosekunden / 1000)
     
-   // informationPropeller();
+   //informationPropeller();
     
     //maximal 16 Bit, also 65536 (0xFFF) möglich Werte
     if (us > 0xFFFF) {
@@ -48,9 +48,7 @@ void Clock::handle () {
     
     handleCount++; //Mitzaehlen der Uhrticks
     
-    // propellerAction();
-
-   // scheduler.reschedule();
+    //propellerAction();
     
     scheduler.checkSlice();
 }

@@ -57,7 +57,9 @@ extern PrintStream out;
         
         
         if (clock.ticks() == ((Activity*) scheduler.active())->quantum()){
-            clock.nullticks();
+            
+            //out.println("checkSlice wird aufgerufen");
+            clock.setTicks(0);
             this->reschedule();
         }
         

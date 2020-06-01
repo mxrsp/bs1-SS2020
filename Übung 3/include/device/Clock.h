@@ -77,16 +77,13 @@ public:
         return this->handleCount;
 	}
 	
-	void nullticks(){
-        
-        this->handleCount = 0;
+	void setTicks(int ticks) {
+        this->handleCount = ticks;
     }
-	
     
 private:
     
     int handleCount;
-    
     int aufrufHandleProSekunde;
     
 };

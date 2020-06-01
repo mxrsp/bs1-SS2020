@@ -19,6 +19,8 @@
 	 */
 	void ActivityScheduler::suspend()	{
         
+        IntLock lock;
+        
         Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
@@ -34,6 +36,8 @@
 	 * zuzuteilen.
 	 */
 	void ActivityScheduler::kill(Activity* act) {
+        
+         IntLock lock;
         
         bool laeuft;
 
@@ -71,7 +75,9 @@
 	 * zu übergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
-
+        
+        IntLock lock;
+         
 		Activity* active = (Activity*) scheduler.active();
         
         Activity* next = (Activity*) to;
