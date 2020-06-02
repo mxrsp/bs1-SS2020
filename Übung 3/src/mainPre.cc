@@ -39,8 +39,8 @@ public:
 	}
 
 	void body()
-	{
-		for(int i=0; i<5; i++) {
+	{   
+		for(int i=0; i<8; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -64,11 +64,11 @@ CPU cpu;
 
 InterruptGuardian interruptGuardian;
 PIC pic;
-Clock clock(2000);
+Clock clock(2500);
 
 // globale Ein-/Ausgabeobjekte
-extern CgaChannel cga;         // unser CGA-Ausgabekanal
-extern PrintStream out;   // unseren PrintStream mit Ausgabekanal verknuepfen
+CgaChannel cga;         // unser CGA-Ausgabekanal
+PrintStream out(cga);   // unseren PrintStream mit Ausgabekanal verknuepfen
 
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler;   // der Scheduler
@@ -91,10 +91,7 @@ int main()
     
 	cpu.enableInterrupts();
     
-    //out.wait();
-    
 	anton.body();
     
-    out.println("Programm ist beendet. Destruktoren werden abgearbeitet.");
-    for (int i = 0 ; i < 100000000; i++) {}
+    cpu.disableInterrupts();
 }

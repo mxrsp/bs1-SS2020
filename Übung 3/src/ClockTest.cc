@@ -22,8 +22,8 @@ InterruptGuardian interruptGuardian;
 PIC pic;
 Clock clock(2000);
 
-extern CgaChannel cga;
-extern PrintStream out;
+// CgaChannel cga;
+// PrintStream out(cga);
 
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler; // der Scheduler

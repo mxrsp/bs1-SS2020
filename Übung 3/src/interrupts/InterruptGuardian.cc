@@ -1,7 +1,11 @@
 #include "interrupts/InterruptGuardian.h"
 
 #include "interrupts/PanicGate.h"
+#include "io/Printstream.h"
+
 extern PanicGate panicGate;
+
+extern PrintStream out;
 
 static bool initialized = false;
 Gate* InterruptGuardian::vectorTable[NrOfInterrupts];
@@ -25,8 +29,10 @@ InterruptGuardian::InterruptGuardian()
 }
 
 void InterruptGuardian::handle(int num)
-{
-	vectorTable[num]->handle();
+{   
+    // if (!(vectorTable[num] -> getNumber() == -1)) {
+        vectorTable[num]->handle();
+    // }
 }
 
 void InterruptGuardian::registerGate(Gate* gate,int num)
@@ -39,6 +45,7 @@ void InterruptGuardian::registerGate(Gate* gate,int num)
 	}
 	if((num >= -1) && (num < NrOfInterrupts)){
 		vectorTable[num] = gate;
+        //out.println("interrupt wird registriert");
 	}
 }
 
