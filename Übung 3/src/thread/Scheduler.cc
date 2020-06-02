@@ -12,26 +12,31 @@
 #include "io/PrintStream.h"
 //#include "thread/ActivityScheduler.h"
 #include "device/Clock.h"
+#include "interrupts/IntLock.h"
 
 extern PrintStream out;
 //ActivityScheduler activityScheduler; 
 
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
-
+        IntLock lock;
+        
         readylist.enqueue(sched);
         
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
-
+        IntLock lock;
+        
         readylist.remove(sched);
         
 	}
 
 	// Aktiviert das vorderste der Liste mittels activate.
 	void Scheduler::reschedule() {
+        
+        IntLock lock;
         
 		Schedulable* firstElement;
         
@@ -53,7 +58,8 @@ extern PrintStream out;
 //         if (quantum == 0) {
 //             this -> reschedule();
 //         }
-//         
+        
+        IntLock lock;
         
         
         if (clock.ticks() == ((Activity*) scheduler.active())->quantum()){
