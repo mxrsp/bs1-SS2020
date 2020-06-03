@@ -14,6 +14,7 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
+#include "interrupts/IntLock.h"
 
 extern PrintStream out;
 
@@ -66,6 +67,8 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
+        IntLock lock;
+        
         if (this -> isBlocked()) {
             this -> state = READY;
             scheduler.schedule(this);
@@ -99,14 +102,29 @@ extern PrintStream out;
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
+        IntLock lock;
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
         
+        out.print(sleepingProcess->getNameActivity());
+        out.println(" ist der aktive Prozess in join");
+        out.print(this->getNameActivity());
+        out.println(" soll joinen");
+        
+        for (int i = 0 ; i < 10000000; i++) {}
+        
+        
+        // letzter Prozess darf sich nicht selber schlafen legen
+        
         if (this->isZombie()) {
             scheduler.suspend();
         } else {
-            currentProcess -> sleep();
+            if (this != currentProcess) {
+                currentProcess -> sleep();
+            } else {
+                out.println("In Join passiert gar nichts.");
+            }
         }
 		
 	}

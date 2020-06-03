@@ -35,12 +35,18 @@ public:
 
 	~Hello()
 	{
+        cout.print("Vor Join  von: ");
+        cout.println(name);
+        
 		join();
+        
+        cout.print("Nach Join  von: ");
+        cout.println(name);
 	}
 
 	void body()
 	{   
-		for(int i=0; i<8; i++) {
+		for(int i=0; i<6; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -85,13 +91,44 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
-    anton.quantum(1);
-    berta.quantum(3);
+    // Information, wie oft durchschnittlich gezaehlt wird
+    // quantum(1) : 2
+    // quantum(2) : 4
+    // quantum(3) : 7
+    // quantum(4) : 9
+    // quantum(5) : 11
+    
+    // Test 1
+    anton.quantum(2);
+    berta.quantum(2);
     caesar.quantum(2);
+
+    // Test 2
+//     anton.quantum(1);
+//     berta.quantum(2);
+//     caesar.quantum(3);
+
+    // Test 3    PageFault sollte nicht auftauchen
+//     anton.quantum(1);
+//     berta.quantum(1);
+//     caesar.quantum(100);
+    
+    // Test 4
+//     anton.quantum(100);
+//     berta.quantum(1);
+//     caesar.quantum(1);
+    
+    // Test 5
+//     anton.quantum(1);
+//     berta.quantum(100);
+//     caesar.quantum(1);
+    
     
 	cpu.enableInterrupts();
     
 	anton.body();
     
-    cpu.disableInterrupts();
+     // out.println("Jetzt sind wir fertig in der main");
+     // while (1) {}
+    
 }

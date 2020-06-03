@@ -10,7 +10,7 @@ void PIT::interval (int us) {
         00110100 = 52 (rechts nach links lesen)
         -> Binäre Zählung + Modus 2 + nieder- und hoeherwertiges Zaehlerbyte + Zaehler 0
     */
-    this->steuerregister.write(0x34); // 3 * 16 + 4 = 52
+    this->steuerregister.write(0x34);
     
     this->intervall = us;
     // "us" Mikrosekunden zur Systemzeit (Ticks)
@@ -21,8 +21,7 @@ void PIT::interval (int us) {
     // Nanosekunden geteilt durch Nanosekunden = keine Einheit
     // -> genau das, was wir als Startzählwert brauchen
     
-    //int interruptCount = ((unsigned) this->intervall) * TIME_BASE; //Ein Intervall bei 10000 us = ein kommpletter Uhrdurchgang = ca 8 Sekunden
-    
+    // Bitmaske verwenden !
     // Schreiben nun auf die 16 Bits
     this->datenregister.write(interruptCount);
     this->datenregister.write(interruptCount >> 8);

@@ -9,9 +9,10 @@
 #include "thread/Dispatcher.h"
 #include "thread/Scheduler.h"
 #include "thread/ActivityScheduler.h"
-
+#include "device/CPU.h"
 #include "interrupts/IntLock.h"
 
+extern CPU cpu;
 
 	/* Suspendieren des aktiven Prozesses
 	 * Der korrekte Ausfuehrungszustand ist zu setzen
@@ -25,7 +26,17 @@
         
         active -> changeTo(Activity :: BLOCKED);
         
+        out.print(active->getNameActivity());
+        out.println(" wird schlafen gelegt und reschedule ausgeführt");
+        
+        for (int i = 0 ; i < 10000000; i++) {}
+        
         scheduler.reschedule();
+        
+        active = (Activity*) scheduler.active();
+        
+        out.print(active->getNameActivity());
+        out.println(" wurde dadurch der aktive Prozess");
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -37,7 +48,7 @@
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         
-         IntLock lock;
+        IntLock lock;
         
         bool laeuft;
 
@@ -67,6 +78,7 @@
         active -> exit();
         
         scheduler.reschedule();
+        
 	}
 
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
@@ -76,7 +88,7 @@
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
         
-        IntLock lock;
+        // IntLock lock;
          
 		Activity* active = (Activity*) scheduler.active();
         
@@ -86,8 +98,25 @@
         if ((active -> isRunning()) ||  (active -> isReady())){
             active -> changeTo(Activity :: READY);
             scheduler.schedule(active);
+        
+        while (next == 0) {
+            // out.print(".");
+            // for (int i = 0; i < 10000000; i++) {}
+            // scheduler.reschedule();
+            
+            // interrupts kurz zulassen
+            cpu.enableInterrupts();
+            cpu.halt();
+            //for (int i = 0; i < 100000; i++) {}
+            cpu.disableInterrupts();
+            
+            next = (Activity*) readylist.dequeue();
+        }}
+        
+        // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist
+        if (next != active) {
+            next -> changeTo(Activity :: RUNNING);
+            dispatch(next);
         }
         
-        next -> changeTo(Activity :: RUNNING);
-        dispatch(next);
 	}

@@ -10,19 +10,16 @@
 
 #include "thread/Scheduler.h"
 #include "io/PrintStream.h"
-//#include "thread/ActivityScheduler.h"
 #include "device/Clock.h"
 #include "interrupts/IntLock.h"
 
 extern PrintStream out;
-//ActivityScheduler activityScheduler; 
 
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
         IntLock lock;
         
         readylist.enqueue(sched);
-        
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
@@ -30,7 +27,6 @@ extern PrintStream out;
         IntLock lock;
         
         readylist.remove(sched);
-        
 	}
 
 	// Aktiviert das vorderste der Liste mittels activate.
@@ -42,31 +38,28 @@ extern PrintStream out;
         
         firstElement = (Schedulable*) readylist.dequeue();
         
-        if (firstElement != 0) {
+        // if (firstElement != 0) {
             this -> activate(firstElement);
-        } 
+        // } 
 	}
 	
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
     void Scheduler::checkSlice() {
-        //int quantum = Schedulable :: quantum();
-//         int quantum = 1;
-//         
-//         out.println("checkSlice wird aufgerufen");
-//         out.wait();
-//         
-//         if (quantum == 0) {
-//             this -> reschedule();
-//         }
         
         IntLock lock;
         
+//          out.print(clock.ticks());
+//          out.print("  ");
+//          out.print(((Activity*) scheduler.active())->quantum());
+//          out.println();
+        
+//         for (int i = 0; i < 100000; i++) {}
+//         out.println(" checkSlice aufgerufen      ");
         
         if (clock.ticks() == ((Activity*) scheduler.active())->quantum()){
-            
-            //out.println("checkSlice wird aufgerufen");
             clock.setTicks(0);
+            //out.println("Jetzt sind wir in der Endlosschleife");
+            //while(1) {}
             this->reschedule();
         }
-        
     }

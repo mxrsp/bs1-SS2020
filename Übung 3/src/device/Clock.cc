@@ -3,8 +3,13 @@
 #include "io/PrintStream.h"
 #include "device/CgaChannel.h"
 
+// normalerweise:
 extern CgaChannel cga;
 extern PrintStream out;
+
+// Ticken zeigen:
+// CgaChannel cga;
+// PrintStream out(cga);
 
 PIT pit;
 
@@ -17,10 +22,10 @@ Clock::Clock (int us) : Gate(Timer), handleCount(0) {
 
 void Clock::windup (int us) {
     
-    aufrufHandleProSekunde = 1000 / (us / 1000);
+    // aufrufHandleProSekunde = 1000 / (us / 1000);
     // 1 000 Millisekunden / (x Mikrosekunden / 1000)
     
-   // informationPropeller();
+    //informationPropeller();
     
     //maximal 16 Bit, also 65536 (0xFFF) möglich Werte
     if (us > 0xFFFF) {
@@ -39,16 +44,14 @@ void Clock::windup (int us) {
 
 void Clock::handle () {
     
-//     out.print("handle wird aufgerufen zum ");
-//     out.print(handleCount);
-//     out.println(". mal");
-//     out.wait();
+    handleCount++; //Mitzaehlen der Uhrticks
     
     pic.ack(PIC::PIT); //Bestätigen des Interrupts
     
-    handleCount++; //Mitzaehlen der Uhrticks
+    // propellerAction();
     
-   // propellerAction();
+  //  out.print(handleCount);
+  //  out.println(" Handleaufruf ");
     
     scheduler.checkSlice();
 }
@@ -61,6 +64,7 @@ void Clock::informationPropeller() {
 
 void Clock::propellerAction() {
     
+    // Kurzes Warten, wenn Uhr eine Umdrehung geschafft hat
     if (handleCount % (8 * aufrufHandleProSekunde) == 0) {
         out.wait();
     }

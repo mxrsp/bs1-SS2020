@@ -37,7 +37,13 @@ public:
 	
 	~Hello()
 	{
+        cout.print("Vor Join  von: ");
+        cout.println(name);
         
+		join();
+        
+        cout.print("Nach Join  von: ");
+        cout.println(name);
 	}
 	
 	void body()
@@ -74,8 +80,8 @@ unsigned stack1[1024];
 
 int main()
 {
- 	Hello anton("Anton", out, 2); // anton benutzt den Stack von main
- 	Hello berta("Berta", out, &stack0[1023], 4);
-    Hello caesar("Caesar", out, &stack1[1023], 6);
+ 	Hello anton("Anton", out, 6); // anton benutzt den Stack von main
+ 	Hello berta("Berta", out, &stack0[1024], 4);
+    Hello caesar("Caesar", out, &stack1[1024], 2);
     anton.body();
 }

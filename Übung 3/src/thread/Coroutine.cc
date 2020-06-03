@@ -50,8 +50,12 @@ extern PrintStream out;
         if (!(tos)==0) {
             Coroutine::setUpCoroutine *setUp = (Coroutine::setUpCoroutine*) tos;
             
+            setUp--;
+            
             Coroutine *neueRoutine = this;
 		
+            // nirvana setzen
+            setUp -> returnadresse = 0;
 			setUp -> coroutine = startup;
 			setUp -> routine = neueRoutine;
 			
