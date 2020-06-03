@@ -44,6 +44,9 @@ protected:
 	// Die Ready-Liste
 	Queue readylist;
 
+private:
+    int checkCounter = 0;
+    
 };
 
 #endif

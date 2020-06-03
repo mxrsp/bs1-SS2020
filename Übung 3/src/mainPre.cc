@@ -54,6 +54,7 @@ public:
 				cout.print(i);
 				cout.println();
 			}
+			// cout.println("Interrupt: ");
             for(int j=0; j<10000; j++);
 		}
 	}
@@ -99,9 +100,9 @@ int main()
     // quantum(5) : 11
     
     // Test 1
-    anton.quantum(2);
-    berta.quantum(2);
-    caesar.quantum(2);
+    anton.quantum(1);
+    berta.quantum(5);
+    caesar.quantum(1);
 
     // Test 2
 //     anton.quantum(1);
@@ -128,7 +129,7 @@ int main()
     
 	anton.body();
     
-     // out.println("Jetzt sind wir fertig in der main");
-     // while (1) {}
+      //out.println("Jetzt sind wir fertig in der main");
+      //while (1) {}
     
 }

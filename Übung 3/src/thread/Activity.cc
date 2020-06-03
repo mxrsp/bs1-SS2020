@@ -108,7 +108,7 @@ extern PrintStream out;
         sleepingProcess = currentProcess;
         
         out.print(sleepingProcess->getNameActivity());
-        out.println(" ist der aktive Prozess in join");
+        out.print(" ist der aktive Prozess in join, ");
         out.print(this->getNameActivity());
         out.println(" soll joinen");
         
@@ -120,11 +120,7 @@ extern PrintStream out;
         if (this->isZombie()) {
             scheduler.suspend();
         } else {
-            if (this != currentProcess) {
-                currentProcess -> sleep();
-            } else {
-                out.println("In Join passiert gar nichts.");
-            }
+            currentProcess -> sleep();
         }
 		
 	}

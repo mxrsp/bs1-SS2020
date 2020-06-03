@@ -11,7 +11,8 @@ PageFaultGate::PageFaultGate(): Gate(PageFault) { }
 
 void PageFaultGate::handle()
 {
-    // while(1) {}
+    out.println("Jetzt tritt der PageFault auf");
+    while(1) {}
     
 	cga.blueScreen("Panic! PageFault at address: ");
     out.print(CPU::getCR2());

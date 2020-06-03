@@ -8,6 +8,9 @@ PanicGate::PanicGate(): Gate(-1) { }
 
 void PanicGate::handle()
 {
+    out.println("Jetzt tritt ein PanikGate auf");
+    while(1) {}
+    
  cga.blueScreen("Panic: Illegal Trap/Interrupt!");
 	cpu.halt();
 }

@@ -48,18 +48,21 @@ extern PrintStream out;
         
         IntLock lock;
         
-//          out.print(clock.ticks());
-//          out.print("  ");
-//          out.print(((Activity*) scheduler.active())->quantum());
-//          out.println();
-        
+          //out.print(clock.ticks());
+//         out.print(checkCounter);
+//           out.print("  ");
+//           out.print(((Activity*) scheduler.active())->quantum());
+//           out.println();
+//         
 //         for (int i = 0; i < 100000; i++) {}
 //         out.println(" checkSlice aufgerufen      ");
         
-        if (clock.ticks() == ((Activity*) scheduler.active())->quantum()){
-            clock.setTicks(0);
-            //out.println("Jetzt sind wir in der Endlosschleife");
-            //while(1) {}
+        // if (clock.ticks() > ((Activity*) scheduler.active())->quantum()){
+        if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
+            //clock.setTicks(0);
+            checkCounter = 0;
             this->reschedule();
+        } else {
+            checkCounter++;
         }
     }
