@@ -29,8 +29,9 @@ extern CPU cpu;
         out.print(active->getNameActivity());
         out.println(" wird schlafen gelegt und reschedule ausgeführt");
         
+        cpu.enableInterrupts();
         scheduler.reschedule();
-        // scheduler.checkSlice();
+        // cpu.disableInterrupts();
         
         active = (Activity*) scheduler.active();
         
@@ -99,37 +100,34 @@ extern CPU cpu;
             scheduler.schedule(active);
         }
             
-            //for (int i = 0; i < 10000000; i++) {}
-            
         if (next == 0)  {
-            out.println("Das zu aktivierende Element in activate ist Null");
-        } else {
-            //out.print(next->getNameActivity());
-            //out.println(" wird aktiviert");
+            out.println("Das zu aktivierende Element in activate ist Null -> Endlosschleife");
+            while (1) {}
         }
             
         while (next == 0) {
-            // out.print(".");
+            //out.print(".");
             // for (int i = 0; i < 10000000; i++) {}
             // scheduler.reschedule();
             
             // interrupts kurz zulassen
-            // hierdurch wird checkSlice aufgerufen
             cpu.enableInterrupts();
-            cpu.halt();
+            // cpu.halt();
+            for (int i = 0; i < 10000; i++);
             cpu.disableInterrupts();
             
-             //scheduler.checkSlice();
-             //scheduler.reschedule();
+            scheduler.reschedule();
             
 //             next = (Activity*) readylist.dequeue();
         }
         
+        // cpu.enableInterrupts();
+        
         // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist
-        if (next != active) {
+        //if (next != active) {
             // out.println("Prozesswechsel");
             next -> changeTo(Activity :: RUNNING);
             dispatch(next);
-        }
+        
         
 	}

@@ -102,7 +102,7 @@ extern PrintStream out;
 	 * Wecken des wartenden Prozesses übernimmt exit.
 	 */
 	void Activity::join() {
-        IntLock lock;
+       IntLock lock;
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;

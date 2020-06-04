@@ -56,7 +56,21 @@ extern PrintStream out;
 //         
 //         for (int i = 0; i < 100000; i++) {}
 //         out.println(" checkSlice aufgerufen      ");
+        /*
+        if (checkCounter > ((Activity*) scheduler.active())->quantum()) {
+            out.print(" . ");
+            for (int i = 0; i < 100000; i++);
+            if (checkCounter % 50 == 0) {
+                out.print(checkCounter);
+            }
+        }*/
         
+//         if (((Activity*) scheduler.active())->quantum() == 3) {
+//             out.print(".");
+//             out.print(checkCounter);
+//             out.println();
+//         }
+//         
         // if (clock.ticks() > ((Activity*) scheduler.active())->quantum()){
         if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
             //clock.setTicks(0);

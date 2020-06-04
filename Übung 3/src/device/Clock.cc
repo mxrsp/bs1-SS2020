@@ -44,16 +44,16 @@ void Clock::windup (int us) {
 
 void Clock::handle () {
     
-    handleCount++; //Mitzaehlen der Uhrticks
-    
     pic.ack(PIC::PIT); //Bestätigen des Interrupts
+    
+    scheduler.checkSlice();
+    
+   // handleCount++; //Mitzaehlen der Uhrticks
     
     // propellerAction();
     
   //  out.print(handleCount);
   //  out.println(" Handleaufruf ");
-    
-    scheduler.checkSlice();
 }
 
 void Clock::informationPropeller() {

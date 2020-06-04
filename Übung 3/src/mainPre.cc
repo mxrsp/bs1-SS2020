@@ -10,6 +10,8 @@
 #include "interrupts/InterruptGuardian.h"
 #include "interrupts/IntLock.h"
 
+
+CPU cpu;
 // Hello: Eine kooperative Aktivitaet
 //
 // Anmerkung: Diese Klasse dient
@@ -35,18 +37,18 @@ public:
 
 	~Hello()
 	{
-        cout.print("Vor Join  von: ");
-        cout.println(name);
-        
+//         cout.print("Vor Join  von: ");
+//         cout.println(name);
+//         
 		join();
-        
-        cout.print("Nach Join  von: ");
-        cout.println(name);
+//         
+//         cout.print("Nach Join  von: ");
+//         cout.println(name);
 	}
 
 	void body()
 	{   
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<7; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -54,7 +56,6 @@ public:
 				cout.print(i);
 				cout.println();
 			}
-			// cout.println("Interrupt: ");
             for(int j=0; j<10000; j++);
 		}
 	}
@@ -67,7 +68,7 @@ private:
 //////////////////////////////////////////////////////////////////////////
 // Die Systemobjekte von Co-Stubs
 
-CPU cpu;
+// CPU cpu;
 
 InterruptGuardian interruptGuardian;
 PIC pic;
@@ -91,17 +92,10 @@ int main()
 	Hello anton("Anton", out); // anton benutzt den Stack von main
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
-
-    // Information, wie oft durchschnittlich gezaehlt wird
-    // quantum(1) : 2
-    // quantum(2) : 4
-    // quantum(3) : 7
-    // quantum(4) : 9
-    // quantum(5) : 11
     
     // Test 1
     anton.quantum(1);
-    berta.quantum(5);
+    berta.quantum(10);
     caesar.quantum(1);
 
     // Test 2
@@ -123,6 +117,13 @@ int main()
 //     anton.quantum(1);
 //     berta.quantum(100);
 //     caesar.quantum(1);
+    
+    // Information, wie oft durchschnittlich gezaehlt wird
+    // quantum(1) : 2
+    // quantum(2) : 4
+    // quantum(3) : 7
+    // quantum(4) : 9
+    // quantum(5) : 11
     
     
 	cpu.enableInterrupts();
