@@ -36,7 +36,7 @@ extern PrintStream out;
         cpu.enableInterrupts();
         
 		obj -> body();
-		
+		out.println("Exit in Coroutine wurde aufgerufen");
 		obj -> exit();
 	}
 

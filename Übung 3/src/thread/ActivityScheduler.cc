@@ -75,9 +75,10 @@ extern CPU cpu;
         IntLock lock;
         
 		Activity* active = (Activity*) scheduler.active();
-        active -> exit();
+        active -> changeTo(Activity :: ZOMBIE);
+        //active -> exit();
         
-        scheduler.reschedule();
+        this -> reschedule();
         
 	}
 
@@ -89,7 +90,7 @@ extern CPU cpu;
 	void ActivityScheduler::activate(Schedulable* to) {
         
         // IntLock lock;
-         
+            
 		Activity* active = (Activity*) scheduler.active();
         
         Activity* next = (Activity*) to;
@@ -100,11 +101,10 @@ extern CPU cpu;
             scheduler.schedule(active);
         }
             
-        if (next == 0)  {
-            out.println("Das zu aktivierende Element in activate ist Null -> Endlosschleife");
-            while (1) {}
-        }
-            
+     //   if (next == 0)  {
+      //      out.println("Das zu aktivierende Element in activate ist Null -> //Endlosschleife");
+     //       while (1) {}
+    //    }  
         while (next == 0) {
             //out.print(".");
             // for (int i = 0; i < 10000000; i++) {}
@@ -115,10 +115,10 @@ extern CPU cpu;
             // cpu.halt();
             for (int i = 0; i < 10000; i++);
             cpu.disableInterrupts();
+            next = (Activity*) readylist.dequeue();
+           // scheduler.reschedule();
             
-            scheduler.reschedule();
             
-//             next = (Activity*) readylist.dequeue();
         }
         
         // cpu.enableInterrupts();
