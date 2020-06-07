@@ -90,9 +90,7 @@ extern CPU cpu;
 	void ActivityScheduler::activate(Schedulable* to) {
         
         // IntLock lock;
-            
-		Activity* active = (Activity*) scheduler.active();
-        
+        Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
 
         // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
@@ -105,29 +103,30 @@ extern CPU cpu;
       //      out.println("Das zu aktivierende Element in activate ist Null -> //Endlosschleife");
      //       while (1) {}
     //    }  
-        while (next == 0) {
-            //out.print(".");
-            // for (int i = 0; i < 10000000; i++) {}
-            // scheduler.reschedule();
+        if(next == 0) {
+            while (next == 0) {
+                //out.print(".");
+                // for (int i = 0; i < 10000000; i++) {}
+                // scheduler.reschedule();
             
-            // interrupts kurz zulassen
-            cpu.enableInterrupts();
-            // cpu.halt();
-            for (int i = 0; i < 10000; i++);
-            cpu.disableInterrupts();
-            next = (Activity*) readylist.dequeue();
-           // scheduler.reschedule();
-            
-            
-        }
-        
+                // interrupts kurz zulassen
+                cpu.enableInterrupts();
+                // cpu.halt();
+                for (int i = 0; i < 10000; i++);
+                cpu.disableInterrupts();
+                next = (Activity*) readylist.dequeue();
+                // scheduler.reschedule();
+            } 
+            next -> changeTo(Activity :: RUNNING);
+            dispatch(next);
+        } else {
+            next -> changeTo(Activity :: RUNNING);
+            dispatch(next);
         // cpu.enableInterrupts();
-        
         // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist
         //if (next != active) {
             // out.println("Prozesswechsel");
-            next -> changeTo(Activity :: RUNNING);
-            dispatch(next);
-        
+
+        }
         
 	}
