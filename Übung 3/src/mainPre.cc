@@ -94,30 +94,9 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
     
-    // Test 1
     anton.quantum(1);
     berta.quantum(1);
-    caesar.quantum(100);
-
-    // Test 2
-//     anton.quantum(1);
-//     berta.quantum(2);
-//     caesar.quantum(3);
-
-    // Test 3    PageFault sollte nicht auftauchen
-//     anton.quantum(1);
-//     berta.quantum(1);
-//     caesar.quantum(100);
-    
-    // Test 4
-//     anton.quantum(100);
-//     berta.quantum(1);
-//     caesar.quantum(1);
-    
-    // Test 5
-//     anton.quantum(1);
-//     berta.quantum(100);
-//     caesar.quantum(1);
+    caesar.quantum(1);
     
 	cpu.enableInterrupts();
     

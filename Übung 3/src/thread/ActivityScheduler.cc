@@ -69,10 +69,8 @@ extern CPU cpu;
         
 		Activity* active = (Activity*) scheduler.active();
         active -> changeTo(Activity :: ZOMBIE);
-        //active -> exit();
         
         this -> reschedule();
-        
 	}
 
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
@@ -95,7 +93,7 @@ extern CPU cpu;
             while (next == 0) {
                 
                 out.print(".");
-                for (int i = 0 ; i < 100000; i++);
+                for (int i = 0 ; i < 10000; i++);
                 
                 // interrupts kurz zulassen
                 cpu.enableInterrupts();
