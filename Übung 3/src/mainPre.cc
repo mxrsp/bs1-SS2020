@@ -95,9 +95,9 @@ int main()
 	Hello caesar("Caesar", out, &stack1[1024]);
     
     // Test 1
-    anton.quantum(100);
-    berta.quantum(100);
-    caesar.quantum(1);
+    anton.quantum(1);
+    berta.quantum(1);
+    caesar.quantum(100);
 
     // Test 2
 //     anton.quantum(1);

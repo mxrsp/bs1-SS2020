@@ -88,12 +88,11 @@ extern PrintStream out;
 	 */
 	void Activity::exit() {
         
-        if (!(sleepingProcess == 0)) {
+        if (sleepingProcess != 0) {
             Activity* wakeupedProcess = sleepingProcess;
             sleepingProcess = 0;
             wakeupedProcess -> wakeup();
         }
-        
         scheduler.kill(this);
 	}
 
@@ -106,16 +105,23 @@ extern PrintStream out;
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
-        /*
-        out.print(sleepingProcess->getNameActivity());
-        out.print(" ist der aktive Prozess in join, ");
-        out.print(this->getNameActivity());
-        out.println(" soll joinen");*/
         
         // letzter Prozess darf sich nicht selber schlafen legen
-        if (this == currentProcess) {
+        if (this == currentProcess) {/*
+            out.print(this -> getNameActivity());
+            out.print(" hat den Zustand: ");
+            out.print(this -> getState());
+            out.println();
+            out.print("Aktiver Prozess: ");
+            out.print(currentProcess -> getNameActivity());
+            out.println();*/
             return;
         } else {
-            scheduler.suspend();
+                if (this->isZombie()) {
+                    return;
+                } else {
+                    currentProcess -> sleep();
+             }
         }
+		
 	}

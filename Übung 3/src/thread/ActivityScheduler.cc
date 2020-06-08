@@ -26,17 +26,10 @@ extern CPU cpu;
         
         active -> changeTo(Activity :: BLOCKED);
         
-//         out.print(active->getNameActivity());
-//         out.println(" wird schlafen gelegt und reschedule ausgeführt");
-        
-        //cpu.enableInterrupts();
         scheduler.reschedule();
-        // cpu.disableInterrupts();
         
         active = (Activity*) scheduler.active();
-        /*
-        out.print(active->getNameActivity());
-        out.println(" wurde dadurch der aktive Prozess");*/
+        
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -119,5 +112,5 @@ extern CPU cpu;
                 next -> changeTo(Activity :: RUNNING);
                 dispatch(next);
             }
-        } 
+        }
 	}

@@ -38,9 +38,7 @@ extern PrintStream out;
         
         firstElement = (Schedulable*) readylist.dequeue();
         
-        // if (firstElement != 0) {
-            this -> activate(firstElement);
-        // } 
+        this -> activate(firstElement);
 	}
 	
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
@@ -48,28 +46,6 @@ extern PrintStream out;
         
         IntLock lock;
         
-          //out.print(clock.ticks());
-//         out.print(checkCounter);
-//           out.print("  ");
-//           out.print(((Activity*) scheduler.active())->quantum());
-//           out.println();
-//         
-//         for (int i = 0; i < 100000; i++) {}
-//         out.println(" checkSlice aufgerufen      ");
-        /*
-        if (checkCounter > ((Activity*) scheduler.active())->quantum()) {
-            out.print(" . ");
-            for (int i = 0; i < 100000; i++);
-            if (checkCounter % 50 == 0) {
-                out.print(checkCounter);
-            }
-        }*/
-        
-//         if (((Activity*) scheduler.active())->quantum() == 3) {
-//             out.print(".");
-//             out.print(checkCounter);
-//             out.println();
-//         }
         if (((Activity*) scheduler.active())->isRunning()) {
             if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
                 checkCounter = 0;

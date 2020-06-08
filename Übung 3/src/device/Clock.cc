@@ -48,12 +48,8 @@ void Clock::handle () {
     
     scheduler.checkSlice();
     
-   // handleCount++; //Mitzaehlen der Uhrticks
-    
     // propellerAction();
     
-  //  out.print(handleCount);
-  //  out.println(" Handleaufruf ");
 }
 
 void Clock::informationPropeller() {
