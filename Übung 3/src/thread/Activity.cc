@@ -106,21 +106,16 @@ extern PrintStream out;
         
         Activity* currentProcess = (Activity*)scheduler.active();
         sleepingProcess = currentProcess;
-        
+        /*
         out.print(sleepingProcess->getNameActivity());
         out.print(" ist der aktive Prozess in join, ");
         out.print(this->getNameActivity());
-        out.println(" soll joinen");
-        
-        for (int i = 0 ; i < 10000000; i++) {}
-        
+        out.println(" soll joinen");*/
         
         // letzter Prozess darf sich nicht selber schlafen legen
-        
-        if (this->isZombie()) {
-            scheduler.suspend();
+        if (this == currentProcess) {
+            return;
         } else {
-            currentProcess -> sleep();
+            scheduler.suspend();
         }
-		
 	}

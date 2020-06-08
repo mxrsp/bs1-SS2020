@@ -37,14 +37,14 @@ public:
 
 	~Hello()
 	{
-//         cout.print("Vor Join  von: ");
-//         cout.println(name);
-//         
-		join();
-//         
-//         cout.print("Nach Join  von: ");
-//         cout.println(name);
-	}
+         cout.print("Vor Join  von: ");
+         cout.println(name);
+         
+		 join();
+         
+         cout.print("Nach Join  von: ");
+         cout.println(name);
+    }
 
 	void body()
 	{   
@@ -55,6 +55,7 @@ public:
 				cout.print(" ");
 				cout.print(i);
 				cout.println();
+                for(int j=0; j<5000000; j++);
 			}
             for(int j=0; j<10000; j++);
 		}
@@ -94,8 +95,8 @@ int main()
 	Hello caesar("Caesar", out, &stack1[1024]);
     
     // Test 1
-    anton.quantum(1);
-    berta.quantum(10);
+    anton.quantum(100);
+    berta.quantum(100);
     caesar.quantum(1);
 
     // Test 2
@@ -118,19 +119,7 @@ int main()
 //     berta.quantum(100);
 //     caesar.quantum(1);
     
-    // Information, wie oft durchschnittlich gezaehlt wird
-    // quantum(1) : 2
-    // quantum(2) : 4
-    // quantum(3) : 7
-    // quantum(4) : 9
-    // quantum(5) : 11
-    
-    
 	cpu.enableInterrupts();
     
 	anton.body();
-    
-      //out.println("Jetzt sind wir fertig in der main");
-      //while (1) {}
-    
 }

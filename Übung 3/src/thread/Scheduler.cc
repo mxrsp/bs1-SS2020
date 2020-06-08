@@ -70,13 +70,12 @@ extern PrintStream out;
 //             out.print(checkCounter);
 //             out.println();
 //         }
-//         
-        // if (clock.ticks() > ((Activity*) scheduler.active())->quantum()){
-        if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
-            //clock.setTicks(0);
-            checkCounter = 0;
-            this->reschedule();
-        } else {
-            checkCounter++;
+        if (((Activity*) scheduler.active())->isRunning()) {
+            if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
+                checkCounter = 0;
+                reschedule();
+            } else {
+                checkCounter++;
+            }
         }
     }

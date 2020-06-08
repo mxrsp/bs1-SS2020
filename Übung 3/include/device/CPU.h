@@ -28,10 +28,7 @@ public:
 	static void halt () { cpu_halt(); }
 
 	// Zulassen der Interrupts
-	static void enableInterrupts () {
-        
-        int_enable();
-    }
+	static void enableInterrupts () { int_enable(); }
 
 	// Sperren der Interrupts.
 	// Liefert den letzten Interruptstatus zurueck

@@ -1,4 +1,7 @@
 #include "lib/Queue.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 void Queue::enqueue (Chain* item)
 {   

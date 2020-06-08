@@ -26,17 +26,17 @@ extern CPU cpu;
         
         active -> changeTo(Activity :: BLOCKED);
         
-        out.print(active->getNameActivity());
-        out.println(" wird schlafen gelegt und reschedule ausgeführt");
+//         out.print(active->getNameActivity());
+//         out.println(" wird schlafen gelegt und reschedule ausgeführt");
         
-        cpu.enableInterrupts();
+        //cpu.enableInterrupts();
         scheduler.reschedule();
         // cpu.disableInterrupts();
         
         active = (Activity*) scheduler.active();
-        
+        /*
         out.print(active->getNameActivity());
-        out.println(" wurde dadurch der aktive Prozess");
+        out.println(" wurde dadurch der aktive Prozess");*/
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -89,7 +89,6 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::activate(Schedulable* to) {
         
-        // IntLock lock;
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
 
@@ -98,35 +97,27 @@ extern CPU cpu;
             active -> changeTo(Activity :: READY);
             scheduler.schedule(active);
         }
-            
-     //   if (next == 0)  {
-      //      out.println("Das zu aktivierende Element in activate ist Null -> //Endlosschleife");
-     //       while (1) {}
-    //    }  
+
         if(next == 0) {
             while (next == 0) {
-                //out.print(".");
-                // for (int i = 0; i < 10000000; i++) {}
-                // scheduler.reschedule();
-            
+                
+                out.print(".");
+                for (int i = 0 ; i < 100000; i++);
+                
                 // interrupts kurz zulassen
                 cpu.enableInterrupts();
-                // cpu.halt();
-                for (int i = 0; i < 10000; i++);
+                cpu.halt();
                 cpu.disableInterrupts();
+                
                 next = (Activity*) readylist.dequeue();
-                // scheduler.reschedule();
-            } 
+            }
             next -> changeTo(Activity :: RUNNING);
             dispatch(next);
         } else {
-            next -> changeTo(Activity :: RUNNING);
-            dispatch(next);
-        // cpu.enableInterrupts();
-        // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist
-        //if (next != active) {
-            // out.println("Prozesswechsel");
-
-        }
-        
+            // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist  
+            if (next != active) {
+                next -> changeTo(Activity :: RUNNING);
+                dispatch(next);
+            }
+        } 
 	}
