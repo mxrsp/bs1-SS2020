@@ -57,10 +57,12 @@ public:
 	{
         IntLock lock;
         
+        Activity* active = (Activity*) scheduler.active();
+        
         if (bufferIsEmpty()) {
             keyboardList.enqueue(active);
             keyboardListSize++;
-            scheduler.suspend(); // aktiver Prozess wird schlafen gelegt
+            scheduler.suspend();
         }
         
         T output = this -> buffer[outPointer];
