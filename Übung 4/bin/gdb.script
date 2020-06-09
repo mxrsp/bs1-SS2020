@@ -1,0 +1,5 @@
+target remote localhost:1234
+symbol-file isodir/boot/costubs.elf
+break main
+
+
