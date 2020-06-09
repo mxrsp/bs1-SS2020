@@ -31,7 +31,7 @@
 00000000000i[      ]   Sound support: no
 00000000000i[      ]   USB support: no
 00000000000i[      ]   VGA extension support: vbe
-00000000000i[MEM0  ] allocated memory at 0x7f80d7ddd010. after alignment, vector=0x7f80d7dde000
+00000000000i[MEM0  ] allocated memory at 0x7fcec3ddd010. after alignment, vector=0x7fcec3dde000
 00000000000i[MEM0  ] 64,00MB
 00000000000i[MEM0  ] mem block size = 0x00020000, blocks=512
 00000000000i[MEM0  ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
@@ -41,7 +41,7 @@
 00000000000i[DEV   ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[PLUGIN] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS  ] Using local time for initial clock
-00000000000i[CMOS  ] Setting initial clock to: Mon Jun  8 11:12:22 2020 (time0=1591607542)
+00000000000i[CMOS  ] Setting initial clock to: Tue Jun  9 14:57:54 2020 (time0=1591707474)
 00000000000i[PLUGIN] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA   ] channel 4 used by cascade
 00000000000i[PLUGIN] init_dev of 'pic' plugin device by virtual method
@@ -207,26 +207,26 @@
 00001520195i[BXVGA ] VBE known Display Interface b0c5
 00001522838i[VBIOS ] VBE Bios $Id: vbe.c 228 2020-01-02 23:09:02Z vruppert $
 00005307684i[BIOS  ] IDE time out
-01163390586i[BIOS  ] Booting from 07c0:0000
-01285944000p[SDL2  ] >>PANIC<< POWER button turned off.
-01285944000i[CPU0  ] CPU is in protected mode (active)
-01285944000i[CPU0  ] CS.mode = 32 bit
-01285944000i[CPU0  ] SS.mode = 32 bit
-01285944000i[CPU0  ] EFER   = 0x00000000
-01285944000i[CPU0  ] | EAX=00000001  EBX=001067ec  ECX=00000000  EDX=00000000
-01285944000i[CPU0  ] | ESP=0010894c  EBP=00108954  ESI=00000000  EDI=00000000
-01285944000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf af pf cf
-01285944000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
-01285944000i[CPU0  ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-01285944000i[CPU0  ] | EIP=001035c0 (001035c0)
-01285944000i[CPU0  ] | CR0=0x80000011 CR2=0x00000000
-01285944000i[CPU0  ] | CR3=0x0010a000 CR4=0x00000000
-01285944000i[CPU0  ] 0x001035c0>> jmp .-2 (0x001035c0) : EBFE
-01285944000i[CMOS  ] Last time is 1591607863 (Mon Jun  8 11:17:43 2020)
-01285944000i[      ] restoring default signal behavior
-01285944000i[SIM   ] quit_sim called with exit code 1
+02487328416i[BIOS  ] Booting from 07c0:0000
+04670316000p[SDL2  ] >>PANIC<< POWER button turned off.
+04670316000i[CPU0  ] CPU is in protected mode (halted)
+04670316000i[CPU0  ] CS.mode = 32 bit
+04670316000i[CPU0  ] SS.mode = 32 bit
+04670316000i[CPU0  ] EFER   = 0x00000000
+04670316000i[CPU0  ] | EAX=001066f8  EBX=001066f8  ECX=00000049  EDX=00000049
+04670316000i[CPU0  ] | ESP=0010757c  EBP=00107588  ESI=00000000  EDI=00000000
+04670316000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df IF tf sf zf af pf cf
+04670316000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+04670316000i[CPU0  ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+04670316000i[CPU0  ] | EIP=001019ec (001019ec)
+04670316000i[CPU0  ] | CR0=0x80000011 CR2=0x00000000
+04670316000i[CPU0  ] | CR3=0x0010a000 CR4=0x00000000
+04670316000i[CPU0  ] 0x001019ec>> ret  : C3
+04670316000i[CMOS  ] Last time is 1591708641 (Tue Jun  9 15:17:21 2020)
+04670316000i[      ] restoring default signal behavior
+04670316000i[SIM   ] quit_sim called with exit code 1

@@ -40,24 +40,29 @@ SYSTEM_C = \
 
 SYSTEM_CC = \
 	$(INITFINI) \
-	device/CgaChar.cc \
 	device/CgaChannel.cc \
+	device/CgaChar.cc \
 	device/CgaScreen.cc \
+ 	device/Clock.cc \
+ 	device/CodeTable.cc \
+ 	device/KeyBoard.cc \
+ 	device/PIC.cc \
+ 	device/PIT.cc \
+	interrupts/Gate.cc \
+	interrupts/InterruptGuardian.cc \
+	interrupts/PageFaultGate.cc \
+	interrupts/PanicGate.cc \
+ 	interrupts/SpuriousGate.cc \
 	io/PrintStream.cc \
-	thread/Coroutine.cc \
-	thread/Activity.cc \
 	lib/Queue.cc \
+	thread/Activity.cc \
+	thread/Coroutine.cc \
 	thread/Scheduler.cc \
 	thread/ActivityScheduler.cc \
-	interrupts/InterruptGuardian.cc \
-	interrupts/PanicGate.cc \
-	interrupts/Gate.cc \
-	interrupts/PageFaultGate.cc \
- 	interrupts/SpuriousGate.cc \
- 	device/PIC.cc \
- 	device/Clock.cc \
- 	device/PIT.cc \
- 	mainPre.cc
+	tools/Calc.cc \
+	tools/Interp.cc \
+	tools/Scanner.cc \
+ 	mainKbd.cc
 
 ##############################################################################
 

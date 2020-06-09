@@ -1,6 +1,12 @@
 #ifndef BoundedBuffer_h
 #define BoundedBuffer_h
 
+#include"thread/Activity.h"
+#include"thread/ActivityScheduler.h"
+#include"lib/Queue.h"
+#include"interrupts/IntLock.h"
+
+extern ActivityScheduler scheduler;
 
 /** Diese Klasse stellt einen begrenzten synchronisierten
  *  Puffer dar, welcher von Interruptbehandlungsroutinen
@@ -16,6 +22,11 @@ public:
 
 	BoundedBuffer()
 	{
+        for (unsigned i = 0; i < size; i++) {
+            this -> buffer[i] = T();
+        }
+        this -> inPointer = 0;
+        this -> outPointer = 0;
 	}
 
 	/** Diese Methode wird vom Interrupthandler aufgerufen, um
@@ -24,8 +35,19 @@ public:
 	 *  Prozesse die auf eine Eingabe warten müssen hier geweckt werden.
 	 */
 	void add(T& elem)
-	{
-	}
+	{   
+        while(keyboardListSize != 0) {
+            Activity* rapunzel = (Activity*) keyboardList.dequeue();
+            keyboardListSize--;
+            rapunzel -> wakeup();
+        }
+        
+        if (!bufferIsFull()){
+            this -> buffer[inPointer] = elem;
+            elemInBuffer++;
+            incInPointer();
+        }
+    }
 
 	/** Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
 	 *  Puffer zu lesen. Ist dieser leer wird der lesende Prozess schlafen
@@ -33,10 +55,51 @@ public:
 	 */
 	T get()
 	{
+        IntLock lock;
+        
+        if (bufferIsEmpty()) {
+            keyboardList.enqueue(active);
+            keyboardListSize++;
+            scheduler.suspend(); // aktiver Prozess wird schlafen gelegt
+        }
+        
+        T output = this -> buffer[outPointer];
+        elemInBuffer--;
+        incOutPointer();
+        
+        return output;
 	}
 
 private:
 	T buffer[size];
+    
+    Queue keyboardList;
+    int keyboardListSize = 0;
+    
+    // zeigt auf erstes freies Element im Array
+    unsigned inPointer;
+    
+    // zeigt auf erstes belegtes Element im Array
+    unsigned outPointer;
+    
+    unsigned elemInBuffer = 0;
+    
+    
+	void incInPointer() {
+        this -> inPointer = (this -> inPointer + 1) % size;
+    }
+    
+    void incOutPointer() {
+        this -> outPointer = (this -> outPointer + 1) % size;
+    }
+    
+    bool bufferIsEmpty() {
+        return (elemInBuffer == 0);
+    }
+    
+    bool bufferIsFull() {
+        return (elemInBuffer == size);
+    }
 };
 
 #endif
