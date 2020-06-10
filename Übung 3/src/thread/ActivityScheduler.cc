@@ -83,17 +83,25 @@ extern CPU cpu;
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
 
+        if ((active -> isRunning()) && (next == 0)) {
+            return;
+        }
+        
         // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
         if ((active -> isRunning()) ||  (active -> isReady())){
-            active -> changeTo(Activity :: READY);
-            scheduler.schedule(active);
+            if (next != active) {
+                active -> changeTo(Activity :: READY);
+                scheduler.schedule(active);
+            } else {
+                return;
+            }
         }
 
         if(next == 0) {
             while (next == 0) {
                 
-                out.print(".");
-                for (int i = 0 ; i < 10000; i++);
+                // out.print(".");
+                // for (int i = 0 ; i < 10000; i++);
                 
                 // interrupts kurz zulassen
                 cpu.enableInterrupts();

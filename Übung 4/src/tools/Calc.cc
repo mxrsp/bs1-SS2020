@@ -3,6 +3,7 @@
 #include "device/CgaChannel.h" // ermöglicht Kontrolle über Cursor
 #include "device/Keyboard.h" // ermöglicht Eingaben durch Tastatur
 #include "io/PrintStream.h" // ermöglicht Linefeeds und Ausgabe von Zahlen
+#include "interrupts/IntLock.h"
 
 extern CgaChannel cga;
 extern PrintStream out;
@@ -25,8 +26,25 @@ void Calculator::init()
     cga.clear();
 }
 
-void Calculator::body()
-{
+void Calculator::body() {
+    out.print("Body wird aufgerufen");
+    IntLock lock;
+    // while (1) {}
+    
+    int index = 0;
+    char c;
+		Key key;
+		do{
+			key = keyboard.read();
+            if (key.isAscii()) {
+                c = key.getValue();
+                buffer[index] = c;
+                index++;
+            } else {
+                return;
+            }
+		}while(c!='x'); // solange ESC nicht gedrückt
+    
 }
 
 void Calculator::insert(char c)

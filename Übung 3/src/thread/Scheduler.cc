@@ -46,7 +46,7 @@ extern PrintStream out;
         
         IntLock lock;
         
-        if (((Activity*) scheduler.active())->isRunning()) {
+        if (((Activity*) scheduler.active()) -> isRunning()) {
             if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
                 checkCounter = 0;
                 reschedule();

@@ -37,25 +37,25 @@ public:
 
 	~Hello()
 	{
-         cout.print("Vor Join  von: ");
-         cout.println(name);
+         // cout.print("Vor Join  von: ");
+         // cout.println(name);
          
 		 join();
          
-         cout.print("Nach Join  von: ");
-         cout.println(name);
+         // cout.print("Nach Join  von: ");
+         // cout.println(name);
     }
 
 	void body()
 	{   
-		for(int i=0; i<7; i++) {
+		for(int i=0; i<8; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
 				cout.print(" ");
 				cout.print(i);
 				cout.println();
-                for(int j=0; j<5000000; j++);
+                // for(int j=0; j<5000000; j++);
 			}
             for(int j=0; j<10000; j++);
 		}
@@ -94,7 +94,7 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
     
-    anton.quantum(1);
+    anton.quantum(10);
     berta.quantum(1);
     caesar.quantum(1);
     

@@ -50,7 +50,7 @@ private:
 		NUM_LOCK_LED 	= 0x2,
 		CAPS_LOCK_LED 	= 0x4
 	};
-
+    
 	enum {
 		BUFFER_SIZE = 10
 	};
