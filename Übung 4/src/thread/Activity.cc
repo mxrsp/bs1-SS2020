@@ -103,18 +103,11 @@ extern PrintStream out;
 	void Activity::join() {
        IntLock lock;
         
-        Activity* currentProcess = (Activity*)scheduler.active();
+        Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;
         
         // letzter Prozess darf sich nicht selber schlafen legen
-        if (this == currentProcess) {/*
-            out.print(this -> getNameActivity());
-            out.print(" hat den Zustand: ");
-            out.print(this -> getState());
-            out.println();
-            out.print("Aktiver Prozess: ");
-            out.print(currentProcess -> getNameActivity());
-            out.println();*/
+        if (this == currentProcess) {
             return;
         } else {
                 if (this->isZombie()) {

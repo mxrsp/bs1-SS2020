@@ -27,9 +27,6 @@ void Calculator::init()
 }
 
 void Calculator::body() {
-    out.print("Body wird aufgerufen");
-    IntLock lock;
-    // while (1) {}
     
     int index = 0;
     char c;
@@ -40,8 +37,7 @@ void Calculator::body() {
                 c = key.getValue();
                 buffer[index] = c;
                 index++;
-            } else {
-                return;
+                out.print(c);
             }
 		}while(c!='x'); // solange ESC nicht gedrückt
     

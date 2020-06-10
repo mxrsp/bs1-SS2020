@@ -31,7 +31,7 @@ PrintStream out(cga);   // unseren PrintStream mit Ausgabekanal verknuepfen
 int main()
 {
     Calculator calc;
-    // cpu.enableInterrupts();
-    // calc.body();
-    // scheduler.kill(&calc);
+    cpu.enableInterrupts();
+    calc.body();
+    scheduler.kill(&calc);
 }
