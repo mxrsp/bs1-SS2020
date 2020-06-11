@@ -71,6 +71,7 @@ void Calculator::body() {
                         enter();
                     }
                     index = 0;
+                    clearBuffer();
                 } else if (c == 0) {
                     out.print("ESC wurde gedrückt");
                 } else if ((c == '\b') && (index > 0)) {
