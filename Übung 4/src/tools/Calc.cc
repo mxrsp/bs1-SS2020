@@ -69,8 +69,10 @@ void Calculator::moveRight() {
 	
 	cga.getCursor(column, row);
 	
-	if(column > 79) {
+	if(column > 79 && row == 25) {
 		out.println();
+	} else if(column > 79){
+		cga.setCursor(0, row + 1);
 	} else {
 		cga.setCursor(column + 1, row);
 	}
