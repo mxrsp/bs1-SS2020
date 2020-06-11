@@ -43,24 +43,40 @@ void Calculator::body() {
     
 }
 
-void Calculator::insert(char c)
-{
+void Calculator::insert(char c) {
 }
 
-void Calculator::enter()
-{
+void Calculator::enter() {
+
 }
 
-void Calculator::moveLeft()
-{
+void Calculator::moveLeft() {
+	int column, row;
+	
+	cga.getCursor(column, row);
+	
+	if(column == 0 && row > 0) {
+		cga.setCursor(79, row - 1);
+	} else if(row > 0){
+		cga.setCursor(column - 1, row);
+	} else {
+		return;
+	}
 }
 
-void Calculator::moveRight()
-{
+void Calculator::moveRight() {
+	int column, row;
+	
+	cga.getCursor(column, row);
+	
+	if(column > 79) {
+		out.println();
+	} else {
+		cga.setCursor(column + 1, row);
+	}
 }
 
-void Calculator::renderBuffer()
-{
+void Calculator::renderBuffer() {
     // Cursor sichern
     int column, row;
     cga.getCursor(column, row);
@@ -73,15 +89,13 @@ void Calculator::renderBuffer()
     cga.setCursor(column, row);
 }
 
-void Calculator::clearBuffer()
-{
+void Calculator::clearBuffer() {
     // Alle Zeichen nullen und Null-Byte hinter der höchsten Stelle setzen
     for (unsigned i=0; i<=EXPR_SIZE_MAX; ++i)
         buffer[i] = 0;
 }
 
-void Calculator::printErrorMsg(unsigned code)
-{
+void Calculator::printErrorMsg(unsigned code) {
     switch (code) {
     case Interpreter::UNEXP_EOT:
         out.print("Error: Unexpected end of expression!");
