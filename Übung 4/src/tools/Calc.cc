@@ -34,20 +34,6 @@ void Calculator::body() {
     
     int column, row;
     
-//     char eingabe [32] = "4 / 2";
-//     char* in = eingabe;
-//     
-//     fehlercode = interp.eval(in, result);
-//     if (fehlercode == 0) {
-//         out.print("   ");
-//         out.print(result);
-//         out.println();
-//     } else {
-//         printErrorMsg(fehlercode);
-//     }
-//     
-//     out.println("FERTIG");
-    
     
     int index = 0;
     char c;
@@ -72,8 +58,6 @@ void Calculator::body() {
                     }
                     index = 0;
                     clearBuffer();
-                } else if (c == 0) {
-                    out.print("ESC wurde gedrückt");
                 } else if ((c == '\b') && (index > 0)) {
                     cga.setCursor(column-1,row);
                     out.print(" ");
@@ -93,7 +77,7 @@ void Calculator::body() {
                 }
             }
 		}while(c!='x'); // solange ESC nicht gedrückt
-    
+    // TODO 'x' durch Ausdruck für ESC ersetzen
 }
 
 void Calculator::insert(char c) {
@@ -109,7 +93,8 @@ void Calculator::moveLeft() {
 	cga.getCursor(column, row);
 	
 	if(column == 0 && row > 0) {
-		cga.setCursor(79, row - 1);
+		//cga.setCursor(79, row - 1);
+        return;
 	} else if(row > 0){
 		cga.setCursor(column - 1, row);
 	} else {
@@ -123,9 +108,11 @@ void Calculator::moveRight() {
 	cga.getCursor(column, row);
 	
 	if(column > 79 && row == 25) {
-		out.println();
+		//out.println();
+        return;
 	} else if(column > 79){
-		cga.setCursor(0, row + 1);
+		//cga.setCursor(0, row + 1);
+        return;
 	} else {
 		cga.setCursor(column + 1, row);
 	}
