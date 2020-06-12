@@ -37,11 +37,11 @@ void Calculator::body() {
     
     int index = 0;
     char c;
-		Key key;
-		do{
-            cga.getCursor(column, row);
-			key = keyboard.read();
-            c = key.getValue();
+    Key key;
+    while(c!= 27) { // solange ESC nicht gedrückt
+        cga.getCursor(column, row);
+        key = keyboard.read();
+        c = key.getValue();
             if (key.isAscii()) {
                 if (c == '\n') {
                     enter();
@@ -76,8 +76,8 @@ void Calculator::body() {
                     moveRight();
                 }
             }
-		}while(c!='x'); // solange ESC nicht gedrückt
-    // TODO 'x' durch Ausdruck für ESC ersetzen
+    }
+
 }
 
 void Calculator::insert(char c) {

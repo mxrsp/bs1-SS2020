@@ -196,5 +196,5 @@ int Interpreter::evalDump()
 {
     unsigned* adress;
 	adress = (unsigned*)evalNum();
-	return adress*;
+	return *adress;
 }
