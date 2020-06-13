@@ -34,10 +34,10 @@ void Calculator::body() {
     
     int column, row;
     
-    
     int index = 0;
     char c;
     Key key;
+
     while(c!= 27) { // solange ESC nicht gedrückt
         cga.getCursor(column, row);
         key = keyboard.read();
@@ -58,6 +58,16 @@ void Calculator::body() {
                     }
                     index = 0;
                     clearBuffer();
+                } else if ((c == '\b') && (column == 0) && (row > 0)) {
+                    cga.setCursor(79,row - 1);
+                    out.print(" ");
+                    cga.setCursor(column - 1,row);
+                } else if ((c == '\b') && (column == 0) && (row == 0)) {
+                    cga.getCursor(column,row);
+                } else if ((c == '\b') && (index == 0)) {
+                    cga.setCursor(column - 1, row);
+                    out.print(" ");
+                    cga.setCursor(column - 1,row);
                 } else if ((c == '\b') && (index > 0)) {
                     cga.setCursor(column-1,row);
                     out.print(" ");
@@ -72,11 +82,12 @@ void Calculator::body() {
             } else {
                 if (c == CodeTable::LEFT) {
                     moveLeft();
-                } else if (c == CodeTable :: RIGHT) {
+                } else if (c == CodeTable::RIGHT) {
                     moveRight();
                 }
             }
     }
+
 
 }
 
@@ -95,7 +106,7 @@ void Calculator::moveLeft() {
 	if(column == 0 && row > 0) {
 		//cga.setCursor(79, row - 1);
         return;
-	} else if(row > 0){
+	} else if(column > 0){
 		cga.setCursor(column - 1, row);
 	} else {
 		return;
@@ -110,7 +121,7 @@ void Calculator::moveRight() {
 	if(column > 79 && row == 25) {
 		//out.println();
         return;
-	} else if(column > 79){
+	} else if(column >= 79){
 		//cga.setCursor(0, row + 1);
         return;
 	} else {
