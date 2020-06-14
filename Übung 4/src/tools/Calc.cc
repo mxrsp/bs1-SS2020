@@ -28,6 +28,14 @@ void Calculator::init()
 }
 
 void Calculator::body() {
+
+    // Test für Adresszuweisung
+    int wert = 10;
+    int *pwert;
+    pwert = &wert;
+    out.print(pwert);
+    out.println();
+
     
     int result = 0;
     unsigned fehlercode;
@@ -78,7 +86,7 @@ void Calculator::body() {
                     buffer[index] = c;
                     index++;
                     out.print(c);
-                } 
+                }
             } else {
                 if (c == CodeTable::LEFT) {
                     moveLeft();

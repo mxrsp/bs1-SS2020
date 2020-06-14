@@ -192,9 +192,12 @@ int Interpreter::evalNum()
     return numValue;
 }
 
-int Interpreter::evalDump()
-{
+int Interpreter::evalDump() {
+
     unsigned* adress;
+
+    consumeWS();
 	adress = (unsigned*)evalNum();
+
 	return *adress;
 }
