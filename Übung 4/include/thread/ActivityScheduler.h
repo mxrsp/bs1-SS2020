@@ -61,6 +61,8 @@ protected:
 
 private:
     
+    bool activateBlocked = false;
+    
 };
 
 extern ActivityScheduler scheduler;

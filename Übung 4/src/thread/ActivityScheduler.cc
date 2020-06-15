@@ -83,6 +83,10 @@ extern CPU cpu;
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
 
+        if (activateBlocked) {
+            return;
+        }
+        
         if ((active -> isRunning()) && (next == 0)) {
             return;
         }
@@ -100,8 +104,7 @@ extern CPU cpu;
         if(next == 0) {
             while (next == 0) {
                 
-                // out.print(".");
-                // for (int i = 0 ; i < 10000; i++);
+                activateBlocked = true;
                 
                 // interrupts kurz zulassen
                 cpu.enableInterrupts();
@@ -110,6 +113,7 @@ extern CPU cpu;
                 
                 next = (Activity*) readylist.dequeue();
             }
+            activateBlocked = false;
             next -> changeTo(Activity :: RUNNING);
             dispatch(next);
         } else {

@@ -28,14 +28,6 @@ void Calculator::init()
 }
 
 void Calculator::body() {
-
-    // Test für Adresszuweisung
-    int wert = 10;
-    int *pwert;
-    pwert = &wert;
-    out.print(pwert);
-    out.println();
-
     
     int result = 0;
     unsigned fehlercode;
@@ -52,9 +44,9 @@ void Calculator::body() {
         c = key.getValue();
             if (key.isAscii()) {
                 if (c == '\n') {
-                    enter();
                     char* input = buffer;
                     fehlercode = interp.eval(input, result);
+                    enter();
                     if (fehlercode == 0) {
                         out.print(" = ");
                         out.print(result);
@@ -121,6 +113,7 @@ void Calculator::moveLeft() {
 	}
 }
 
+// nur im Ausdruck bleiben
 void Calculator::moveRight() {
 	int column, row;
 	
@@ -132,7 +125,7 @@ void Calculator::moveRight() {
 	} else if(column >= 79){
 		//cga.setCursor(0, row + 1);
         return;
-	} else {
+	} else if (column < 32){
 		cga.setCursor(column + 1, row);
 	}
 }
