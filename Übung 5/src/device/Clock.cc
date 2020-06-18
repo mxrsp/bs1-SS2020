@@ -51,6 +51,14 @@ void Clock::handle () {
     // propellerAction();
     
 }
+//TODO
+bool Clock::prologue() {
+	return true;
+}
+//TODO
+void Clock::epilogue() {
+	
+}
 
 void Clock::informationPropeller() {
     cga.setCursor(3,3);

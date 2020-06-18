@@ -2,6 +2,7 @@
 #include "thread/Coroutine.h"
 #include "device/CPU.h"
 #include "io/PrintStream.h"
+#include "sync/Monitor.h"
 
 extern CPU cpu;
 extern PrintStream out;
@@ -33,7 +34,7 @@ extern PrintStream out;
         
        // out.print("startUp in Coroutine wird aufgerufen ->");
         
-        cpu.enableInterrupts();
+        monitor.leave();
         
 		obj -> body();
 		// out.println("Exit in Coroutine wurde aufgerufen");

@@ -111,4 +111,6 @@ private:
 
 };
 
+extern Monitor monitor;
+
 #endif
