@@ -1,6 +1,7 @@
 #ifndef KernelSemaphore_h
 #define KernelSemaphore_h
 
+#include "lib/Queue.h"
 
 /**
  * KernelSemaphore: Semaphorenimplementation für kooperative
@@ -9,8 +10,7 @@
 class KernelSemaphore {
 public:
 	// Initialisierung des Zaehlers
-	KernelSemaphore(int count = 1)
-	{
+	KernelSemaphore(int count = 1){
 	}
 
 	void wait();
