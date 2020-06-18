@@ -41,7 +41,7 @@ void Clock::windup (int us) {
      ack => behandeln
     */
 }
-
+//handle entfällt, sobald prologue und epilogue implementiert wurden
 void Clock::handle () {
     
     pic.ack(PIC::PIT); //Bestätigen des Interrupts
