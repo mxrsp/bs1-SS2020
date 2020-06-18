@@ -34,7 +34,7 @@ public:
 		KernelLock lock;
 		
 		if(sleepers.isEmpty()) {	//prüfen, ob jemand schläft
-		counter = counter + 1;	//niemand schläft -> signal wird nur mitgezählt
+			counter = counter + 1;	//niemand schläft -> signal wird nur mitgezählt
 		} else {
 			Activity* next = (Activity*) sleepers.dequeue();
 			next -> wakeup();
