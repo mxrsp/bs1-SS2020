@@ -2,6 +2,7 @@
 
 #include "device/PIC.h"
 #include "interrupts/InterruptVector.h"
+#include "sync/Monitor.h"
 
 
 Keyboard::Keyboard() :
@@ -18,17 +19,33 @@ Keyboard::Keyboard() :
 	pic.enable(PIC::KEYBOARD);
 }
 
-void Keyboard::handle()
-{
-	if(ctrlPort.read() & AUX_BIT){
-		//behandle hier die Maus
-	}else{
-		scanCode = dataPort.read();
-		analyzeScanCode();
-	}
-	pic.ack(PIC::KEYBOARD);
+bool Keyboard::prologue () {
+
+    if (ctrlPort.read() & AUX_BIT) {
+    	//behandle hier die Maus
+    	return false;
+    } else {
+    	scanCode = dataPort.read();
+    	scanCodeBuffer.add(this->scanCode);
+    	//analyzeScanCode();
+    	return true;
+    }
+
+    pic.ack(PIC::KEYBOARD);
 }
 
+void Keaboard::epilogue () {
+
+    // zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und eswegen nicht auf dem selben buffer arbeiten darf
+    while (!(this->scanCodeBufferbuffer.isEmpty())) {
+    	this->scanCode = this->scanCodeBuffer.get();
+    	monitor.enter();
+    	analyzeScanCode();
+    }
+
+    // Abarbeiten von noch ausstehenden Epilogen
+    monitor.leave();
+}
 
 Key Keyboard::read()
 {
@@ -193,7 +210,7 @@ void Keyboard::reboot ()
 	*(unsigned short*) 0x472 = 0x1234;
 
 	waitForWrite();
-	ctrlPort.write (RESET_CODE);     // Reset auslösen
+	ctrlPort.write (RESET_CODE);     // Reset auslï¿½sen
 }
 
 

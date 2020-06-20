@@ -42,14 +42,14 @@ void Clock::windup (int us) {
     */
 }
 
-void Clock::handle () {
-    
-    pic.ack(PIC::PIT); //Bestätigen des Interrupts
-    
+bool Clock::prologue () {
+    //Bestätigen des Interrupts
+    pic.ack(PIC::PIT);
+    return true;
+}
+
+void Clock::epilogue () {
     scheduler.checkSlice();
-    
-    // propellerAction();
-    
 }
 
 void Clock::informationPropeller() {
