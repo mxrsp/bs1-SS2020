@@ -29,7 +29,7 @@ extern PrintStream out;
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
-	 * Wird nur für den Hauptkontrollfluss "main" benötigt.
+	 * Wird nur fï¿½r den Hauptkontrollfluss "main" benï¿½tigt.
 	 * Es wird hier kein Stack initialisiert.
 	 * Beachte das Activity wegen der Vererbungsbeziehung von
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
@@ -37,8 +37,8 @@ extern PrintStream out;
 	 */
 	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
         
-//         out.println("Activity wird erstellt und Scheduler wird gestartet");
-//         out.wait();
+         out.println("Activity wird erstellt und Scheduler wird gestartet");
+         out.wait();
         
         scheduler.start(this);
 	}
@@ -54,8 +54,8 @@ extern PrintStream out;
         exit();
 	}
 	
-	void Activity :: operator delete (void* p, unsigned int i) {
-    }
+	//void Activity :: operator delete (void* p, unsigned int i) {
+    //}
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
@@ -78,12 +78,11 @@ extern PrintStream out;
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
-        
         scheduler.reschedule();
 	}
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
-	 * auf die Beendigung wartende Aktivität geweckt werden.
+	 * auf die Beendigung wartende Aktivitï¿½t geweckt werden.
      * 
 	 */
 	void Activity::exit() {
@@ -98,9 +97,10 @@ extern PrintStream out;
 
 	/* Der aktuelle Prozess wird solange schlafen gelegt, bis der
 	 * Prozess auf dem join aufgerufen wird beendet ist. Das
-	 * Wecken des wartenden Prozesses übernimmt exit.
+	 * Wecken des wartenden Prozesses ï¿½bernimmt exit.
 	 */
 	void Activity::join() {
+
        IntLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();

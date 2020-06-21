@@ -2,7 +2,6 @@
 
 #include "device/PIC.h"
 #include "interrupts/InterruptVector.h"
-#include "sync/Monitor.h"
 
 
 Keyboard::Keyboard() :
@@ -34,10 +33,10 @@ bool Keyboard::prologue () {
     pic.ack(PIC::KEYBOARD);
 }
 
-void Keaboard::epilogue () {
+void Keyboard::epilogue () {
 
-    // zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und eswegen nicht auf dem selben buffer arbeiten darf
-    while (!(this->scanCodeBufferbuffer.isEmpty())) {
+    // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
+    while (!(this->scanCodeBuffer.bufferIsEmpty())) {
     	this->scanCode = this->scanCodeBuffer.get();
     	monitor.enter();
     	analyzeScanCode();

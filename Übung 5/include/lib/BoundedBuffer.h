@@ -10,11 +10,11 @@ extern ActivityScheduler scheduler;
 
 /** Diese Klasse stellt einen begrenzten synchronisierten
  *  Puffer dar, welcher von Interruptbehandlungsroutinen
- *  gefüllt werden kann.
+ *  gefï¿½llt werden kann.
  *
- *  Die Klasse ist eine Templateklasse. Das bedeutet für euch
+ *  Die Klasse ist eine Templateklasse. Das bedeutet fï¿½r euch
  *  erstmal nur, das ihr alle Methoden hier im Header implementieren
- *  müsst.
+ *  mï¿½sst.
  */
 template<typename T,unsigned size>
 class BoundedBuffer {
@@ -32,7 +32,7 @@ public:
 	/** Diese Methode wird vom Interrupthandler aufgerufen, um
 	 *  ein etwas in den Puffer zu schreiben. Ist der Puffer voll,
 	 *  werden die zu schreibenden Daten verworfen.
-	 *  Prozesse die auf eine Eingabe warten müssen hier geweckt werden.
+	 *  Prozesse die auf eine Eingabe warten mï¿½ssen hier geweckt werden.
 	 */
 	void add(T& elem)
 	{   
@@ -95,10 +95,10 @@ private:
         this -> outPointer = (this -> outPointer + 1) % size;
     }
     
-    bool bufferIsEmpty() {
+    public: bool bufferIsEmpty() {
         return (elemInBuffer == 0);
     }
-    
+
     bool bufferIsFull() {
         return (elemInBuffer == size);
     }

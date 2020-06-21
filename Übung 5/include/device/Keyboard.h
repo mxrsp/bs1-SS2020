@@ -7,6 +7,7 @@
 #include "io/IOPort.h"
 #include "io/InputChannel.h"
 #include "lib/BoundedBuffer.h"
+#include "sync/Monitor.h"
 
 /*
  * Keyboard: Der Treiber f�r eine MF-II Tastatur
@@ -79,14 +80,16 @@ public:
 
 private:
 
+	BoundedBuffer<Key,BUFFER_SIZE> buffer;   // Der Tastaturpuffer
+
+	// Zweiter Buffer zum externen Speichern des ScanCodes durch die Tastatur
     BoundedBuffer<unsigned char,BUFFER_SIZE> scanCodeBuffer;
 
-	BoundedBuffer<Key,BUFFER_SIZE> buffer;   //Der Tastaturpuffer
-	CodeTable codeTable;                    //Abbildung von Scancode -> Zeichen
-	unsigned char scanCode;                 //Der letzte von der Tastatur gelesen code
-	unsigned mode;                          //Eingabemodus (Shift, Alt, Ctrl)
-	unsigned char prefix;                   //von Tastatur gesendeter Prefix, falls gesendet sonst 0
-	char leds;                              //Zustand der Tastaturleds
+	CodeTable codeTable;                    // Abbildung von Scancode -> Zeichen
+	unsigned char scanCode;                 // Der letzte von der Tastatur gelesen code
+	unsigned mode;                          // Eingabemodus (Shift, Alt, Ctrl)
+	unsigned char prefix;                   // von Tastatur gesendeter Prefix, falls gesendet sonst 0
+	char leds;                              // Zustand der Tastaturleds
 
 	IOPort8 dataPort; // Ausgabe- (R) u. Eingabepuffer (W)
 	IOPort8 ctrlPort; // Status- (R) u. Steuerregister (W)
