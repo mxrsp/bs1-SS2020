@@ -55,7 +55,6 @@ public:
     
     void operator delete (void* p, unsigned i);
     
-
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void sleep();

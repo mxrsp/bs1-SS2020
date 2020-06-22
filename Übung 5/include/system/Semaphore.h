@@ -14,10 +14,14 @@ public:
 
 	void wait()
 	{
+        KernelLock lock;
+        KernelSemaphore :: wait();
 	}
 
 	void signal()
 	{
+        KernelLock lock;
+        KernelSemaphore :: signal();
 	}
 };
 

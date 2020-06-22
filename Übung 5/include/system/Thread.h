@@ -46,6 +46,8 @@ public:
 	        return currentThread;
 	    //}
 	}
+	
+	void operator delete (void* p, unsigned i);
 
 	/** Synchronisation auf das Ende eines Threads
 	 */

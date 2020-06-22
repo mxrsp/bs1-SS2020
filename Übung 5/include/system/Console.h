@@ -3,6 +3,7 @@
 
 #include "io/InputChannel.h"
 #include "io/OutputChannel.h"
+#include "system/Semaphore.h"
 
 /**
  *  Console:	Die Systemkonsole
@@ -47,6 +48,7 @@ private:
 
    InputChannel &input;
    OutputChannel &output;
+   Semaphore semaphore;
 };
 
 #endif

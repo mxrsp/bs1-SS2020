@@ -4,14 +4,14 @@
 #include "device/CgaChannel.h"
 
 // normalerweise:
-extern CgaChannel cga;
+extern CgaChannel screen;
 extern PrintStream out;
 
 // Ticken zeigen:
 // CgaChannel cga;
 // PrintStream out(cga);
 
-PIT pit;
+extern PIT pit;
 
 Clock::Clock () : Gate(Timer), handleCount(0) {
 }
@@ -53,7 +53,7 @@ void Clock::epilogue () {
 }
 
 void Clock::informationPropeller() {
-    cga.setCursor(3,3);
+    screen.setCursor(3,3);
     out.print(aufrufHandleProSekunde);
     out.println(" mal wird handle pro Sekunde aufgerufen");
 }
@@ -70,16 +70,16 @@ void Clock::propellerAction() {
     
     // handle wird 50 mal pro Sekunde aufgerufen
     if (second % 4 == 0) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("/");
     } else if (second % 4  == 1) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("-");
     } else if (second % 4 == 2) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("\\");
     } else if (second % 4 == 3) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("|");
     }
     

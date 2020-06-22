@@ -1,6 +1,9 @@
 #ifndef KernelSemaphore_h
 #define KernelSemaphore_h
 
+#include"lib/Queue.h"
+#include"thread/Activity.h"
+#include"thread/ActivityScheduler.h"
 
 /**
  * KernelSemaphore: Semaphorenimplementation für kooperative
@@ -17,6 +20,10 @@ public:
 	void signal();
 
 private:
+    
+    int counter = 0;
+    int sleeperSize = 0;
+    Queue sleepers;
 
 };
 
