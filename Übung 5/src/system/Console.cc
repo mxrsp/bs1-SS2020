@@ -45,7 +45,9 @@
             index++;
         }
         
-        return (this -> write(data, index));
+        return index;
+        
+        // return (this -> write(data, index));
     }
 
 	/** 	Liefert das n�chste Zeichen aus dem Eingabepuffer zur�ck.

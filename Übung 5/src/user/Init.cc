@@ -14,7 +14,7 @@ static unsigned stack3[1024];
 // Hier startet das Hauptprogramm der Applikation!
 
 void Init::run()
-{
+{   
 	console.attach();
 	out.println("Application::body() is running\n");
 	console.detach();

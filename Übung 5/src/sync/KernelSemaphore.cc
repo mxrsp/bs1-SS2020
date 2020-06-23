@@ -1,4 +1,7 @@
 #include "sync/KernelSemaphore.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 // Initialisierung des Zaehlers
 //KernelSemaphore::KernelSemaphore (int count = 1) {}

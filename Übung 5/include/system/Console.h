@@ -4,6 +4,9 @@
 #include "io/InputChannel.h"
 #include "io/OutputChannel.h"
 #include "system/Semaphore.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 /**
  *  Console:	Die Systemkonsole

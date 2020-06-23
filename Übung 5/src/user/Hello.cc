@@ -30,7 +30,7 @@ void Hello::run()
 {
 	console.attach();
 	out.print(name);
-	out.println("is running ");
+	out.println(" is running ");
 	console.detach();
 
 	for (int i = 0; i < runs; i++) {
@@ -49,12 +49,21 @@ void Hello::run()
 
 		// jetzt koennen wir die Zeile ausgeben
 		out.println(line);
+        
+        
+        
+        // TODO -> remove
+        // Schleife nur zum besseren Vorzeigen eingebaut
+        for (int i = 0; i < 5000000; i++);
+        
+        
+        
 
 		console.detach(); // und freigeben
 	}
 
 	console.attach();
 	out.print(name);
-	out.println("finished");
+	out.println(" finished");
 	console.detach();
 }

@@ -14,6 +14,7 @@ public:
 	// Initialisierung des Zaehlers
 	KernelSemaphore(int count = 1)
 	{
+        this -> counter = count;
 	}
 
 	void wait();
