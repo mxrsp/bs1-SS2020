@@ -53,7 +53,7 @@ public:
 	 */
 	virtual ~Activity();
     
-    void operator delete (void* p, unsigned i);
+    void operator delete (void* p){}
     
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */

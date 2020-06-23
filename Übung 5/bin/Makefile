@@ -59,9 +59,9 @@ SYSTEM_CC = \
 	sync/Monitor.cc\
 	system/Console.cc\
 	thread/Activity.cc \
+	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \
 	thread/Scheduler.cc \
-	thread/ActivityScheduler.cc \
 	tools/Calc.cc \
 	tools/Interp.cc \
 	tools/Scanner.cc \

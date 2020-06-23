@@ -47,7 +47,11 @@ public:
 	    //}
 	}
 	
-	void operator delete (void* p, unsigned i);
+	void operator delete (void* p) {}
+	
+// 	void operator delete (void* p) {
+//         Activity :: operator delete (p);
+//     }
 
 	/** Synchronisation auf das Ende eines Threads
 	 */

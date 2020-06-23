@@ -16,6 +16,8 @@ public:
 	 * gewartet werden!
 	 */
 	~Hello();
+    
+    void operator delete (void* p, unsigned int i) {}
 
 	virtual void run();
 

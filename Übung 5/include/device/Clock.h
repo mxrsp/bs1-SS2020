@@ -34,7 +34,6 @@ public:
 	 */
 	Clock ();
 
-
 	/**	Initialisierung des "Ticks" der Uhr
 	 * 	Die Einheit sind Mikrosekunden.
 	 * 	Hier ist der PIT geeignet zu initialisieren

@@ -37,8 +37,8 @@ extern PrintStream out;
 	 */
 	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
         
-         out.println("Activity wird erstellt und Scheduler wird gestartet");
-         out.wait();
+         // out.println("Activity wird erstellt und Scheduler wird gestartet");
+         // out.wait();
         
         scheduler.start(this);
 	}
@@ -53,9 +53,6 @@ extern PrintStream out;
 	Activity::~Activity() {
         exit();
 	}
-	
-	//void Activity :: operator delete (void* p, unsigned int i) {
-    //}
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
