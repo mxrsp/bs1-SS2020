@@ -10,7 +10,13 @@
 #include "thread/Scheduler.h"
 #include "thread/ActivityScheduler.h"
 #include "device/CPU.h"
-#include "interrupts/IntLock.h"
+#include "sync/KernelLock.h"
+#include "sync/Monitor.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
+
+extern Monitor monitor;
 
 extern CPU cpu;
 
@@ -20,7 +26,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::suspend()	{
         
-        IntLock lock;
+        KernelLock lock;
         
         Activity* active = (Activity*) scheduler.active();
         
@@ -41,7 +47,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         
-        IntLock lock;
+        KernelLock lock;
         
         bool laeuft;
 
@@ -65,7 +71,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::exit() {
         
-        IntLock lock;
+        KernelLock lock;
         
 		Activity* active = (Activity*) scheduler.active();
         active -> changeTo(Activity :: ZOMBIE);
@@ -83,6 +89,9 @@ extern CPU cpu;
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
 
+        // out.println("activate wird aufgerufen.");
+        // for (int i = 0; i < 10000000; i++);
+        
         if (activateBlocked) {
             return;
         }
@@ -102,14 +111,18 @@ extern CPU cpu;
         }
 
         if(next == 0) {
+            // out.println("next ist null in activate");
             while (next == 0) {
                 
                 activateBlocked = true;
                 
                 // interrupts kurz zulassen
+                //monitor.leave();
                 cpu.enableInterrupts();
                 cpu.halt();
+                //CPU::halt();
                 cpu.disableInterrupts();
+                //monitor.enter();
                 
                 next = (Activity*) readylist.dequeue();
             }

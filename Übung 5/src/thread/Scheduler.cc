@@ -17,14 +17,16 @@ extern PrintStream out;
 
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
-        IntLock lock;
+        // IntLock lock;
+        
+        // out.println("Ein Objekt wird in die readylist gepackt");
         
         readylist.enqueue(sched);
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
-        IntLock lock;
+        // IntLock lock;
         
         readylist.remove(sched);
 	}
@@ -32,7 +34,7 @@ extern PrintStream out;
 	// Aktiviert das vorderste der Liste mittels activate.
 	void Scheduler::reschedule() {
         
-        IntLock lock;
+        // IntLock lock;
         
 		Schedulable* firstElement;
         
@@ -44,7 +46,9 @@ extern PrintStream out;
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
     void Scheduler::checkSlice() {
         
-        IntLock lock;
+        out.println("checkSlice wird aufgerufen.");
+        
+        // IntLock lock;
         
         if (((Activity*) scheduler.active()) -> isRunning()) {
             if (checkCounter >= ((Activity*) scheduler.active())->quantum()){

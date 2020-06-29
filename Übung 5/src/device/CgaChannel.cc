@@ -4,7 +4,7 @@
 #include "device/CgaChannel.h"
 #include "io/PrintStream.h"
 
-//extern PrintStream out;
+extern PrintStream out;
 
 /*
  * CgaChannel:	Diese Klasse implementiert einen Ausgabekanal

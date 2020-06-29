@@ -49,15 +49,6 @@ void Hello::run()
 
 		// jetzt koennen wir die Zeile ausgeben
 		out.println(line);
-        
-        
-        
-        // TODO -> remove
-        // Schleife nur zum besseren Vorzeigen eingebaut
-        for (int i = 0; i < 5000000; i++);
-        
-        
-        
 
 		console.detach(); // und freigeben
 	}

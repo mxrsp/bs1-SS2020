@@ -2,6 +2,7 @@
 #include "interrupts/InterruptVector.h"
 #include "io/PrintStream.h"
 #include "device/CgaChannel.h"
+#include "sync/KernelLock.h"
 
 // normalerweise:
 extern CgaChannel screen;
@@ -43,6 +44,9 @@ void Clock::windup (int us) {
 }
 
 bool Clock::prologue () {
+    
+    KernelLock lock;
+    
     //Bestätigen des Interrupts
     pic.ack(PIC::PIT);
     return true;

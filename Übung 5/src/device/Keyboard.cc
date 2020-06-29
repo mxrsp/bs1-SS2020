@@ -2,6 +2,12 @@
 
 #include "device/PIC.h"
 #include "interrupts/InterruptVector.h"
+#include "sync/KernelLock.h"
+#include "interrupts/IntLock.h"
+
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 
 Keyboard::Keyboard() :
@@ -14,12 +20,16 @@ Keyboard::Keyboard() :
 	setLed(NUM_LOCK_LED,false);
 	setLed(CAPS_LOCK_LED,false);
 	setRepeatRate(0,0);
-
+    
 	pic.enable(PIC::KEYBOARD);
 }
 
 bool Keyboard::prologue () {
-
+    
+    
+    // KernelLock lock;
+    IntLock lock;
+    
     if (ctrlPort.read() & AUX_BIT) {
     	//behandle hier die Maus
     	return false;
@@ -27,6 +37,7 @@ bool Keyboard::prologue () {
     	scanCode = dataPort.read();
     	scanCodeBuffer.add(this->scanCode);
     	//analyzeScanCode();
+        out.println("Prolog Tastatur gibt true zurueck");
     	return true;
     }
 
@@ -34,20 +45,25 @@ bool Keyboard::prologue () {
 }
 
 void Keyboard::epilogue () {
-
-    // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
-    while (!(this->scanCodeBuffer.bufferIsEmpty())) {
-    	this->scanCode = this->scanCodeBuffer.get();
-    	monitor.enter();
-    	analyzeScanCode();
-    }
+    
+    out.println("Tastatur Epilog wird abgearbeitet.");
 
     // Abarbeiten von noch ausstehenden Epilogen
     monitor.leave();
+    
+    // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
+    while (!(this->scanCodeBuffer.bufferIsEmpty())) {
+    	this->scanCode = this->scanCodeBuffer.get();
+    	//monitor.enter();
+    	analyzeScanCode();
+    }
+
 }
 
 Key Keyboard::read()
 {
+    KernelLock lock;
+    
 	return buffer.get();
 }
 
@@ -68,6 +84,8 @@ int Keyboard::read(char* data, int size)
 
 void Keyboard::analyzeScanCode()
 {
+    
+    out.println("Tastatur analyzeScanCode wird abgearbeitet.");
 	if(	(mode & (CTRL_LEFT | ALT_LEFT)) &&
 		(scanCode == CodeTable::DEL)){
 			reboot();

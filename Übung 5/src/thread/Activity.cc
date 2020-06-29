@@ -14,7 +14,7 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
-#include "interrupts/IntLock.h"
+#include "sync/KernelLock.h"
 
 extern PrintStream out;
 
@@ -36,10 +36,7 @@ extern PrintStream out;
 	 * aufgerufen werden.
 	 */
 	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
-        
-         // out.println("Activity wird erstellt und Scheduler wird gestartet");
-         // out.wait();
-        
+            
         scheduler.start(this);
 	}
 
@@ -64,7 +61,7 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
-        IntLock lock;
+        // KernelLock lock;
         
         if (this -> isBlocked()) {
             this -> state = READY;
@@ -98,7 +95,7 @@ extern PrintStream out;
 	 */
 	void Activity::join() {
 
-       IntLock lock;
+       // KernelLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;

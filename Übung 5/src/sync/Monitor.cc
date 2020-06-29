@@ -2,12 +2,17 @@
 #include "interrupts/IntLock.h"
 
 #include "device/CPU.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 extern CPU cpu;
 
 void Monitor::runEpilogue(Gate *gate)
 {
 	// hoechste Interrupt-Prioritaet
 	IntLock lock;
+    
+    // out.println("monitor.runEpilogue() wird aufgerufen");
 	
 	// bereits vermerkt!
 	if (gate->isDeferred()) return; 
@@ -37,7 +42,7 @@ void Monitor::runEpilogue(Gate *gate)
 }
 
 void Monitor::leave()
-{
+{   
 	IntLock lock;
 	Gate* next = (Gate*)deferred.dequeue();
 	while (next) {

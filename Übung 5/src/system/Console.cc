@@ -6,8 +6,7 @@
  */
 
 	Console :: Console(InputChannel& input, OutputChannel& output)
-    : input(input), output(output), semaphore(Semaphore()){
-        
+    : input(input), output(output), semaphore(Semaphore()){     
     }
 
 	/** 	Konsole reservieren
@@ -25,7 +24,10 @@
 	/** 	Daten auf der Console ausgeben
 	 */
 	int Console ::  write(const char* data, int size) {
-        return (this -> output.write(data,size));
+        int ret = this -> output.write(data,size);
+        return (ret);
+        
+        // return (this -> output.write(data,size));
     }
 
 	/** 	Jedes von der Tastatur eingelesene Zeichen
@@ -36,18 +38,24 @@
 	 *	und zaehlen als gueltiges Zeichen!
 	 */
 	int Console :: read(char* data, int size) {
+        
         int index = 0;
         
         char puffer = 0;
         
-        while ((index < size) && (puffer != '\n')) {
-            puffer = data[index];
+        while ((index < size) && (!(puffer == '\n'))) {
+            puffer = this -> read();
+            
+            // out.print(puffer);
+            output.write(puffer);
+            data[index] = puffer;
+            
+            // puffer = data[index];
             index++;
+            // for (int i = 0; i < 10000000; i++);
         }
         
         return index;
-        
-        // return (this -> write(data, index));
     }
 
 	/** 	Liefert das n�chste Zeichen aus dem Eingabepuffer zur�ck.

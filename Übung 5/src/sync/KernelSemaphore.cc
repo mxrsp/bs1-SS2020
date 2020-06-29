@@ -3,9 +3,6 @@
 
 extern PrintStream out;
 
-// Initialisierung des Zaehlers
-//KernelSemaphore::KernelSemaphore (int count = 1) {}
-
 extern ActivityScheduler scheduler;
 
 void KernelSemaphore::wait () {
@@ -27,7 +24,7 @@ void KernelSemaphore::signal () {
     } else {
         Activity* wakeUper = (Activity*) sleepers.dequeue();
         sleeperSize--;
-        wakeUper -> wakeup(); 
+        wakeUper -> wakeup();
     }
 }
 
