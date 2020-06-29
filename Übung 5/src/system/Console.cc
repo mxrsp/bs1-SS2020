@@ -39,14 +39,17 @@
 	 */
 	int Console :: read(char* data, int size) {
         
+       // out.println("console.read()");
+        
         int index = 0;
         
         char puffer = 0;
         
-        while ((index < size) && (!(puffer == '\n'))) {
+        while ((index < size) && (puffer != '\n')) {
             puffer = this -> read();
             
-            // out.print(puffer);
+           // out.println("While Schleife in der Console");
+            
             output.write(puffer);
             data[index] = puffer;
             
@@ -54,6 +57,9 @@
             index++;
             // for (int i = 0; i < 10000000; i++);
         }
+        
+        
+        //out.println("Console hat sich ausgelesen");
         
         return index;
     }
@@ -63,7 +69,13 @@
 	char Console :: read() {
         char puffer;
         
-        puffer = input.read(&puffer, 1);
+        //out.print("Puffer wird gelesen: ");
+        
+        input.read(&puffer, 1);
+        
+        //out.print(puffer);
+        
+        //out.println("<- direkt da sollte eine Ausgabe sein");
         
         return puffer;
     }

@@ -46,7 +46,7 @@ extern PrintStream out;
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
     void Scheduler::checkSlice() {
         
-        out.println("checkSlice wird aufgerufen.");
+        // out.println("checkSlice wird aufgerufen.");
         
         // IntLock lock;
         

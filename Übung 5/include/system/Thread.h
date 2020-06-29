@@ -41,10 +41,7 @@ public:
 
 	    Thread* currentThread = (Thread*) scheduler.active();
 
-        // Überprüfung, ob das Objekt selbst der laufende Prozess ist
-	    //if (this == currentThread) {
-	        return currentThread;
-	    //}
+        return currentThread;
 	}
 	
 	void operator delete (void* p) {}

@@ -12,16 +12,19 @@ void Monitor::runEpilogue(Gate *gate)
 	// hoechste Interrupt-Prioritaet
 	IntLock lock;
     
-    // out.println("monitor.runEpilogue() wird aufgerufen");
-	
+    // out.print(".");
+    
 	// bereits vermerkt!
-	if (gate->isDeferred()) return; 
+	if (gate->isDeferred()) {
+        // out.println("Das Gate ist bereits vermerkt -> nichts passiert");
+        return; 
+    }
 
 	gate->setDeferred(true);
 	// Kernel ist frei
 	if (free) {
 	
-		// Kernel als besetzt markieren
+        // Kernel als besetzt markieren
 		enter();
 		
 		// Interrupts an!
@@ -37,7 +40,7 @@ void Monitor::runEpilogue(Gate *gate)
 		leave();
 	} else {
 		// Epilog merken
-		deferred.enqueue(gate);
+        deferred.enqueue(gate);
 	}
 }
 
@@ -55,5 +58,6 @@ void Monitor::leave()
 	}
 	// Monitor freigeben
 	free = true;
+    // out.println("Kern ist frei");
 }
 

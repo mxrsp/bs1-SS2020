@@ -34,8 +34,6 @@ extern CPU cpu;
         
         scheduler.reschedule();
         
-        active = (Activity*) scheduler.active();
-        
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses
@@ -117,12 +115,10 @@ extern CPU cpu;
                 activateBlocked = true;
                 
                 // interrupts kurz zulassen
-                //monitor.leave();
-                cpu.enableInterrupts();
+                monitor.leave();
                 cpu.halt();
                 //CPU::halt();
-                cpu.disableInterrupts();
-                //monitor.enter();
+                monitor.enter();
                 
                 next = (Activity*) readylist.dequeue();
             }

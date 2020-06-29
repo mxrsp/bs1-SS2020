@@ -32,16 +32,15 @@ void InterruptGuardian::handle(int num)
 {
 	Gate* gate = vectorTable[num];
     
+    
 	if(gate->prologue()){
+        // out.println("InterruptGuardian Epilog wird jetzt aufgerufen.");
 		monitor.runEpilogue(gate);
 	}
 }
 
 void InterruptGuardian::registerGate(Gate* gate,int num)
 {   
-     // out.println("gate wird registriert");
-     //   for (int i = 0 ; i < 10000000; i++) {}
-    
 	if(!initialized){
 		for(int i=0; i<NrOfInterrupts; i++){
 			vectorTable[i] = &panicGate;

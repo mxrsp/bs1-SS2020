@@ -8,7 +8,7 @@
 static unsigned stack0[1024];
 static unsigned stack1[1024];
 static unsigned stack2[1024];
-static unsigned stack3[1024];
+//static unsigned stack3[1024];
 
 
 // Hier startet das Hauptprogramm der Applikation!

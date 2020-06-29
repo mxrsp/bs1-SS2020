@@ -5,6 +5,9 @@
 #include"thread/ActivityScheduler.h"
 #include"lib/Queue.h"
 #include"interrupts/IntLock.h"
+#include"io/PrintStream.h"
+
+extern PrintStream out;
 
 extern ActivityScheduler scheduler;
 
@@ -55,7 +58,8 @@ public:
 	 */
 	T get()
 	{
-        IntLock lock;
+        // IntLock lock;
+        
         
         Activity* active = (Activity*) scheduler.active();
         
@@ -64,6 +68,7 @@ public:
             keyboardListSize++;
             scheduler.suspend();
         }
+        
         
         T output = this -> buffer[outPointer];
         elemInBuffer--;
