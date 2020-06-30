@@ -24,10 +24,7 @@
 	/** 	Daten auf der Console ausgeben
 	 */
 	int Console ::  write(const char* data, int size) {
-        int ret = this -> output.write(data,size);
-        return (ret);
-        
-        // return (this -> output.write(data,size));
+        return (this -> output.write(data,size));
     }
 
 	/** 	Jedes von der Tastatur eingelesene Zeichen
@@ -39,29 +36,38 @@
 	 */
 	int Console :: read(char* data, int size) {
         
-       // out.println("console.read()");
-        
-        int index = 0;
+        int i;
         
         char puffer = 0;
         
+        for (i = 0; i < size; i++) {
+            if (puffer == '\n') {
+                return i;
+            } else {
+                puffer = this -> read();
+                output.write(puffer);
+                data[i] = puffer;
+            }
+        }
+        
+        return i;
+        
+        
+        /**
         while ((index < size) && (puffer != '\n')) {
             puffer = this -> read();
             
-           // out.println("While Schleife in der Console");
             
             output.write(puffer);
             data[index] = puffer;
             
-            // puffer = data[index];
             index++;
-            // for (int i = 0; i < 10000000; i++);
         }
         
-        
-        //out.println("Console hat sich ausgelesen");
-        
         return index;
+        
+        */
+        
     }
 
 	/** 	Liefert das n�chste Zeichen aus dem Eingabepuffer zur�ck.
@@ -69,13 +75,7 @@
 	char Console :: read() {
         char puffer;
         
-        //out.print("Puffer wird gelesen: ");
-        
         input.read(&puffer, 1);
-        
-        //out.print(puffer);
-        
-        //out.println("<- direkt da sollte eine Ausgabe sein");
         
         return puffer;
     }

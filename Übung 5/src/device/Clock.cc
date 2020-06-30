@@ -45,7 +45,7 @@ void Clock::windup (int us) {
 
 bool Clock::prologue () {
     
-    // KernelLock lock;
+    KernelLock lock;
     
     
     //Bestätigen des Interrupts
@@ -54,7 +54,6 @@ bool Clock::prologue () {
 }
 
 void Clock::epilogue () {
-    // out.println("Epilog in Clock wird aufgerufen");
     scheduler.checkSlice();
 }
 

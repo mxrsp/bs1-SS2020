@@ -24,8 +24,6 @@ extern PrintStream out;
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
 	Activity::Activity(void* tos, int slices) : Schedulable(slices), Coroutine(tos), state(BLOCKED) {
-//         out.println("Activity wird erstellt");
-//         out.wait();
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
@@ -61,7 +59,7 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
-        // KernelLock lock;
+        KernelLock lock;
         
         if (this -> isBlocked()) {
             this -> state = READY;
@@ -95,7 +93,7 @@ extern PrintStream out;
 	 */
 	void Activity::join() {
 
-       // KernelLock lock;
+       KernelLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;

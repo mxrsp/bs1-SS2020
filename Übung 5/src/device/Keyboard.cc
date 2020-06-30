@@ -27,7 +27,7 @@ Keyboard::Keyboard() :
 bool Keyboard::prologue () {
     
     
-    // KernelLock lock;
+    KernelLock lock;
     // IntLock lock;
     
     if (ctrlPort.read() & AUX_BIT) {
@@ -37,15 +37,12 @@ bool Keyboard::prologue () {
     } else {
     	scanCode = dataPort.read();
     	scanCodeBuffer.add(this->scanCode);
-        // out.println("Prolog Tastatur gibt true zurueck");
         pic.ack(PIC::KEYBOARD);
     	return true;
     }
 }
 
 void Keyboard::epilogue () {
-    
-    // out.println("Tastatur Epilog wird abgearbeitet.");
 
     // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
     while (!(this->scanCodeBuffer.bufferIsEmpty())) {
@@ -66,13 +63,10 @@ Key Keyboard::read()
 }
 
 int Keyboard::read(char* data, int size)
-{
-    //out.println("read in Keyboard wird aufgerufen");
-    
+{   
 	int count = 0;
 	while(count<size){
 		Key tmp = buffer.get();
-        //out.println("read in Keyboard ist noch nicht fertig");
 		if(tmp.isAscii()){
 			data[count++]=tmp.getValue();
 			if(tmp.getValue() == '\n'){

@@ -86,9 +86,6 @@ extern CPU cpu;
         
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
-
-        // out.println("activate wird aufgerufen.");
-        // for (int i = 0; i < 10000000; i++);
         
         if (activateBlocked) {
             return;
@@ -109,7 +106,6 @@ extern CPU cpu;
         }
 
         if(next == 0) {
-            // out.println("next ist null in activate");
             while (next == 0) {
                 
                 activateBlocked = true;
@@ -117,7 +113,6 @@ extern CPU cpu;
                 // interrupts kurz zulassen
                 monitor.leave();
                 cpu.halt();
-                //CPU::halt();
                 monitor.enter();
                 
                 next = (Activity*) readylist.dequeue();
