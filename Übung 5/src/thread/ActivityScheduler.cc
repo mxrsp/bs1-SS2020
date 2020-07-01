@@ -33,7 +33,7 @@ extern CPU cpu;
         
         active -> changeTo(Activity :: BLOCKED);
         
-        out.println("   scheduler.suspend() wird aufgerufen");
+        // out.println("   scheduler.suspend() wird aufgerufen");
         
         scheduler.reschedule();
         

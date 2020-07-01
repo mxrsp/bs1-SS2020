@@ -6,7 +6,7 @@
  */
 
 	Console :: Console(InputChannel& input, OutputChannel& output)
-    : input(input), output(output), semaphore(Semaphore()){     
+    : input(input), output(output), semaphore(Semaphore(1)){     
     }
 
 	/** 	Konsole reservieren

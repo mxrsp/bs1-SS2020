@@ -28,6 +28,8 @@ Hello::~Hello()
 
 void Hello::run()
 {
+    
+    //out.println("neues Hello ist dran");
 	console.attach();
 	out.print(name);
 	out.println(" is running ");
@@ -37,11 +39,10 @@ void Hello::run()
 	for (int i = 0; i < runs; i++) {
 		console.attach(); // Konsole reservieren
         
-        out.println("TEST");
+        // out.println("TEST");
 
 		out.print(name);
 		out.print("> ");
-
         
 		int size = console.read(line, LINE_SIZE);
         

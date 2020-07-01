@@ -27,7 +27,7 @@ Keyboard::Keyboard() :
 bool Keyboard::prologue () {
     
     
-    //KernelLock lock;
+    KernelLock lock;
     // IntLock lock;
     
     if (ctrlPort.read() & AUX_BIT) {

@@ -8,13 +8,13 @@ extern ActivityScheduler scheduler;
 void KernelSemaphore::wait () {
     
     if (counter > 0) {
-        counter--;
+        this -> counter--;
         // out.println("counter--");
     } else {
         Activity* sleeper = (Activity*) scheduler.active();
         sleepers.enqueue(sleeper);
         sleeperSize++;
-        out.println("ACHTUNG KernelSemaphore wait sleep irgendwas");
+        //out.println("ACHTUNG KernelSemaphore wait sleep irgendwas");
         sleeper -> sleep();
     }
 }
@@ -22,12 +22,12 @@ void KernelSemaphore::wait () {
 void KernelSemaphore::signal () {
     
     if (sleeperSize == 0) {
-        counter++;
+        this -> counter++;
         //out.println("counter++");
     } else {
         Activity* wakeUper = (Activity*) sleepers.dequeue();
         sleeperSize--;
-        out.println("ACHTUNG KernelSemaphore signal wakeup irgendwas");
+        //out.println("ACHTUNG KernelSemaphore signal wakeup irgendwas");
         wakeUper -> wakeup();
     }
 }

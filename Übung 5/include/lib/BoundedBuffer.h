@@ -7,7 +7,8 @@
 #include"interrupts/IntLock.h"
 #include"io/PrintStream.h"
 #include"sync/KernelLock.h"
-#include"sync/Monitor.h" 
+#include"sync/Monitor.h"
+#include "user/Environment.h"
 
 extern Monitor monitor;
 
@@ -46,7 +47,9 @@ public:
         while(keyboardListSize != 0) {
             Activity* rapunzel = (Activity*) keyboardList.dequeue();
             keyboardListSize--;
-            rapunzel -> wakeup();
+            if (rapunzel) {
+                rapunzel -> wakeup();
+            }
         }
         
         if (!bufferIsFull()){
@@ -66,17 +69,18 @@ public:
         
         // monitor.enter();
         
+        // console.detach();
+        
         //out.println("buffer.get()");
         
         Activity* active = (Activity*) scheduler.active();
         
-        if (bufferIsEmpty()) {
-            //out.println("buffer is empty");
-            keyboardList.enqueue(active);
-            keyboardListSize++;
+        if (this -> bufferIsEmpty()) {
+            //out.println("buffer is empty und Prozess wird schlafen gelegt");
+            this -> keyboardList.enqueue(active);
+            this -> keyboardListSize++;
             scheduler.suspend();
         }
-        
         
         T output = this -> buffer[outPointer];
         elemInBuffer--;
@@ -84,8 +88,14 @@ public:
         
         // monitor.leave();
         
+        // console.attach();
+        
         return output;
 	}
+	
+    bool bufferIsEmpty() {
+        return (elemInBuffer == 0);
+    }
 
 private:
 	T buffer[size];
@@ -108,10 +118,6 @@ private:
     
     void incOutPointer() {
         this -> outPointer = (this -> outPointer + 1) % size;
-    }
-    
-    public: bool bufferIsEmpty() {
-        return (elemInBuffer == 0);
     }
 
     bool bufferIsFull() {
