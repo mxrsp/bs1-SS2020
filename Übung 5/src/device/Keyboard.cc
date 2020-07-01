@@ -27,7 +27,7 @@ Keyboard::Keyboard() :
 bool Keyboard::prologue () {
     
     
-    KernelLock lock;
+    //KernelLock lock;
     // IntLock lock;
     
     if (ctrlPort.read() & AUX_BIT) {
@@ -64,6 +64,8 @@ Key Keyboard::read()
 
 int Keyboard::read(char* data, int size)
 {   
+   // out.println("Keyboard.read()");
+    
 	int count = 0;
 	while(count<size){
 		Key tmp = buffer.get();

@@ -59,7 +59,7 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
-        KernelLock lock;
+        // KernelLock lock;
         
         if (this -> isBlocked()) {
             this -> state = READY;
@@ -70,6 +70,10 @@ extern PrintStream out;
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
+        //KernelLock lock;
+        
+        // out.println("YIELD");
+        
         scheduler.reschedule();
 	}
 

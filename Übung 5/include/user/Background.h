@@ -24,8 +24,6 @@ private:
 	void run()
 	{
 		out.println("Background is running!");
-
-        while (1) {}
         
 		for(int i=0;;i++) {
 			if (i % show == 0)

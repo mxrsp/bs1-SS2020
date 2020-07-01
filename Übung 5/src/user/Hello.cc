@@ -32,14 +32,20 @@ void Hello::run()
 	out.print(name);
 	out.println(" is running ");
 	console.detach();
+    
 
 	for (int i = 0; i < runs; i++) {
 		console.attach(); // Konsole reservieren
+        
+        out.println("TEST");
 
 		out.print(name);
 		out.print("> ");
 
+        
 		int size = console.read(line, LINE_SIZE);
+        
+       //  out.print("TEST2222");
 
 		out.print("got: ");
 		out.print(size);
@@ -49,6 +55,8 @@ void Hello::run()
 
 		// jetzt koennen wir die Zeile ausgeben
 		out.println(line);
+        
+        // out.println("Eingabe beendet!");
 
 		console.detach(); // und freigeben
 	}

@@ -22,7 +22,7 @@ void Init::run()
 	monitor.enter();
     Hello anton("Anton", 2, 1, &stack0[1024]);
 	Hello berta("Berta", 2, 1, &stack1[1024]);
-    Background bg(&stack3[1024], 3000);
+    // Background bg(&stack3[1024], 3000);
 	Hello caesar("Caesar", 3, 1, &stack2[1024]);
 	monitor.leave();
 

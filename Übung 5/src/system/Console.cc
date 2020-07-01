@@ -38,6 +38,8 @@
         
         int i;
         
+        //out.println("console.read()");
+        
         char puffer = 0;
         
         for (i = 0; i < size; i++) {
@@ -45,13 +47,13 @@
                 return i;
             } else {
                 puffer = this -> read();
+                //out.println("In Console in der Schleife");
                 output.write(puffer);
                 data[i] = puffer;
             }
         }
         
         return i;
-        
         
         /**
         while ((index < size) && (puffer != '\n')) {

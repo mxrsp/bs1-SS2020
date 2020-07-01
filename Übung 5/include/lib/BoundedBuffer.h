@@ -6,6 +6,10 @@
 #include"lib/Queue.h"
 #include"interrupts/IntLock.h"
 #include"io/PrintStream.h"
+#include"sync/KernelLock.h"
+#include"sync/Monitor.h" 
+
+extern Monitor monitor;
 
 extern PrintStream out;
 
@@ -58,12 +62,16 @@ public:
 	 */
 	T get()
 	{
-        // IntLock lock;
+        // KernelLock lock;
         
+        // monitor.enter();
+        
+        //out.println("buffer.get()");
         
         Activity* active = (Activity*) scheduler.active();
         
         if (bufferIsEmpty()) {
+            //out.println("buffer is empty");
             keyboardList.enqueue(active);
             keyboardListSize++;
             scheduler.suspend();
@@ -73,6 +81,8 @@ public:
         T output = this -> buffer[outPointer];
         elemInBuffer--;
         incOutPointer();
+        
+        // monitor.leave();
         
         return output;
 	}
