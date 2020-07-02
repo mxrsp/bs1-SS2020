@@ -17,23 +17,17 @@ public:
 
 	~Background()
 	{
-        console.attach();
 		out.println("Background should be killed now!");
-        console.detach();
 	}
 
 private:
 	void run()
 	{
-        console.attach(); // löschen
 		out.println("Background is running!");
-        console.detach(); // löschen
         
 		for(int i=0;;i++) {
 			if (i % show == 0) {
-                console.attach();
 				out.print("*");
-                console.detach();
             }
 			yield();
 		}
