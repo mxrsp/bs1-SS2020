@@ -68,6 +68,7 @@ int Keyboard::read(char* data, int size)
     
 	int count = 0;
 	while(count<size){
+        KernelLock lock;
 		Key tmp = buffer.get();
 		if(tmp.isAscii()){
 			data[count++]=tmp.getValue();

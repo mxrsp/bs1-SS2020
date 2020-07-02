@@ -20,8 +20,8 @@ void Init::run()
 	console.detach();
 
 	monitor.enter();
-    Hello anton("Anton", 2, 1, &stack0[1024]);
-	Hello berta("Berta", 2, 1, &stack1[1024]);
+    Hello anton("Anton", 3, 1, &stack0[1024]);
+	Hello berta("Berta", 3, 1, &stack1[1024]);
     Background bg(&stack3[1024], 3000);
 	Hello caesar("Caesar", 3, 1, &stack2[1024]);
 	monitor.leave();

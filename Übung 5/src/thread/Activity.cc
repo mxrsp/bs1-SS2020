@@ -97,7 +97,7 @@ extern PrintStream out;
 	 */
 	void Activity::join() {
 
-       KernelLock lock;
+       // KernelLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;

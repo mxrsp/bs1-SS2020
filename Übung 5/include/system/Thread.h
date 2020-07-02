@@ -63,12 +63,14 @@ public:
 	/** Explizites beenden eines Threads.
 	 */
 	void exit () {
+        KernelLock lock;
 	    Activity::exit();
 	}
 
 	/** Abgabe der CPU.
 	 */
 	void yield () {
+        KernelLock lock;
 	    Activity::yield();
 	}
 

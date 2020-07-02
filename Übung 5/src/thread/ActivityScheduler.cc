@@ -72,7 +72,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::exit() {
         
-        KernelLock lock;
+        // KernelLock lock;
         
 		Activity* active = (Activity*) scheduler.active();
         active -> changeTo(Activity :: ZOMBIE);
@@ -98,13 +98,13 @@ extern CPU cpu;
        
         
         if (activateBlocked) {
-            out.println("Prozess behält Kontrolle111");
+            //out.println("Prozess behält Kontrolle111");
             return;
         }
         
         if ((active -> isRunning()) && (next == 0)) {
-            out.println("Prozess behält Kontrolle222");
-            while (1) {}
+            //out.println("Prozess behält Kontrolle222");
+            //while (1) {}
             //for (int i = 0 ; i < 10000000; i++) {}
             return;
         }
@@ -115,7 +115,7 @@ extern CPU cpu;
                 active -> changeTo(Activity :: READY);
                 scheduler.schedule(active);
             } else {
-                out.println("Prozess behält Kontrolle333");
+               // out.println("Prozess behält Kontrolle333");
                 return;
             }
         }
@@ -129,7 +129,8 @@ extern CPU cpu;
                 
                 // interrupts kurz zulassen
                 monitor.leave();
-                cpu.halt();
+                //cpu.halt();
+                CPU::halt();
                 monitor.enter();
                 
                 next = (Activity*) readylist.dequeue();
