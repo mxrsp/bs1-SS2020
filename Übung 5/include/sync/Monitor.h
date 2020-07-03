@@ -5,7 +5,7 @@
 #include "interrupts/Gate.h"
 
 /** 	Die Monitorimplementierung für den Kern.
- *	Beachte das der Monitor synchron (Anwendung) als auch asynchron
+ *	Beachte, dass der Monitor synchron (Anwendung) als auch asynchron
  * 	(Interrupt) betreten werden kann.
  */
 class Monitor {

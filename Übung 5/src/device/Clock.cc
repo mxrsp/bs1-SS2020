@@ -47,7 +47,6 @@ bool Clock::prologue () {
     
     KernelLock lock;
     
-    
     //Bestätigen des Interrupts
     pic.ack(PIC::PIT);
     return true;

@@ -29,24 +29,28 @@ Hello::~Hello()
 void Hello::run()
 {
     
-    //out.println("neues Hello ist dran");
+    // out.print("neues Hello ist dran -> ");
+    // out.print(name);
+    // out.println();
 	console.attach();
 	out.print(name);
 	out.println(" is running ");
 	console.detach();
-    
 
 	for (int i = 0; i < runs; i++) {
+        // out.print("Aktiver Prozess: ");
+        // out.print(name);
+        // out.println();
 		console.attach(); // Konsole reservieren
         
-        // out.println("TEST");
+        // out.println("TEST vor Einlesen");
 
 		out.print(name);
 		out.print("> ");
         
 		int size = console.read(line, LINE_SIZE);
         
-       //  out.print("TEST2222");
+        // out.println("TEST nach Einlesen");
 
 		out.print("got: ");
 		out.print(size);

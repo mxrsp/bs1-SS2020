@@ -14,7 +14,7 @@ void KernelSemaphore::wait () {
         Activity* sleeper = (Activity*) scheduler.active();
         sleepers.enqueue(sleeper);
         sleeperSize++;
-        // out.println("ACHTUNG KernelSemaphore wait sleep irgendwas");
+        // out.print("ACHTUNG KernelSemaphore wait sleep irgendwas");
         sleeper -> sleep();
     }
 }
@@ -27,7 +27,7 @@ void KernelSemaphore::signal () {
     } else {
         Activity* wakeUper = (Activity*) sleepers.dequeue();
         sleeperSize--;
-        //out.println("ACHTUNG KernelSemaphore signal wakeup irgendwas");
+        // out.println("ACHTUNG KernelSemaphore signal wakeup irgendwas");
         wakeUper -> wakeup();
     }
 }

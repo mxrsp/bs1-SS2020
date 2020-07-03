@@ -112,6 +112,7 @@ extern CPU cpu;
         // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
         if ((active -> isRunning()) ||  (active -> isReady())){
             if (next != active) {
+                // out.println("Prozess wird wieder auf readylist gesetzt.");
                 active -> changeTo(Activity :: READY);
                 scheduler.schedule(active);
             } else {
@@ -142,7 +143,7 @@ extern CPU cpu;
             // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist  
             if (next != active) {
                 next -> changeTo(Activity :: RUNNING);
-                //out.println("normaler Prozesswechsel");
+                // out.println("normaler Prozesswechsel");
                 dispatch(next);
             }
         }
