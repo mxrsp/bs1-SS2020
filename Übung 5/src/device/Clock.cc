@@ -47,6 +47,8 @@ bool Clock::prologue () {
     
     KernelLock lock;
     
+    // checkSlice hochzählen
+    
     //Bestätigen des Interrupts
     pic.ack(PIC::PIT);
     return true;

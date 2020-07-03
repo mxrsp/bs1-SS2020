@@ -55,21 +55,6 @@
         
         return i;
         
-        /**
-        while ((index < size) && (puffer != '\n')) {
-            puffer = this -> read();
-            
-            
-            output.write(puffer);
-            data[index] = puffer;
-            
-            index++;
-        }
-        
-        return index;
-        
-        */
-        
     }
 
 	/** 	Liefert das n�chste Zeichen aus dem Eingabepuffer zur�ck.

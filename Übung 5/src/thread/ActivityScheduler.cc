@@ -27,8 +27,6 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::suspend()	{
         
-        KernelLock lock;
-        
         Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
@@ -48,7 +46,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         
-        KernelLock lock;
+        KernelLock lock; // ?
         
         bool laeuft;
 
@@ -143,7 +141,7 @@ extern CPU cpu;
             // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist  
             if (next != active) {
                 next -> changeTo(Activity :: RUNNING);
-                // out.println("normaler Prozesswechsel");
+                out.println("normaler Prozesswechsel");
                 dispatch(next);
             }
         }

@@ -33,7 +33,7 @@ extern Monitor monitor;
 	 */
 	void Coroutine::startup(Coroutine* obj) {
         
-        // out.print("startUp in Coroutine wird aufgerufen ->");
+        out.println("startUp in Coroutine wird aufgerufen ->");
         
         // cpu.enableInterrupts();
         
