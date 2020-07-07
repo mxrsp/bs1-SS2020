@@ -34,7 +34,6 @@ extern CPU cpu;
         // out.println("   scheduler.suspend() wird aufgerufen");
         
         scheduler.reschedule();
-        
 	}
 
 	/* Explizites Terminieren des angegebenen Prozesses

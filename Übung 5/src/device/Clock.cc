@@ -46,13 +46,11 @@ void Clock::windup (int us) {
 
 bool Clock::prologue () {
     
-    // KernelLock lock;
-    
     // checkSlice hochzählen
     this -> handleCount++;
     
     //Bestätigen des Interrupts
-    //pic.ack(PIC::PIT);
+    pic.ack(PIC::PIT);
     return true;
 }
 

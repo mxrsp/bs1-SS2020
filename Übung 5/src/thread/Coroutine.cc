@@ -1,8 +1,6 @@
 
 #include "thread/Coroutine.h"
 #include "device/CPU.h"
-#include "io/PrintStream.h"
-#include "sync/Monitor.h"
 
 extern CPU cpu;
 extern PrintStream out;
@@ -32,12 +30,11 @@ extern Monitor monitor;
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	void Coroutine::startup(Coroutine* obj) {
-        
         // out.println("startUp in Coroutine wird aufgerufen ->");
         
         // cpu.enableInterrupts();
         
-        monitor.leave();
+        // monitor.leave();
         
         // while (1) {}
         

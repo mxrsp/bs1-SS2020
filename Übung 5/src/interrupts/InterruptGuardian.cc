@@ -13,7 +13,7 @@ Gate* InterruptGuardian::vectorTable[NrOfInterrupts];
 extern "C" void guardian(int num);
 
 void guardian(int num)
-{
+{   
 	InterruptGuardian::handle(num);
 }
 

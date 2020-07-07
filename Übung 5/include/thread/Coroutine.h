@@ -2,6 +2,7 @@
 #define Coroutine_h
 
 #include "io/PrintStream.h"
+#include "sync/Monitor.h"
 
 extern PrintStream out;
 

@@ -48,10 +48,6 @@ extern Clock clock;
 	// Aktivem Prozess wird CPU erst dann entzogen, wenn seine Zeitscheibe(Quantum) abgelaufen ist
     void Scheduler::checkSlice() {
         
-        // out.println("checkSlice wird aufgerufen.");
-        
-        // IntLock lock;
-        
         int checkTime =  clock.ticks();
         
         if (((Activity*) scheduler.active()) -> isRunning()) {

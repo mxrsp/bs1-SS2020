@@ -1,13 +1,9 @@
 #ifndef KernelSemaphore_h
 #define KernelSemaphore_h
 
-<<<<<<< HEAD
-#include "lib/Queue.h"
-=======
 #include"lib/Queue.h"
 #include"thread/Activity.h"
 #include"thread/ActivityScheduler.h"
->>>>>>> vincent
 
 /**
  * KernelSemaphore: Semaphorenimplementation für kooperative

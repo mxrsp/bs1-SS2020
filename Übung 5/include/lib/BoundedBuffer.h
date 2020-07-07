@@ -64,19 +64,12 @@ public:
 	 *  gelegt. Achtet hier besonders auf die Synchronisierung.
 	 */
 	T get()
-	{
-        // KernelLock lock;
-        
-        // monitor.enter();
-        
-        // console.detach();
-        
-        //out.println("buffer.get()");
+    {
+        KernelLock lock;
         
         Activity* active = (Activity*) scheduler.active();
         
         if (this -> bufferIsEmpty()) {
-            //out.println("buffer is empty und Prozess wird schlafen gelegt");
             this -> keyboardList.enqueue(active);
             this -> keyboardListSize++;
             scheduler.suspend();
@@ -85,10 +78,6 @@ public:
         T output = this -> buffer[outPointer];
         elemInBuffer--;
         incOutPointer();
-        
-        // monitor.leave();
-        
-        // console.attach();
         
         return output;
 	}

@@ -23,7 +23,7 @@ public:
 
 	/** 	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
 	 */
-	void enter() { 
+	void enter() {
             free = false; 
             // out.println("monitor.enter()");
     }

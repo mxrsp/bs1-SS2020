@@ -12,7 +12,7 @@
 class Semaphore: private KernelSemaphore {
 public:
 	
-	Semaphore(int count = 1) : counter(count) {		
+	Semaphore(int count = 1) {		
 	}
 
 	void wait()
@@ -27,7 +27,6 @@ public:
         KernelSemaphore :: signal();
 	}
 };
-private:
 	
 	
 #endif

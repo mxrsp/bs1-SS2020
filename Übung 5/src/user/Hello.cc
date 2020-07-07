@@ -1,6 +1,8 @@
 #include "user/Hello.h"
 
 #include "user/Environment.h"
+#include "sync/KernelLock.h"
+#include "interrupts/IntLock.h"
 
 Hello::Hello(const char* name, int runs, int slice, void* sp)
 	: Thread(sp, slice)
@@ -36,6 +38,9 @@ void Hello::run()
 	out.println(" is running ");
 	console.detach();
 
+    // KernelLock lock;
+    // IntLock ilock;
+    
 	for (int i = 0; i < runs; i++) {
         // out.print("Aktiver Prozess: ");
         // out.print(name);

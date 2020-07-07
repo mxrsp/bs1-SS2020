@@ -26,12 +26,8 @@ Keyboard::Keyboard() :
 
 bool Keyboard::prologue () {
     
-    
-    // KernelLock lock;
-    // IntLock lock;
-    
     if (ctrlPort.read() & AUX_BIT) {
-    	//behandle hier die Maus
+    	// behandle hier die Maus
         pic.ack(PIC::KEYBOARD);
     	return false;
     } else {
@@ -43,7 +39,7 @@ bool Keyboard::prologue () {
 }
 
 void Keyboard::epilogue () {
-
+    
     // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
     while (!(this->scanCodeBuffer.bufferIsEmpty())) {
     	this->scanCode = this->scanCodeBuffer.get();
@@ -57,7 +53,7 @@ void Keyboard::epilogue () {
 
 Key Keyboard::read()
 {
-    KernelLock lock;
+    // KernelLock lock;
     
 	return buffer.get();
 }

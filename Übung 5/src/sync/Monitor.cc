@@ -17,7 +17,7 @@ void Monitor::runEpilogue(Gate *gate)
 	// bereits vermerkt!
 	if (gate->isDeferred()) {
         // out.println("Das Gate ist bereits vermerkt -> nichts passiert");
-        return; 
+        return;
     }
 
 	gate->setDeferred(true);
