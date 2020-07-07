@@ -59,8 +59,6 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
-        // KernelLock lock;
-        
         if (this -> isBlocked()) {
             this -> state = READY;
             scheduler.schedule(this);

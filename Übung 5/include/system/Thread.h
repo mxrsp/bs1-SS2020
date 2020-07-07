@@ -4,6 +4,9 @@
 #include "thread/Activity.h"
 #include "sync/KernelLock.h"
 #include "thread/ActivityScheduler.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 /** 	Diese Klasse implementiert die Systemschnittstelle f�r leichtgewichtige
  *	Prozesse in Co-Stubs. Die run-Methode entspricht der main eines Threads.

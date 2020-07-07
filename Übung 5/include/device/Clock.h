@@ -83,7 +83,7 @@ public:
 
 private:
 
-    int handleCount;
+    int handleCount = 0;
     int aufrufHandleProSekunde;
 };
 

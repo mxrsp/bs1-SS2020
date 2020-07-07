@@ -15,6 +15,8 @@
 
 extern PrintStream out;
 
+extern Clock clock;
+
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
         // IntLock lock;
@@ -50,12 +52,16 @@ extern PrintStream out;
         
         // IntLock lock;
         
+        int checkTime =  clock.ticks();
+        
         if (((Activity*) scheduler.active()) -> isRunning()) {
-            if (checkCounter >= ((Activity*) scheduler.active())->quantum()){
-                checkCounter = 0;
+            if (checkTime >= ((Activity*) scheduler.active())->quantum()){
+                // checkCounter = 0
+                clock.setTicks(0);
                 reschedule();
             } else {
-                checkCounter++;
+                return;
+                // checkCounter++;
             }
         }
     }

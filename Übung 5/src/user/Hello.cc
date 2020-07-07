@@ -28,7 +28,6 @@ Hello::~Hello()
 
 void Hello::run()
 {
-    
     // out.print("neues Hello ist dran -> ");
     // out.print(name);
     // out.println();
