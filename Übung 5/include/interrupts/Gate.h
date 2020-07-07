@@ -25,6 +25,7 @@ public:
 	//  Automatisches Abmelden des Gates
 	virtual ~Gate ();
 
+    void operator delete (void* p, unsigned i) {}
 
 	/** 	Nur was sofort in der Interruptbehandlung gemacht werden
 	 *	muss, darf im Prolog gemacht werden.

@@ -2,21 +2,29 @@
 #include "interrupts/IntLock.h"
 
 #include "device/CPU.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 extern CPU cpu;
 
 void Monitor::runEpilogue(Gate *gate)
 {
 	// hoechste Interrupt-Prioritaet
 	IntLock lock;
-	
+    
+    // out.print("monitor.runEpilogue()");
+    
 	// bereits vermerkt!
-	if (gate->isDeferred()) return; 
+	if (gate->isDeferred()) {
+        // out.println("Das Gate ist bereits vermerkt -> nichts passiert");
+        return; 
+    }
 
 	gate->setDeferred(true);
 	// Kernel ist frei
 	if (free) {
 	
-		// Kernel als besetzt markieren
+        // Kernel als besetzt markieren
 		enter();
 		
 		// Interrupts an!
@@ -32,12 +40,14 @@ void Monitor::runEpilogue(Gate *gate)
 		leave();
 	} else {
 		// Epilog merken
-		deferred.enqueue(gate);
+        deferred.enqueue(gate);
 	}
 }
 
 void Monitor::leave()
-{
+{   
+    // out.println("monitor.leave()");
+    
 	IntLock lock;
 	Gate* next = (Gate*)deferred.dequeue();
 	while (next) {
@@ -50,5 +60,6 @@ void Monitor::leave()
 	}
 	// Monitor freigeben
 	free = true;
+    // out.println("Kern ist frei");
 }
 

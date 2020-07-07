@@ -3,9 +3,12 @@
 
 #include "lib/Queue.h"
 #include "interrupts/Gate.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 /** 	Die Monitorimplementierung für den Kern.
- *	Beachte das der Monitor synchron (Anwendung) als auch asynchron
+ *	Beachte, dass der Monitor synchron (Anwendung) als auch asynchron
  * 	(Interrupt) betreten werden kann.
  */
 class Monitor {
@@ -20,7 +23,10 @@ public:
 
 	/** 	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
 	 */
-	void enter() { free = false; }
+	void enter() { 
+            free = false; 
+            // out.println("monitor.enter()");
+    }
 
 	/** 	Wenn der Monitor verlassen wird, müssen alle ausstehenden Epiloge sofort
 	 *	abgearbeitet werden.

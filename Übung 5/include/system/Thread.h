@@ -4,8 +4,11 @@
 #include "thread/Activity.h"
 #include "sync/KernelLock.h"
 #include "thread/ActivityScheduler.h"
+#include "io/PrintStream.h"
 
-/** 	Diese Klasse implementiert die Systemschnittstelle für leichtgewichtige
+extern PrintStream out;
+
+/** 	Diese Klasse implementiert die Systemschnittstelle fï¿½r leichtgewichtige
  *	Prozesse in Co-Stubs. Die run-Methode entspricht der main eines Threads.
  *
  *	Beachte, das Thread private von Activity erbt, in abgeleiteten Klassen
@@ -15,56 +18,63 @@
  *	zu definieren, wenn eine Synchronisation aufs Ende erforderlich ist.
  *	Nutze dazu die Methoden join oder kill.
  *
- *	Da die Methoden hier sehr kurz sind, können sie alle inline implementiert
+ *	Da die Methoden hier sehr kurz sind, kï¿½nnen sie alle inline implementiert
  *	werden.
  */
 class Thread: private Activity {
 public:
-	Thread(int slice=1)
-	{
-	}
 
-	Thread(void* tos, int slice=1)
-	{
-	}
+	Thread (int slice=1) : Activity(slice) {}
+
+	Thread (void* tos, int slice=1) : Activity(tos, slice) {}
 
 	/** Die Implementierung der body-Methode geerbt von Coroutine.
 	 */
-	virtual void body(){
+	virtual void body () {
+        this->run();
 	}
 
-	/** Die Methode für den Anwendungscode eines Threads.
+	/** Die Methode fï¿½r den Anwendungscode eines Threads.
 	 */
 	virtual void run()=0;
 
 	/** Den gerade laufenden Thread ermitteln.
 	 */
-	static Thread* self()
-	{
+	static Thread* self () {
+
+	    Thread* currentThread = (Thread*) scheduler.active();
+
+        return currentThread;
 	}
+	
+	void operator delete (void* p) {}
 
 	/** Synchronisation auf das Ende eines Threads
 	 */
-	void join()
-	{
+	void join () {
+        KernelLock lock;
+        Activity::join();
 	}
 
 	/** Ein Thread wird explizit gestartet.
 	 */
-	void start()
-	{
+	void start () {
+	    KernelLock lock;
+        Activity::wakeup();
 	}
 
 	/** Explizites beenden eines Threads.
 	 */
-	void exit()
-	{
+	void exit () {
+        KernelLock lock;
+	    Activity::exit();
 	}
 
 	/** Abgabe der CPU.
 	 */
-	void yield()
-	{
+	void yield () {
+        KernelLock lock;
+	    Activity::yield();
 	}
 
 };

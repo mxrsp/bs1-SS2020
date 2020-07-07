@@ -23,7 +23,7 @@ public:
 	 */
 	enum State {
 		BLOCKED,	//Prozesse die auf etwas warten
-		READY,      	//Prozesse die aktiviert werden können
+		READY,      	//Prozesse die aktiviert werden kï¿½nnen
 		RUNNING,	//Status des aktiven Prozesses
 		ZOMBIE		//Kindprozesse die vor den Eltern beendet werden
 	};
@@ -36,7 +36,7 @@ public:
 	Activity(void* tos, int slices = 1);
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
-	 * Wird nur für den Hauptkontrollfluss "main" benötigt.
+	 * Wird nur fï¿½r den Hauptkontrollfluss "main" benï¿½tigt.
 	 * Es wird hier kein Stack initialisiert.
 	 * Beachte das Activity wegen der Vererbungsbeziehung von
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
@@ -53,8 +53,8 @@ public:
 	 */
 	virtual ~Activity();
     
-    void operator delete (void* p, unsigned int i);
-
+    void operator delete (void* p){}
+    
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void sleep();
@@ -68,20 +68,20 @@ public:
 	void yield();
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
-	 * auf die Beendigung wartende Aktivität geweckt werden.
+	 * auf die Beendigung wartende Aktivitï¿½t geweckt werden.
 	 */
 	void exit();
 
 	/* Der aktuelle Prozess wird solange schlafen gelegt, bis der
 	 * Prozess auf dem join aufgerufen wird beendet ist. Das
-	 * Wecken des wartenden Prozesses übernimmt exit.
+	 * Wecken des wartenden Prozesses ï¿½bernimmt exit.
 	 */
 	void join();
 
 
-	// Folgende Methoden dürfen "inline" implementiert werden
+	// Folgende Methoden dï¿½rfen "inline" implementiert werden
 
-	/* Ändern des Ausführungszustandes. Diese Methode sollte nur vom
+	/* ï¿½ndern des Ausfï¿½hrungszustandes. Diese Methode sollte nur vom
 	 * Scheduler verwendet werden.
 	 */
 	void changeTo(State state)
@@ -89,7 +89,7 @@ public:
         this->state = state;
 	}
 
-	// Ausführungszustand abfragen.
+	// Ausfï¿½hrungszustand abfragen.
 	bool isBlocked()
 	{
         

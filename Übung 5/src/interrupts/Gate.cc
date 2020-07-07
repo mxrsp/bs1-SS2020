@@ -2,6 +2,9 @@
 #include "interrupts/PanicGate.h"
 #include "interrupts/PageFaultGate.h"
 #include "interrupts/SpuriousGate.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 PanicGate panicGate;
 PageFaultGate pageFaultGate;
@@ -11,9 +14,8 @@ SpuriousGate spuriousGate;
 extern InterruptGuardian interruptGuardian;
 
 Gate::Gate(int num)
-{
-
-	this->num = num;
+{   
+    this->num = num;
 	if (num > 0)
 		interruptGuardian.registerGate(this,num);
 }

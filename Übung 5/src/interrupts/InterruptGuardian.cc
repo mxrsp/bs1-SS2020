@@ -2,6 +2,9 @@
 #include "sync/Monitor.h"
 
 #include "interrupts/PanicGate.h"
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 extern PanicGate panicGate;
 
 static bool initialized = false;
@@ -16,6 +19,7 @@ void guardian(int num)
 
 InterruptGuardian::InterruptGuardian()
 {
+
 	if(!initialized){
 		for(int i=0; i<NrOfInterrupts; i++){
 			vectorTable[i] = &panicGate;
@@ -27,13 +31,15 @@ InterruptGuardian::InterruptGuardian()
 void InterruptGuardian::handle(int num)
 {
 	Gate* gate = vectorTable[num];
+    
 	if(gate->prologue()){
+        // out.println("InterruptGuardian Epilog wird jetzt aufgerufen.");
 		monitor.runEpilogue(gate);
 	}
 }
 
 void InterruptGuardian::registerGate(Gate* gate,int num)
-{
+{   
 	if(!initialized){
 		for(int i=0; i<NrOfInterrupts; i++){
 			vectorTable[i] = &panicGate;

@@ -51,6 +51,10 @@ public:
 	 */
 	void exit();
 
+    bool getActivateBlocked () {
+        return this -> activateBlocked;
+    }
+
 protected:
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
 	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste
@@ -59,6 +63,7 @@ protected:
 	 */
 	virtual void activate(Schedulable* to);
 
+    
 private:
     
     bool activateBlocked = false;

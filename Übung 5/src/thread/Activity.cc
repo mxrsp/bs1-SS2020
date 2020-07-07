@@ -14,7 +14,7 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
-#include "interrupts/IntLock.h"
+#include "sync/KernelLock.h"
 
 extern PrintStream out;
 
@@ -24,22 +24,17 @@ extern PrintStream out;
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
 	Activity::Activity(void* tos, int slices) : Schedulable(slices), Coroutine(tos), state(BLOCKED) {
-//         out.println("Activity wird erstellt");
-//         out.wait();
 	}
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
-	 * Wird nur für den Hauptkontrollfluss "main" benötigt.
+	 * Wird nur fï¿½r den Hauptkontrollfluss "main" benï¿½tigt.
 	 * Es wird hier kein Stack initialisiert.
 	 * Beachte das Activity wegen der Vererbungsbeziehung von
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
 	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
-        
-//         out.println("Activity wird erstellt und Scheduler wird gestartet");
-//         out.wait();
-        
+            
         scheduler.start(this);
 	}
 
@@ -53,9 +48,6 @@ extern PrintStream out;
 	Activity::~Activity() {
         exit();
 	}
-	
-	void Activity :: operator delete (void* p, unsigned int i) {
-    }
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
@@ -67,8 +59,6 @@ extern PrintStream out;
 	 */
 	void Activity::wakeup() {
         
-        IntLock lock;
-        
         if (this -> isBlocked()) {
             this -> state = READY;
             scheduler.schedule(this);
@@ -78,12 +68,15 @@ extern PrintStream out;
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
+        //KernelLock lock;
+        
+        // out.println("YIELD");
         
         scheduler.reschedule();
 	}
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
-	 * auf die Beendigung wartende Aktivität geweckt werden.
+	 * auf die Beendigung wartende Aktivitï¿½t geweckt werden.
      * 
 	 */
 	void Activity::exit() {
@@ -98,10 +91,11 @@ extern PrintStream out;
 
 	/* Der aktuelle Prozess wird solange schlafen gelegt, bis der
 	 * Prozess auf dem join aufgerufen wird beendet ist. Das
-	 * Wecken des wartenden Prozesses übernimmt exit.
+	 * Wecken des wartenden Prozesses ï¿½bernimmt exit.
 	 */
 	void Activity::join() {
-       IntLock lock;
+
+       // KernelLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;

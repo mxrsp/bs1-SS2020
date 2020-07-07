@@ -6,7 +6,7 @@
 #include "interrupts/IntLock.h"
 #include "device/CodeTable.h"
 
-extern CgaChannel cga;
+extern CgaChannel screen;
 extern PrintStream out;
 
 Calculator::Calculator()
@@ -24,7 +24,7 @@ Calculator::Calculator(void* sp)
 void Calculator::init()
 {
     clearBuffer();
-    cga.clear();
+    screen.clear();
 }
 
 void Calculator::body() {
@@ -39,7 +39,7 @@ void Calculator::body() {
     Key key;
 
     while(c!= 27) { // solange ESC nicht gedrückt
-        cga.getCursor(column, row);
+        screen.getCursor(column, row);
         key = keyboard.read();
         c = key.getValue();
             if (key.isAscii()) {
@@ -59,19 +59,19 @@ void Calculator::body() {
                     index = 0;
                     clearBuffer();
                 } else if ((c == '\b') && (column == 0) && (row > 0)) {
-                    cga.setCursor(79,row - 1);
+                    screen.setCursor(79,row - 1);
                     out.print(" ");
-                    cga.setCursor(column - 1,row);
+                    screen.setCursor(column - 1,row);
                 } else if ((c == '\b') && (column == 0) && (row == 0)) {
-                    cga.getCursor(column,row);
+                    screen.getCursor(column,row);
                 } else if ((c == '\b') && (index == 0)) {
-                    cga.setCursor(column - 1, row);
+                    screen.setCursor(column - 1, row);
                     out.print(" ");
-                    cga.setCursor(column - 1,row);
+                    screen.setCursor(column - 1,row);
                 } else if ((c == '\b') && (index > 0)) {
-                    cga.setCursor(column-1,row);
+                    screen.setCursor(column-1,row);
                     out.print(" ");
-                    cga.setCursor(column-1,row);
+                    screen.setCursor(column-1,row);
                     buffer[index] = 0;
                     index--;
                 } else if (index < EXPR_SIZE_MAX){   
@@ -101,13 +101,13 @@ void Calculator::enter() {
 void Calculator::moveLeft() {
 	int column, row;
 	
-	cga.getCursor(column, row);
+	screen.getCursor(column, row);
 	
 	if(column == 0 && row > 0) {
 		//cga.setCursor(79, row - 1);
         return;
 	} else if(column > 0){
-		cga.setCursor(column - 1, row);
+		screen.setCursor(column - 1, row);
 	} else {
 		return;
 	}
@@ -117,7 +117,7 @@ void Calculator::moveLeft() {
 void Calculator::moveRight() {
 	int column, row;
 	
-	cga.getCursor(column, row);
+	screen.getCursor(column, row);
 	
 	if(column > 79 && row == 25) {
 		//out.println();
@@ -126,21 +126,21 @@ void Calculator::moveRight() {
 		//cga.setCursor(0, row + 1);
         return;
 	} else if (column < 32){
-		cga.setCursor(column + 1, row);
+		screen.setCursor(column + 1, row);
 	}
 }
 
 void Calculator::renderBuffer() {
     // Cursor sichern
     int column, row;
-    cga.getCursor(column, row);
+    screen.getCursor(column, row);
 
     // Zeile schreiben
-    cga.setCursor(0, row);
-    cga.write(buffer, EXPR_SIZE_MAX);
+    screen.setCursor(0, row);
+    screen.write(buffer, EXPR_SIZE_MAX);
 
     // Cursor wiederherstellen
-    cga.setCursor(column, row);
+    screen.setCursor(column, row);
 }
 
 void Calculator::clearBuffer() {

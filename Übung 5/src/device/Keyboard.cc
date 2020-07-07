@@ -2,6 +2,12 @@
 
 #include "device/PIC.h"
 #include "interrupts/InterruptVector.h"
+#include "sync/KernelLock.h"
+#include "interrupts/IntLock.h"
+
+#include "io/PrintStream.h"
+
+extern PrintStream out;
 
 
 Keyboard::Keyboard() :
@@ -14,31 +20,55 @@ Keyboard::Keyboard() :
 	setLed(NUM_LOCK_LED,false);
 	setLed(CAPS_LOCK_LED,false);
 	setRepeatRate(0,0);
-
+    
 	pic.enable(PIC::KEYBOARD);
 }
 
-void Keyboard::handle()
-{
-	if(ctrlPort.read() & AUX_BIT){
-		//behandle hier die Maus
-	}else{
-		scanCode = dataPort.read();
-		analyzeScanCode();
-	}
-	pic.ack(PIC::KEYBOARD);
+bool Keyboard::prologue () {
+    
+    
+    // KernelLock lock;
+    // IntLock lock;
+    
+    if (ctrlPort.read() & AUX_BIT) {
+    	//behandle hier die Maus
+        pic.ack(PIC::KEYBOARD);
+    	return false;
+    } else {
+    	scanCode = dataPort.read();
+    	scanCodeBuffer.add(this->scanCode);
+        pic.ack(PIC::KEYBOARD);
+    	return true;
+    }
 }
 
+void Keyboard::epilogue () {
+
+    // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
+    while (!(this->scanCodeBuffer.bufferIsEmpty())) {
+    	this->scanCode = this->scanCodeBuffer.get();
+    	monitor.enter();
+    	analyzeScanCode();
+    }
+
+    // Abarbeiten von noch ausstehenden Epilogen
+    monitor.leave();
+}
 
 Key Keyboard::read()
 {
+    KernelLock lock;
+    
 	return buffer.get();
 }
 
 int Keyboard::read(char* data, int size)
-{
+{   
+   // out.println("Keyboard.read()");
+    
 	int count = 0;
 	while(count<size){
+        KernelLock lock;
 		Key tmp = buffer.get();
 		if(tmp.isAscii()){
 			data[count++]=tmp.getValue();
@@ -47,6 +77,7 @@ int Keyboard::read(char* data, int size)
 			}
 		}
 	}
+	
 	return count;
 }
 
@@ -193,7 +224,7 @@ void Keyboard::reboot ()
 	*(unsigned short*) 0x472 = 0x1234;
 
 	waitForWrite();
-	ctrlPort.write (RESET_CODE);     // Reset auslösen
+	ctrlPort.write (RESET_CODE);     // Reset auslï¿½sen
 }
 
 

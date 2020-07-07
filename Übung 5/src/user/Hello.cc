@@ -28,18 +28,28 @@ Hello::~Hello()
 
 void Hello::run()
 {
+    // out.print("neues Hello ist dran -> ");
+    // out.print(name);
+    // out.println();
 	console.attach();
 	out.print(name);
-	out.println("is running ");
+	out.println(" is running ");
 	console.detach();
 
 	for (int i = 0; i < runs; i++) {
+        // out.print("Aktiver Prozess: ");
+        // out.print(name);
+        // out.println();
 		console.attach(); // Konsole reservieren
+        
+        // out.println("TEST vor Einlesen");
 
 		out.print(name);
 		out.print("> ");
-
+        
 		int size = console.read(line, LINE_SIZE);
+        
+        // out.println("TEST nach Einlesen");
 
 		out.print("got: ");
 		out.print(size);
@@ -49,12 +59,14 @@ void Hello::run()
 
 		// jetzt koennen wir die Zeile ausgeben
 		out.println(line);
+        
+        // out.println("Eingabe beendet!");
 
 		console.detach(); // und freigeben
 	}
 
 	console.attach();
 	out.print(name);
-	out.println("finished");
+	out.println(" finished");
 	console.detach();
 }

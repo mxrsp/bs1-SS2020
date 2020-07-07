@@ -10,7 +10,14 @@
 #include "thread/Scheduler.h"
 #include "thread/ActivityScheduler.h"
 #include "device/CPU.h"
+#include "sync/KernelLock.h"
+#include "sync/Monitor.h"
+#include "io/PrintStream.h"
 #include "interrupts/IntLock.h"
+
+extern PrintStream out;
+
+extern Monitor monitor;
 
 extern CPU cpu;
 
@@ -20,15 +27,13 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::suspend()	{
         
-        IntLock lock;
-        
         Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
         
-        scheduler.reschedule();
+        // out.println("   scheduler.suspend() wird aufgerufen");
         
-        active = (Activity*) scheduler.active();
+        scheduler.reschedule();
         
 	}
 
@@ -41,7 +46,9 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::kill(Activity* act) {
         
-        IntLock lock;
+        // KernelLock lock;
+        // brauchen wir nicht
+        // in Thread wird bereits exit mit KernelLock aufgerufen
         
         bool laeuft;
 
@@ -65,7 +72,7 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::exit() {
         
-        IntLock lock;
+        // KernelLock lock;
         
 		Activity* active = (Activity*) scheduler.active();
         active -> changeTo(Activity :: ZOMBIE);
@@ -82,34 +89,50 @@ extern CPU cpu;
         
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
-
+        /*
+         out.print("Aktiver Prozess: ");
+         out.print(active -> getNameActivity());
+         out.println();*/
+         
+         // while (1) {}
+       
+        
         if (activateBlocked) {
+            //out.println("Prozess behält Kontrolle111");
             return;
         }
         
         if ((active -> isRunning()) && (next == 0)) {
+            //out.println("Prozess behält Kontrolle222");
+            //while (1) {}
+            //for (int i = 0 ; i < 10000000; i++) {}
             return;
         }
         
         // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
         if ((active -> isRunning()) ||  (active -> isReady())){
             if (next != active) {
+                // out.println("Prozess wird wieder auf readylist gesetzt.");
                 active -> changeTo(Activity :: READY);
                 scheduler.schedule(active);
             } else {
+               // out.println("Prozess behält Kontrolle333");
                 return;
             }
         }
 
+        // out.println("!");
+        
         if(next == 0) {
             while (next == 0) {
                 
                 activateBlocked = true;
                 
                 // interrupts kurz zulassen
-                cpu.enableInterrupts();
-                cpu.halt();
-                cpu.disableInterrupts();
+                monitor.leave();
+                //cpu.halt();
+                CPU::halt();
+                monitor.enter();
                 
                 next = (Activity*) readylist.dequeue();
             }
@@ -120,6 +143,7 @@ extern CPU cpu;
             // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist  
             if (next != active) {
                 next -> changeTo(Activity :: RUNNING);
+                // out.println("normaler Prozesswechsel");
                 dispatch(next);
             }
         }

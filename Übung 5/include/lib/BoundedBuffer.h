@@ -5,16 +5,24 @@
 #include"thread/ActivityScheduler.h"
 #include"lib/Queue.h"
 #include"interrupts/IntLock.h"
+#include"io/PrintStream.h"
+#include"sync/KernelLock.h"
+#include"sync/Monitor.h"
+#include "user/Environment.h"
+
+extern Monitor monitor;
+
+extern PrintStream out;
 
 extern ActivityScheduler scheduler;
 
 /** Diese Klasse stellt einen begrenzten synchronisierten
  *  Puffer dar, welcher von Interruptbehandlungsroutinen
- *  gefüllt werden kann.
+ *  gefï¿½llt werden kann.
  *
- *  Die Klasse ist eine Templateklasse. Das bedeutet für euch
+ *  Die Klasse ist eine Templateklasse. Das bedeutet fï¿½r euch
  *  erstmal nur, das ihr alle Methoden hier im Header implementieren
- *  müsst.
+ *  mï¿½sst.
  */
 template<typename T,unsigned size>
 class BoundedBuffer {
@@ -32,14 +40,16 @@ public:
 	/** Diese Methode wird vom Interrupthandler aufgerufen, um
 	 *  ein etwas in den Puffer zu schreiben. Ist der Puffer voll,
 	 *  werden die zu schreibenden Daten verworfen.
-	 *  Prozesse die auf eine Eingabe warten müssen hier geweckt werden.
+	 *  Prozesse die auf eine Eingabe warten mï¿½ssen hier geweckt werden.
 	 */
 	void add(T& elem)
 	{   
         while(keyboardListSize != 0) {
             Activity* rapunzel = (Activity*) keyboardList.dequeue();
             keyboardListSize--;
-            rapunzel -> wakeup();
+            if (rapunzel) {
+                rapunzel -> wakeup();
+            }
         }
         
         if (!bufferIsFull()){
@@ -55,13 +65,20 @@ public:
 	 */
 	T get()
 	{
-        IntLock lock;
+        // KernelLock lock;
+        
+        // monitor.enter();
+        
+        // console.detach();
+        
+        //out.println("buffer.get()");
         
         Activity* active = (Activity*) scheduler.active();
         
-        if (bufferIsEmpty()) {
-            keyboardList.enqueue(active);
-            keyboardListSize++;
+        if (this -> bufferIsEmpty()) {
+            //out.println("buffer is empty und Prozess wird schlafen gelegt");
+            this -> keyboardList.enqueue(active);
+            this -> keyboardListSize++;
             scheduler.suspend();
         }
         
@@ -69,8 +86,16 @@ public:
         elemInBuffer--;
         incOutPointer();
         
+        // monitor.leave();
+        
+        // console.attach();
+        
         return output;
 	}
+	
+    bool bufferIsEmpty() {
+        return (elemInBuffer == 0);
+    }
 
 private:
 	T buffer[size];
@@ -94,11 +119,7 @@ private:
     void incOutPointer() {
         this -> outPointer = (this -> outPointer + 1) % size;
     }
-    
-    bool bufferIsEmpty() {
-        return (elemInBuffer == 0);
-    }
-    
+
     bool bufferIsFull() {
         return (elemInBuffer == size);
     }

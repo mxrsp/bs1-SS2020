@@ -7,9 +7,10 @@
 #include "io/IOPort.h"
 #include "io/InputChannel.h"
 #include "lib/BoundedBuffer.h"
+#include "sync/Monitor.h"
 
 /*
- * Keyboard: Der Treiber für eine MF-II Tastatur
+ * Keyboard: Der Treiber fï¿½r eine MF-II Tastatur
  *
  *
  */
@@ -68,29 +69,34 @@ public:
 	void epilogue();
 
 	/**	Diese Methode liefert ein Zeichen aus dem Tastaturpuffer
-	 *	zurück. Diese Methode blockiert, wenn der Puffer leer ist.
+	 *	zurï¿½ck. Diese Methode blockiert, wenn der Puffer leer ist.
 	 */
 	Key read();
 
 	/**	Diese Methode ist die Implementierung von InputChannel.
-	 *	Es werden nur Ascii-zeichen zurückgegeben.
+	 *	Es werden nur Ascii-zeichen zurï¿½ckgegeben.
 	 */
 	virtual int read(char* data, int size);
 
 private:
-	BoundedBuffer<Key,BUFFER_SIZE> buffer;   //Der Tastaturpuffer
-	CodeTable codeTable;                    //Abbildung von Scancode -> Zeichen
-	unsigned char scanCode;                 //Der letzte von der Tastatur gelesen code
-	unsigned mode;                          //Eingabemodus (Shift, Alt, Ctrl)
-	unsigned char prefix;                   //von Tastatur gesendeter Prefix, falls gesendet sonst 0
-	char leds;                              //Zustand der Tastaturleds
+
+	BoundedBuffer<Key,BUFFER_SIZE> buffer;   // Der Tastaturpuffer
+
+	// Zweiter Buffer zum externen Speichern des ScanCodes durch die Tastatur
+    BoundedBuffer<unsigned char,BUFFER_SIZE> scanCodeBuffer;
+
+	CodeTable codeTable;                    // Abbildung von Scancode -> Zeichen
+	unsigned char scanCode;                 // Der letzte von der Tastatur gelesen code
+	unsigned mode;                          // Eingabemodus (Shift, Alt, Ctrl)
+	unsigned char prefix;                   // von Tastatur gesendeter Prefix, falls gesendet sonst 0
+	char leds;                              // Zustand der Tastaturleds
 
 	IOPort8 dataPort; // Ausgabe- (R) u. Eingabepuffer (W)
 	IOPort8 ctrlPort; // Status- (R) u. Steuerregister (W)
 
 	/**	Diese Methode bestimmt was getan werden muss,
-	 *	wenn Strg-Alt-Entf gedrückt wurde, ein Prefixcode von
-	 *	der Tastatur gelesen wurde, oder eine Taste gedrückt
+	 *	wenn Strg-Alt-Entf gedrï¿½ckt wurde, ein Prefixcode von
+	 *	der Tastatur gelesen wurde, oder eine Taste gedrï¿½ckt
 	 *	bzw. losgelassen wurde.
 	 */
 	void analyzeScanCode();
@@ -99,15 +105,15 @@ private:
 	 */
 	void keyReleased();
 
-	/**	Behandelt das Drücken einer Taste.
+	/**	Behandelt das Drï¿½cken einer Taste.
 	 */
 	void keyHit();
 
-	/**	Bestimmt das Zeichen, gemäß der Codetabelle.
+	/**	Bestimmt das Zeichen, gemï¿½ï¿½ der Codetabelle.
 	 */
 	void determineAsciiCode();
 
-	/**	Führt den software reboot aus.
+	/**	Fï¿½hrt den software reboot aus.
 	 */
 	void reboot();
 
@@ -120,7 +126,7 @@ private:
 	void setLed(char led, bool on);
 
 
-	/**	Hilfsfunktionen für den Zugriff auf den Tastaturcontroller
+	/**	Hilfsfunktionen fï¿½r den Zugriff auf den Tastaturcontroller
 	 */
 	void waitForRead();
 	void waitForWrite();

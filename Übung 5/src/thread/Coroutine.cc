@@ -6,6 +6,7 @@
 
 extern CPU cpu;
 extern PrintStream out;
+extern Monitor monitor;
 
 /*
  * Coroutine:
@@ -32,9 +33,13 @@ extern PrintStream out;
 	 */
 	void Coroutine::startup(Coroutine* obj) {
         
-       // out.print("startUp in Coroutine wird aufgerufen ->");
+        // out.println("startUp in Coroutine wird aufgerufen ->");
+        
+        // cpu.enableInterrupts();
         
         monitor.leave();
+        
+        // while (1) {}
         
 		obj -> body();
 		// out.println("Exit in Coroutine wurde aufgerufen");

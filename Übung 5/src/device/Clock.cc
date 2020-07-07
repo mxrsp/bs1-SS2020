@@ -2,16 +2,17 @@
 #include "interrupts/InterruptVector.h"
 #include "io/PrintStream.h"
 #include "device/CgaChannel.h"
+#include "sync/KernelLock.h"
 
 // normalerweise:
-extern CgaChannel cga;
+extern CgaChannel screen;
 extern PrintStream out;
 
 // Ticken zeigen:
 // CgaChannel cga;
 // PrintStream out(cga);
 
-PIT pit;
+extern PIT pit;
 
 Clock::Clock () : Gate(Timer), handleCount(0) {
 }
@@ -41,27 +42,27 @@ void Clock::windup (int us) {
      ack => behandeln
     */
 }
-//handle entfällt, sobald prologue und epilogue implementiert wurden
-void Clock::handle () {
+
+
+bool Clock::prologue () {
     
-    pic.ack(PIC::PIT); //Bestätigen des Interrupts
+    // KernelLock lock;
     
-    scheduler.checkSlice();
+    // checkSlice hochzählen
+    this -> handleCount++;
     
-    // propellerAction();
-    
-}
-//TODO
-bool Clock::prologue() {
-	return true;
-}
-//TODO
-void Clock::epilogue() {
-	
+    //Bestätigen des Interrupts
+    //pic.ack(PIC::PIT);
+    return true;
 }
 
+void Clock::epilogue () {
+    scheduler.checkSlice();
+}
+
+
 void Clock::informationPropeller() {
-    cga.setCursor(3,3);
+    screen.setCursor(3,3);
     out.print(aufrufHandleProSekunde);
     out.println(" mal wird handle pro Sekunde aufgerufen");
 }
@@ -78,16 +79,16 @@ void Clock::propellerAction() {
     
     // handle wird 50 mal pro Sekunde aufgerufen
     if (second % 4 == 0) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("/");
     } else if (second % 4  == 1) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("-");
     } else if (second % 4 == 2) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("\\");
     } else if (second % 4 == 3) {
-        cga.setCursor(0,0);
+        screen.setCursor(0,0);
         out.print("|");
     }
     

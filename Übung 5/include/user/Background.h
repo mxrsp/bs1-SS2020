@@ -10,7 +10,7 @@
 class Background: public Thread {
 public:
 	Background(void* sp, int show): Thread(sp)
-	{
+	{   
 		this->show = show;
 		start();
 	}
@@ -24,10 +24,11 @@ private:
 	void run()
 	{
 		out.println("Background is running!");
-
+        
 		for(int i=0;;i++) {
-			if (i % show == 0)
+			if (i % show == 0) {
 				out.print("*");
+            }
 			yield();
 		}
 

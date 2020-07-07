@@ -11,6 +11,8 @@
 
 #include "interrupts/Gate.h"
 #include "device/PIT.h"
+#include "device/PIC.h"
+#include "thread/ActivityScheduler.h"
 
 class Clock: public Gate, public PIT {
 public:
@@ -31,7 +33,6 @@ public:
 	 *	dass sich Gate korrekt initialisieren kann
 	 */
 	Clock ();
-
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 * 	Die Einheit sind Mikrosekunden.
@@ -65,14 +66,25 @@ public:
 	bool prologue();
 	void epilogue();
 
+	void informationPropeller();
+
+    void propellerAction();
+
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
 	 */
-	int ticks()
-	{
-	}
+    int ticks () {
+        return this->handleCount;
+    }
+
+    void setTicks(int ticks) {
+        this->handleCount = ticks;
+    }
 
 private:
+
+    int handleCount = 0;
+    int aufrufHandleProSekunde;
 };
 
 extern Clock clock;
