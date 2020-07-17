@@ -1,7 +1,0 @@
-1. QEmu:führt das qemu_install.sh script mit sudo rechten aus.
-2. Kopiert die .gdbinit in euren Homefolder
-3. Kopiert das gdb.script in euren bin folder von costubs
-4. passt euer Makefile an. Übernehmt aus dem Makefile die teile mit dem Target: debug
-
-Baut costubs mit "make debug".
-Der Debugger wird automatisch mit gestartet. 
