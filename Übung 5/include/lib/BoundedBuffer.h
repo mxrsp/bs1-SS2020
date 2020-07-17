@@ -9,10 +9,13 @@
 #include"sync/KernelLock.h"
 #include"sync/Monitor.h"
 #include "user/Environment.h"
+#include "device/CPU.h"
 
 extern Monitor monitor;
 
 extern PrintStream out;
+
+extern CPU cpu;
 
 extern ActivityScheduler scheduler;
 
@@ -64,20 +67,23 @@ public:
 	 *  gelegt. Achtet hier besonders auf die Synchronisierung.
 	 */
 	T get()
-    {
-        KernelLock lock;
-        
-        Activity* active = (Activity*) scheduler.active();
+    {   
+        cpu.disableInterrupts();
         
         if (this -> bufferIsEmpty()) {
+            Activity* active = (Activity*) scheduler.active();
             this -> keyboardList.enqueue(active);
             this -> keyboardListSize++;
+            cpu.enableInterrupts();
             scheduler.suspend();
+            cpu.disableInterrupts();
         }
         
         T output = this -> buffer[outPointer];
         elemInBuffer--;
         incOutPointer();
+        
+        cpu.enableInterrupts();
         
         return output;
 	}

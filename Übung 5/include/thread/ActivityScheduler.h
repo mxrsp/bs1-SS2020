@@ -23,9 +23,10 @@ public:
 	 * Wird nur einmal aufgerufen.
 	 */
 	void start(Activity* act)
-	{
-        
+	{       
         act -> changeTo(Activity :: RUNNING);
+        
+        act -> setNameActivity("Init");
         
         Coroutine* c = (Coroutine*) act;
         init(c);

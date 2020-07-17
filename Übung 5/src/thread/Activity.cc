@@ -15,6 +15,9 @@
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
 #include "sync/KernelLock.h"
+#include "sync/Monitor.h"
+
+extern Monitor monitor;
 
 extern PrintStream out;
 
@@ -34,7 +37,6 @@ extern PrintStream out;
 	 * aufgerufen werden.
 	 */
 	Activity::Activity(int slices) : Schedulable(slices), Coroutine(), state(BLOCKED) {
-            
         scheduler.start(this);
 	}
 
@@ -52,6 +54,11 @@ extern PrintStream out;
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
 	 */
 	void Activity::sleep() {
+    if (monitor.isFree()) {
+        // out.println("Monitor ist frei in sleep");
+    } else {
+        // out.println("Monitor ist besetzt in sleep");
+    }
         scheduler.suspend();
     }
 
@@ -68,10 +75,6 @@ extern PrintStream out;
 	/* Diese Aktivitaet gibt die CPU vorruebergehend ab.
 	 */
 	void Activity::yield() {
-        //KernelLock lock;
-        
-        // out.println("YIELD");
-        
         scheduler.reschedule();
 	}
 
@@ -94,11 +97,15 @@ extern PrintStream out;
 	 * Wecken des wartenden Prozesses �bernimmt exit.
 	 */
 	void Activity::join() {
-
-       // KernelLock lock;
         
         Activity* currentProcess = (Activity*) scheduler.active();
         sleepingProcess = currentProcess;
+        
+        if (monitor.isFree()) {
+            // out.println("Monitor ist frei in join");
+        } else {
+            // out.println("Monitor ist besetzt in join");
+        }
         
         // letzter Prozess darf sich nicht selber schlafen legen
         if (this == currentProcess) {

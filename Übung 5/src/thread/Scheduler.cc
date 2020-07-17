@@ -19,24 +19,16 @@ extern Clock clock;
 
 	// Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched) {
-        // IntLock lock;
-        
-        // out.println("Ein Objekt wird in die readylist gepackt");
-        
         readylist.enqueue(sched);
 	}
 
 	// Entfernen eines Elements von der Ready-Liste.
 	void Scheduler::remove(Schedulable* sched) {
-        // IntLock lock;
-        
         readylist.remove(sched);
 	}
 
 	// Aktiviert das vorderste der Liste mittels activate.
 	void Scheduler::reschedule() {
-        
-        // IntLock lock;
         
 		Schedulable* firstElement;
         
@@ -51,7 +43,7 @@ extern Clock clock;
         int checkTime =  clock.ticks();
         
         if (((Activity*) scheduler.active()) -> isRunning()) {
-            if (checkTime >= ((Activity*) scheduler.active())->quantum()){
+            if (checkTime >= ((Activity*) scheduler.active())->quantum()) {
                 // checkCounter = 0
                 clock.setTicks(0);
                 reschedule();

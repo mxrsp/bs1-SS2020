@@ -30,16 +30,11 @@ extern Monitor monitor;
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 	void Coroutine::startup(Coroutine* obj) {
-        // out.println("startUp in Coroutine wird aufgerufen ->");
         
-        // cpu.enableInterrupts();
-        
-        // monitor.leave();
-        
-        // while (1) {}
+        monitor.leave();
         
 		obj -> body();
-		// out.println("Exit in Coroutine wurde aufgerufen");
+        
 		obj -> exit();
 	}
 

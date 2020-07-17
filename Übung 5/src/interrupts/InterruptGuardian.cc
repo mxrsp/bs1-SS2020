@@ -33,7 +33,6 @@ void InterruptGuardian::handle(int num)
 	Gate* gate = vectorTable[num];
     
 	if(gate->prologue()){
-        // out.println("InterruptGuardian Epilog wird jetzt aufgerufen.");
 		monitor.runEpilogue(gate);
 	}
 }

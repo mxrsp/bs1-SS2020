@@ -43,24 +43,17 @@ void Keyboard::epilogue () {
     // Zweiter Buffer, da epilogue jederzeit unterbrochen werden kann und deswegen nicht auf dem selben Buffer arbeiten darf
     while (!(this->scanCodeBuffer.bufferIsEmpty())) {
     	this->scanCode = this->scanCodeBuffer.get();
-    	monitor.enter();
     	analyzeScanCode();
     }
-
-    // Abarbeiten von noch ausstehenden Epilogen
-    monitor.leave();
 }
 
 Key Keyboard::read()
-{
-    // KernelLock lock;
-    
+{   
 	return buffer.get();
 }
 
 int Keyboard::read(char* data, int size)
 {   
-   // out.println("Keyboard.read()");
     
 	int count = 0;
 	while(count<size){

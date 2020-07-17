@@ -12,11 +12,8 @@ void Monitor::runEpilogue(Gate *gate)
 	// hoechste Interrupt-Prioritaet
 	IntLock lock;
     
-    // out.print("monitor.runEpilogue()");
-    
 	// bereits vermerkt!
 	if (gate->isDeferred()) {
-        // out.println("Das Gate ist bereits vermerkt -> nichts passiert");
         return;
     }
 
@@ -46,7 +43,6 @@ void Monitor::runEpilogue(Gate *gate)
 
 void Monitor::leave()
 {   
-    // out.println("monitor.leave()");
     
 	IntLock lock;
 	Gate* next = (Gate*)deferred.dequeue();
@@ -60,6 +56,5 @@ void Monitor::leave()
 	}
 	// Monitor freigeben
 	free = true;
-    // out.println("Kern ist frei");
 }
 

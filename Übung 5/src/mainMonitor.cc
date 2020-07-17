@@ -36,5 +36,4 @@ int main()
 
 	// nun ist wirklich Schluss...
 	out.println("main: system terminating...");
-
 }

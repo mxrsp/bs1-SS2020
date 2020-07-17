@@ -4,6 +4,8 @@
 #include "sync/KernelLock.h"
 #include "interrupts/IntLock.h"
 
+extern Monitor monitor;
+
 Hello::Hello(const char* name, int runs, int slice, void* sp)
 	: Thread(sp, slice)
 {
@@ -30,31 +32,24 @@ Hello::~Hello()
 
 void Hello::run()
 {
-    // out.print("neues Hello ist dran -> ");
-    // out.print(name);
-    // out.println();
+    if (monitor.isFree()) {
+        // out.println("Monitor ist frei in run");
+    } else {
+        // out.println("Monitor ist besetzt in run"); 
+    }
+    
 	console.attach();
 	out.print(name);
 	out.println(" is running ");
 	console.detach();
-
-    // KernelLock lock;
-    // IntLock ilock;
     
 	for (int i = 0; i < runs; i++) {
-        // out.print("Aktiver Prozess: ");
-        // out.print(name);
-        // out.println();
 		console.attach(); // Konsole reservieren
-        
-        // out.println("TEST vor Einlesen");
 
 		out.print(name);
 		out.print("> ");
         
 		int size = console.read(line, LINE_SIZE);
-        
-        // out.println("TEST nach Einlesen");
 
 		out.print("got: ");
 		out.print(size);
@@ -64,8 +59,6 @@ void Hello::run()
 
 		// jetzt koennen wir die Zeile ausgeben
 		out.println(line);
-        
-        // out.println("Eingabe beendet!");
 
 		console.detach(); // und freigeben
 	}

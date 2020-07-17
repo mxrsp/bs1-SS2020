@@ -23,7 +23,6 @@ public:
 
 	void unlock()
 	{
-        // out.println("Kernellock wird zerstört");
 		if (wasFree)
 			monitor.leave();
 	}

@@ -25,14 +25,12 @@ extern CPU cpu;
 	 * Der korrekte Ausfuehrungszustand ist zu setzen
 	 * und danach der naechste lauffaehige Prozess zu aktivieren.
 	 */
-	void ActivityScheduler::suspend()	{
+	void ActivityScheduler::suspend() {
         
         Activity* active = (Activity*) scheduler.active();
         
         active -> changeTo(Activity :: BLOCKED);
-        
-        // out.println("   scheduler.suspend() wird aufgerufen");
-        
+                
         scheduler.reschedule();
 	}
 
@@ -44,10 +42,6 @@ extern CPU cpu;
 	 * zuzuteilen.
 	 */
 	void ActivityScheduler::kill(Activity* act) {
-        
-        // KernelLock lock;
-        // brauchen wir nicht
-        // in Thread wird bereits exit mit KernelLock aufgerufen
         
         bool laeuft;
 
@@ -71,7 +65,6 @@ extern CPU cpu;
 	 */
 	void ActivityScheduler::exit() {
         
-        // KernelLock lock;
         
 		Activity* active = (Activity*) scheduler.active();
         active -> changeTo(Activity :: ZOMBIE);
@@ -88,39 +81,24 @@ extern CPU cpu;
         
         Activity* active = (Activity*) scheduler.active(); 
         Activity* next = (Activity*) to;
-        /*
-         out.print("Aktiver Prozess: ");
-         out.print(active -> getNameActivity());
-         out.println();*/
-         
-         // while (1) {}
-       
         
         if (activateBlocked) {
-            //out.println("Prozess behält Kontrolle111");
             return;
         }
         
         if ((active -> isRunning()) && (next == 0)) {
-            //out.println("Prozess behält Kontrolle222");
-            //while (1) {}
-            //for (int i = 0 ; i < 10000000; i++) {}
             return;
         }
         
         // wenn Zustand Running oder Ready, dann automatisch nicht im Zustand Blocked/Zombie
         if ((active -> isRunning()) ||  (active -> isReady())){
             if (next != active) {
-                // out.println("Prozess wird wieder auf readylist gesetzt.");
                 active -> changeTo(Activity :: READY);
                 scheduler.schedule(active);
             } else {
-               // out.println("Prozess behält Kontrolle333");
                 return;
             }
         }
-
-        // out.println("!");
         
         if(next == 0) {
             while (next == 0) {
@@ -129,7 +107,6 @@ extern CPU cpu;
                 
                 // interrupts kurz zulassen
                 monitor.leave();
-                //cpu.halt();
                 CPU::halt();
                 monitor.enter();
                 
@@ -142,7 +119,6 @@ extern CPU cpu;
             // kein Prozesswechsel, wenn der zu aktivierende Prozess eh aktiv ist  
             if (next != active) {
                 next -> changeTo(Activity :: RUNNING);
-                // out.println("normaler Prozesswechsel");
                 dispatch(next);
             }
         }
