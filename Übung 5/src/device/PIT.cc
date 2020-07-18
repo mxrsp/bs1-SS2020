@@ -21,7 +21,7 @@ void PIT::interval (int us) {
     // Nanosekunden geteilt durch Nanosekunden = keine Einheit
     // -> genau das, was wir als Startzählwert brauchen
     
-    // Bitmaske verwenden !
+    // Bitmaske verwenden!
     // Schreiben nun auf die 16 Bits
     this->datenregister.write(interruptCount);
     this->datenregister.write(interruptCount >> 8);

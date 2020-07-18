@@ -47,8 +47,7 @@ void Keyboard::epilogue () {
     }
 }
 
-Key Keyboard::read()
-{   
+Key Keyboard::read() {
 	return buffer.get();
 }
 
