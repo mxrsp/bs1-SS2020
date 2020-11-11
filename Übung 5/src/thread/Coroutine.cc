@@ -9,7 +9,7 @@ extern Monitor monitor;
 /*
  * Coroutine:
  * Diese Klasse implementiert Coroutinen, welche die Basis
- * für alle Arten von Prozessen in Co-Stubs sind.
+ * fÃ¼r alle Arten von Prozessen in Co-Stubs sind.
  *
  *	Anmerkung: wir verwenden ein objektorientiertes
  *	Coroutinen-Modell, daher ist diese Klasse abstrakt.
@@ -54,10 +54,10 @@ extern Monitor monitor;
 		
             // nirvana setzen
             setUp -> returnadresse = 0;
-			setUp -> coroutine = startup;
-			setUp -> routine = neueRoutine;
+	    setUp -> coroutine = startup;
+	    setUp -> routine = neueRoutine;
 			
-			this -> sp = setUp;
+	    this -> sp = setUp;
         } else {
             sp = &tos;
         }
